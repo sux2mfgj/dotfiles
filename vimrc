@@ -147,8 +147,6 @@ nnoremap gT <Nop>
 "autocmd
 autocmd FileType python setl foldmethod=indent
 autocmd FileType c setl cindent
-
-
 "-------------------------------
 "   Plugin
 "-------------------------------
@@ -171,7 +169,15 @@ NeoBundle 'Shougo/vimproc',{
             \}
 
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neocomplete'
+
+
+if has('lua')
+    NeoBundle 'Shougo/neocomplete'
+else
+    NeoBundle 'Shougo/neocomplcache'
+endif
+
+
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -217,41 +223,94 @@ nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
 "Unite-Mark
 nnoremap <silent> [unite]ml  :<C-u>Unite mark<CR>
 
-
+if has('lua')
 "NeoComplete
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 2
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 2
 
-let g:neocomplete#sources#dictionary#dictionaries  =  {
-    \ 'default' : '',
-    \ 'php' : '~/.vim/dict/php.dict',
-    \ 'c' : '~/.vim/dict/c.dict',
-    \ 'cpp' : '~/.vim/dict/cpp.dict',
-    \ 'java' : '~/.vim/dict/java.dict'
-    \}
+    let g:neocomplete#sources#dictionary#dictionaries  =  {
+        \ 'default' : '',
+        \ 'php' : '~/.vim/dict/php.dict',
+        \ 'c' : '~/.vim/dict/c.dict',
+        \ 'cpp' : '~/.vim/dict/cpp.dict',
+        \ 'java' : '~/.vim/dict/java.dict'
+        \}
 
-inoremap <expr><C-g>    neocomplete#undo_completion()
-inoremap <expr><C-l>    neocomplete#complete_common_string()
+    inoremap <expr><C-g>    neocomplete#undo_completion()
+    inoremap <expr><C-l>    neocomplete#complete_common_string()
 
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-endfunction
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return neocomplete#close_popup() . "\<CR>"
+    endfunction
 
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-e>  neocomplete#cancel_popup()
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-e>  neocomplete#cancel_popup()
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns  =  {}
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns  =  {}
+    endif
+
+else
+    let g:neocomplcache_enable_at_startup = 1
+    let g:neocomplcache_enable_smart_case = 1
+
+    let g:neocomplcache_min_keyword_length = 2
+    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+    let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default' : '',
+        \ 'php' : '~/.vim/dict/php.dict',
+        \ 'c' : '~/.vim/dict/c.dict',
+        \ 'cpp' : '~/.vim/dict/cpp.dict',
+        \ 'java' : '~/.vim/dict/java.dict'
+        \}
+
+    inoremap <expr><C-g>    neocomplcache#undo_completion()
+    inoremap <expr><C-l>    neocomplcache#complete_check()
+    
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return neocomplcache#smart_close_popup() . "\<CR>"
+      " For no inserting <CR> key.
+      "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    endfunction
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplcache#close_popup()
+    inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+      let g:neocomplcache_omni_patterns = {}
+    endif
+    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+    " For perlomni.vim setting.
+    " https://github.com/c9s/perlomni.vim
+    let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+
 endif
-
 
 "NeoSnnipet
 imap <C-k>  <Plug>(neosnippet_expand_or_jump)

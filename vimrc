@@ -135,6 +135,7 @@ nnoremap gk k
 
 nnoremap <Space>h :<C-u>vertical belowright help<Space>
 
+nnoremap <Leader>ev :tabnew $MYVIMRC<CR>
 
 "Tab
 nnoremap <Space>n :tabnew<Space>

@@ -191,6 +191,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'tpope/vim-fugitive.git'
+NeoBundle 'itchyny/calendar.vim'
 
 filetype plugin on
 filetype indent on
@@ -390,4 +391,4 @@ nnoremap [Fugitive]a :<C-u>Gwrite<CR>
 nnoremap [Fugitive]c :<C-u>Gcommit<CR>
 nnoremap [Fugitive]b :<C-u>Gblame<CR>
 
-
+"Callender 

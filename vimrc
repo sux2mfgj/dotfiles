@@ -3,6 +3,15 @@
 "use vim setting
 set nocompatible
 
+"backup
+if isdirectory(expand('~/.vim/backup'))
+    set backupdir=~/.vim/backup
+    set directory=~/.vim/backup
+endif
+set backup
+set writebackup
+set swapfile
+
 "encoding
 set encoding=utf-8
 set fileencodings=utf-8,sjis,cp932,euc-jp
@@ -175,6 +184,8 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'kana/vim-smartchr'
+NeoBundle 'kana/vim-smartinput'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/EnhCommentify.vim'
@@ -187,6 +198,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'tpope/vim-fugitive.git'
 NeoBundle 'itchyny/calendar.vim'
+
 
 filetype plugin on
 filetype indent on
@@ -260,6 +272,72 @@ imap <C-k>  <Plug>(neosnippet_expand_or_jump)
 smap <C-k>  <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>  <Plug>(neosnippet_expand_target)
 xmap <C-l>  <Plug>(neosnippet_start_unite_snippet_target)
+
+"Smartinput 
+let s:bundle = neobundle#get('vim-smartinput')
+function! s:bundle.hooks.on_source(bundle)
+    call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
+    call smartinput#define_rule({ 'char' : '<Space>', 'at' : '(\%#)', 'input' : '<Space><Space><Left>'})
+
+    let lst = [   ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
+                \ ['>',     "smartchr#loop(' > ', ' >> ', ' >>> ', '>')"],
+                \ ['+',     "smartchr#loop(' + ', '++', '+')"],
+                \ ['-',     "smartchr#loop(' - ', '--', '-')"],
+                \ ['/',     "smartchr#loop(' / ', '//', '/')"],
+                \ ['&',     "smartchr#loop(' & ', ' && ', '&')"],
+                \ ['%',     "smartchr#loop(' % ', '%')"],
+                \ ['*',     "smartchr#loop(' * ', '*')"],
+                \ ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
+                \ [',',     "smartchr#loop(', ', ',')"]]
+
+    for i in lst
+        call smartinput#map_to_trigger('i', i[0], i[0], i[0])
+        call smartinput#define_rule({ 'char' : i[0], 'at' : '\%#',                                      'input' : '<C-R>=' . i[1] . '<CR>'})
+        if i[0] == '%'
+            call smartinput#define_rule({'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
+        endif
+        call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  'input' : i[0] })
+    endfor
+
+    call smartinput#define_rule({'char' : '>', 'at' : ' < \%#', 'input' : '<BS><BS><BS><><Left>'})
+
+    call smartinput#map_to_trigger('i', '=', '=', '=')
+    call smartinput#define_rule({ 'char' : '=', 'at' : '\%#',                                       'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>"})
+    call smartinput#define_rule({ 'char' : '=', 'at' : '[&+-/<>|] \%#',                             'input' : '<BS>= '})
+    call smartinput#define_rule({ 'char' : '=', 'at' : '!\%#',                                      'input' : '= '})
+    " call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : '='})
+    call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',   'input' : '='})
+
+    call smartinput#map_to_trigger('i', '<BS>', '<BS>', '<BS>')
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '(\s*)\%#'   , 'input' : '<C-O>dF(<BS>'})
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '{\s*}\%#'   , 'input' : '<C-O>dF{<BS>'})
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '<\s*>\%#'   , 'input' : '<C-O>dF<<BS>'})
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '\[\s*\]\%#' , 'input' : '<C-O>dF[<BS>'})
+
+    for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
+        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
+    endfor
+
+    call smartinput#map_to_trigger('i', '*', '*', '*')
+    call smartinput#define_rule({ 'char' : '*', 'at' : 'defparameter \*\%#', 'input' : '*<Left>', 'filetype' : [ 'lisp' ]})
+endfunction
+unlet s:bundle
+
+"Smartchr
+"insert space before and after operater
+inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
+inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
+inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
+inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
+inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
+
+inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
+inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
+inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+inoremap <buffer><expr> , smartchr#one_of(', ', ',')
+
+inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
+inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
 
 "Indent Guides
 let g:indent_guides_indent_levels = 30

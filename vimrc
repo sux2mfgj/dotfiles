@@ -164,6 +164,13 @@ autocmd FileType c setl cindent
 "-------------------------------
 filetype off
 
+if !isdirectory(expand('~/.vim/bundle/neobundle.vim'))
+    echo 'No NeoBundle'
+    syntax enable
+    colorscheme desert
+    finish
+endif
+
 if has('vim_starting')
     "  set runtimepath+=d:/tool/vim/.bundle/neobundle.vim
     "  "  call neobundle#rc(expand('d:/tool/vim/.bundle'))
@@ -383,8 +390,6 @@ let g:quickrun_config = {
 \       'outputter/buffer/close_on_empty': 1
 \   },
 \}
-
-
 
 "Vim-Surround
 

@@ -141,6 +141,11 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
+nnoremap <S-Left> <C-w><<CR>
+nnoremap <S-Right> <C-w>><CR>
+nnoremap <S-Up> <C-w>-<CR>
+nnoremap <S-Down> <C-w>+<CR>
+
 
 nnoremap <Space>h :<C-u>vertical belowright help<Space>
 
@@ -205,6 +210,8 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'tpope/vim-fugitive.git'
 NeoBundle 'itchyny/calendar.vim'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'vim-scripts/TaskList.vim'
 
 
 filetype plugin on
@@ -281,6 +288,7 @@ xmap <C-k>  <Plug>(neosnippet_expand_target)
 xmap <C-l>  <Plug>(neosnippet_start_unite_snippet_target)
 
 "Smartinput 
+"TODO:filetypeによってsmartinputを発動させるかしないかの設定 
 let s:bundle = neobundle#get('vim-smartinput')
 function! s:bundle.hooks.on_source(bundle)
     call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
@@ -417,3 +425,9 @@ nnoremap [Fugitive]c :<C-u>Gcommit<CR>
 nnoremap [Fugitive]b :<C-u>Gblame<CR>
 
 "Callender 
+
+"Gundo
+nnoremap <Leader>u :<C-u>GundoToggle<CR>
+
+"Tasklist
+nnoremap <Leader>T :<C-u>TaskList<CR>

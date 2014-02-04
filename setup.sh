@@ -14,6 +14,7 @@ rm -r ~/256-jungle
 ln -s ./vimrc ~/.vimrc
 
 cp -r ./dict ~/.vim/
+cp -r ./snippets ~/.vim/
 
 #other
 ln -s ./tmux.conf ~/.tmux.conf

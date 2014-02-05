@@ -3,6 +3,15 @@
 "use vim setting
 set nocompatible
 
+"backup
+if isdirectory(expand('~/.vim/backup'))
+    set backupdir=~/.vim/backup
+    set directory=~/.vim/backup
+endif
+set backup
+set writebackup
+set swapfile
+
 "encoding
 set encoding=utf-8
 set fileencodings=utf-8,sjis,cp932,euc-jp
@@ -132,6 +141,11 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
+nnoremap <S-Left> <C-w><<CR>
+nnoremap <S-Right> <C-w>><CR>
+nnoremap <S-Up> <C-w>-<CR>
+nnoremap <S-Down> <C-w>+<CR>
+
 
 nnoremap <Space>h :<C-u>vertical belowright help<Space>
 
@@ -152,6 +166,13 @@ autocmd FileType c setl cindent
 "   Plugin
 "-------------------------------
 filetype off
+
+if !isdirectory(expand('~/.vim/bundle/neobundle.vim'))
+    echo 'No NeoBundle'
+    syntax enable
+    colorscheme desert
+    finish
+endif
 
 if has('vim_starting')
     "  set runtimepath+=d:/tool/vim/.bundle/neobundle.vim
@@ -181,6 +202,8 @@ endif
 
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'kana/vim-smartchr'
+NeoBundle 'kana/vim-smartinput'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/EnhCommentify.vim'
@@ -193,6 +216,9 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'tpope/vim-fugitive.git'
 NeoBundle 'itchyny/calendar.vim'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'vim-scripts/TaskList.vim'
+
 
 filetype plugin on
 filetype indent on
@@ -320,6 +346,73 @@ smap <C-k>  <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>  <Plug>(neosnippet_expand_target)
 xmap <C-l>  <Plug>(neosnippet_start_unite_snippet_target)
 
+"Smartinput 
+"TODO:filetypeによってsmartinputを発動させるかしないかの設定 
+let s:bundle = neobundle#get('vim-smartinput')
+function! s:bundle.hooks.on_source(bundle)
+    call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
+    call smartinput#define_rule({ 'char' : '<Space>', 'at' : '(\%#)', 'input' : '<Space><Space><Left>'})
+
+    let lst = [   ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
+                \ ['>',     "smartchr#loop(' > ', ' >> ', ' >>> ', '>')"],
+                \ ['+',     "smartchr#loop(' + ', '++', '+')"],
+                \ ['-',     "smartchr#loop(' - ', '--', '-')"],
+                \ ['/',     "smartchr#loop(' / ', '//', '/')"],
+                \ ['&',     "smartchr#loop(' & ', ' && ', '&')"],
+                \ ['%',     "smartchr#loop(' % ', '%')"],
+                \ ['*',     "smartchr#loop(' * ', '*')"],
+                \ ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
+                \ [',',     "smartchr#loop(', ', ',')"]]
+
+    for i in lst
+        call smartinput#map_to_trigger('i', i[0], i[0], i[0])
+        call smartinput#define_rule({ 'char' : i[0], 'at' : '\%#',                                      'input' : '<C-R>=' . i[1] . '<CR>'})
+        if i[0] == '%'
+            call smartinput#define_rule({'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
+        endif
+        call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  'input' : i[0] })
+    endfor
+
+    call smartinput#define_rule({'char' : '>', 'at' : ' < \%#', 'input' : '<BS><BS><BS><><Left>'})
+
+    call smartinput#map_to_trigger('i', '=', '=', '=')
+    call smartinput#define_rule({ 'char' : '=', 'at' : '\%#',                                       'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>"})
+    call smartinput#define_rule({ 'char' : '=', 'at' : '[&+-/<>|] \%#',                             'input' : '<BS>= '})
+    call smartinput#define_rule({ 'char' : '=', 'at' : '!\%#',                                      'input' : '= '})
+    " call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : '='})
+    call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',   'input' : '='})
+
+    call smartinput#map_to_trigger('i', '<BS>', '<BS>', '<BS>')
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '(\s*)\%#'   , 'input' : '<C-O>dF(<BS>'})
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '{\s*}\%#'   , 'input' : '<C-O>dF{<BS>'})
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '<\s*>\%#'   , 'input' : '<C-O>dF<<BS>'})
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '\[\s*\]\%#' , 'input' : '<C-O>dF[<BS>'})
+
+    for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
+        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
+    endfor
+
+    call smartinput#map_to_trigger('i', '*', '*', '*')
+    call smartinput#define_rule({ 'char' : '*', 'at' : 'defparameter \*\%#', 'input' : '*<Left>', 'filetype' : [ 'lisp' ]})
+endfunction
+unlet s:bundle
+
+"Smartchr
+"insert space before and after operater
+inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
+inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
+inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
+inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
+inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
+
+inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
+inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
+inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+inoremap <buffer><expr> , smartchr#one_of(', ', ',')
+
+inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
+inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
+
 "Indent Guides
 let g:indent_guides_indent_levels = 30
 let g:indent_guides_auto_colors = 0
@@ -365,8 +458,6 @@ let g:quickrun_config = {
 \   },
 \}
 
-
-
 "Vim-Surround
 
 
@@ -393,3 +484,9 @@ nnoremap [Fugitive]c :<C-u>Gcommit<CR>
 nnoremap [Fugitive]b :<C-u>Gblame<CR>
 
 "Callender 
+
+"Gundo
+nnoremap <Leader>u :<C-u>GundoToggle<CR>
+
+"Tasklist
+nnoremap <Leader>T :<C-u>TaskList<CR>

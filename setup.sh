@@ -11,12 +11,15 @@ cp -r ~/256-jungle/colors ~/.vim/
 
 rm -r ~/256-jungle
 
-ln -s ./vimrc ~/.vimrc
+ln -s ~/dotfiles/vimrc ~/.vimrc
 
-cp -r ./dict ~/.vim/
+cp -r ~/dotfiles/dict ~/.vim/
 
 mkdir -p ~/.vim/backup
 
 #other
-ln -s ./tmux.conf ~/.tmux.conf
-ln -s ./xmodmap .xmodmap
+ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/xmodmap ~/.xmodmap
+
+#zsh
+ln -s ~/dotfiles/zshrc ~/.zshrc

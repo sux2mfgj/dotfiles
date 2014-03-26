@@ -43,8 +43,8 @@ export ZLS_COLORS=$LS_COLORS
 export CLICOLOR=true
 
 #予測変換
-autoload predict-on
-predict-on
+#autoload predict-on
+#predict-on
 
 #zshrc.mineの読み込み
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine

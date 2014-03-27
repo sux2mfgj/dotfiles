@@ -1,25 +1,18 @@
-#!/bin/bash 
+#!/bin/zsh
 
-#vim
+DIR=$(cd $(dirname $0); pwd)
+echo $DIR
+
+ln -s $DIR/vimrc $HOME/.vimrc
+ln -s $DIR/tmux.conf $HOME/.tmux.conf
+ln -s $DIR/xmodmap $HOME/.xmodmap
+ln -s $DIR/zshrc $HOME/.zshrc
+
 mkdir -p ~/.vim/bundle
 
-git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle
+git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/
+git clone git://github.com/vim-scripts/256-jungle $DIR/256-jungle/
+cp -r $DIR/256-jungle/colors ~/.vim/
 
-git clone git://github.com/vim-scripts/256-jungle ~/
 
-cp -r ~/256-jungle/colors ~/.vim/
-
-rm -r ~/256-jungle
-
-ln -s ~/dotfiles/vimrc ~/.vimrc
-
-cp -r ~/dotfiles/dict ~/.vim/
-
-mkdir -p ~/.vim/backup
-
-#other
-ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
-ln -s ~/dotfiles/xmodmap ~/.xmodmap
-
-#zsh
-ln -s ~/dotfiles/zshrc ~/.zshrc
+rm -rf $DIR/256-jungle

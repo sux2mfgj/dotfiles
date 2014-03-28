@@ -16,3 +16,5 @@ cp -r $DIR/256-jungle/colors ~/.vim/
 
 
 rm -rf $DIR/256-jungle
+
+cp $DIR/zshrc.mine $HOME/.zshrc.mine

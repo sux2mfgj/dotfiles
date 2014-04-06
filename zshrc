@@ -85,5 +85,3 @@ alias tmux="tmux -2"
 function chpwd(){
     ls -v -F --color=auto
 }
-
-

@@ -79,9 +79,41 @@ SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
   PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
 ;
 
+alias tmux="tmux -2"
+## tmux (auto start)
+is_screen_running() {
+  [ ! -z "$WINDOW" ]
+}
+is_tmux_running() {
+  [ ! -z "$TMUX" ]
+}
+is_screen_or_tmux_running() {
+  is_screen_running || is_tmux_running
+}
+shell_has_started_interactively() {
+  [ ! -z "$PS1" ]
+}
+resolve_alias() {
+  cmd="$1"
+  while 
+    whence "$cmd" >/dev/null 2>/dev/null && [ "$(whence "$cmd")" != "$cmd" ]
+  do
+    cmd=$(whence "$cmd")
+  done
+  echo "$cmd"
+}
+if ! is_screen_or_tmux_running && shell_has_started_interactively; then
+  for cmd in tmux tscreen screen; do
+    if whence $cmd >/dev/null 2>/dev/null; then
+      $(resolve_alias "$cmd")
+      break
+    fi
+  done
+fi
+ 
+
 #alias
 alias ls="ls -FG --color=auto"
-alias tmux="tmux -2"
 function chpwd(){
     ls -v -F --color=auto
 }

@@ -21,6 +21,8 @@ cp $DIR/zshrc.mine $HOME/.zshrc.mine
 
 
 mkdir $HOME/etc $HOME/tmp $HOME/bin
+ln -s $DIR/auto_git.sh /etc/cron.daily/auto_git
+ln -s $DIR/delete_tmp.sh /etc/cron.daily/delete_tmp
 
 #erutaso
 git clone git://github.com/sgymtic/sl $HOME/etc/sl

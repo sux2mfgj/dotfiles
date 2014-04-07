@@ -34,10 +34,10 @@ set tabstop=4
 
 "status line
 set laststatus=2
-set statusline=%F%r%= 
+set statusline=%F%r%=
 set statusline+=%{fugitive#statusline()}
 set statusline+=\ [%n]
-set statusline+=\ (%l,%c) 
+set statusline+=\ (%l,%c)
 
 "appearance
 set number
@@ -133,14 +133,14 @@ let g:mapleader=";"
 
 
 "keymap
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-inoremap <Up> <Nop>
-inoremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-noremap <Up> <Nop>
-noremap <Down> <Nop>
+"inoremap <Left> <Nop>
+"inoremap <Right> <Nop>
+"inoremap <Up> <Nop>
+"inoremap <Down> <Nop>
+"noremap <Left> <Nop>
+"noremap <Right> <Nop>
+"noremap <Up> <Nop>
+"noremap <Down> <Nop>
 
 nnoremap ZQ <Nop>
 nnoremap Q gq
@@ -177,7 +177,9 @@ nnoremap gT <Nop>
 autocmd FileType python setl foldmethod=indent
 autocmd FileType c setl cindent
 
-            
+autocmd BufWritePre * :%s/\s\+$//e
+
+
 "-------------------------------
 "   Plugin
 "-------------------------------
@@ -282,7 +284,7 @@ function! s:my_cr_function()
   return neocomplete#close_popup() . "\<CR>"
 endfunction
 
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -302,8 +304,8 @@ smap <C-k>  <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>  <Plug>(neosnippet_expand_target)
 xmap <C-l>  <Plug>(neosnippet_start_unite_snippet_target)
 
-"Smartinput 
-"TODO:filetypeによってsmartinputを発動させるかしないかの設定 
+"Smartinput
+"TODO:filetypeによってsmartinputを発動させるかしないかの設定
 " let s:bundle = neobundle#get('vim-smartinput')
 " function! s:bundle.hooks.on_source(bundle)
 "     call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
@@ -370,17 +372,16 @@ xmap <C-l>  <Plug>(neosnippet_start_unite_snippet_target)
 " inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
 
 "indent-guides
-" set background=dark
 " let g:indent_guides_indent_levels=30
 let g:indent_guides_start_level=2
 let g:indent_guides_auto_colors=0
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
 " hi IndentGuidesOdd  guibg=red   ctermbg=3
 " hi IndentGuidesEven guibg=lightblue  ctermbg=4
-hi IndentGuidesOdd ctermbg=black
-hi IndentGuidesEven ctermbg=darkgrey
-
+hi IndentGuidesOdd ctermbg=183
+hi IndentGuidesEven ctermbg=31
 " let g:indent_guides_color_change_percent = 10
-
 
 "Syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -418,11 +419,9 @@ let g:quickrun_config = {
 \}
 
 "Vim-Surround
-        
 
 "Vim-AutoSave
 let g:auto_save = 1
-
 
 "VimFiler
 let g:vimfiler_edit_action = 'tabopen'
@@ -440,9 +439,9 @@ nnoremap [Fugitive]s :<C-u>Gstatus<CR>
 nnoremap [Fugitive]a :<C-u>Gwrite<CR>
 nnoremap [Fugitive]c :<C-u>Gcommit<CR>
 nnoremap [Fugitive]b :<C-u>Gblame<CR>
-nnoremap [Fugitive]p :<C-u>Git<Space>pull<CR> 
+nnoremap [Fugitive]p :<C-u>Git<Space>pull<CR>
 
-"Callender 
+"Callender
 
 "Gundo
 nnoremap <Leader>u :<C-u>GundoToggle<CR>

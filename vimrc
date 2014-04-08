@@ -49,7 +49,7 @@ set showmatch
 set matchtime=1
 set showcmd
 set showmode
-set nowrap
+" set nowrap
 
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/

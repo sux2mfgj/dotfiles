@@ -76,8 +76,7 @@ RPROMPT=$tmp_rprompt  # 右側のプロンプト
 SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
 # SSHログイン時のプロンプト
 [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-  PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
-;
+  PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}";
 
 alias tmux="tmux -2"
 ## tmux (auto start)
@@ -112,10 +111,21 @@ if ! is_screen_or_tmux_running && shell_has_started_interactively; then
 fi
 
 #alias
-#  alias ls="ls -FG --color=auto"
+
+if [ `uname` = "Darwin" ]
+then
+
+    lsopt='-G'
+     alias ls="ls -G"	
+else
+    lsopt='--color=auto'
+alias ls="ls -FG --color=auto"
+fi
+echo $lsopt
+
 function chpwd(){
-    #ls -v -F --color=auto
-    ls -G
+#      ls -v -F --color=auto
+    ls $lsopt
 }
 
 export PATH=/usr/local/bin:$PATH

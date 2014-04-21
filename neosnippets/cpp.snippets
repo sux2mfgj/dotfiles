@@ -1,0 +1,58 @@
+
+snippet inc3
+    #include <${1}>
+    ${2}
+
+##
+## Access Modifiers
+# private
+snippet pri
+    private:
+        ${1}
+# protected
+snippet pro
+    protected:
+        ${1}
+# public
+snippet pub
+    public:
+        ${1}
+# friend
+snippet fr
+	friend
+# mutable
+snippet mu
+	mutable
+
+# class
+snippet cl
+	class ${1:`Filename('$1', 'name')`} 
+	{
+	public:
+		$1(${2});
+		~$1();
+
+	private:
+		${3:/* data */}
+	};
+
+#na
+snippet usi
+    using namespace ${1}
+
+snippet fo
+    for(${1}){
+        ${2} 
+    }
+
+snippet whi
+    while(${1}){
+        ${2} 
+    }
+# iterator
+snippet iter
+	for (${1:std::vector}<${2:type}>::${3:const_iterator} ${4:i} = ${5:container}.begin(); $4 != $5.end(); ++$4) {
+		${6}
+	}${7}
+
+

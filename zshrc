@@ -37,10 +37,10 @@ setopt magic_equal_subst
 
 setopt ignore_eof
 
-export LSCOLORS=exfxcxdxbxegedabagacad
-export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-export ZLS_COLORS=$LS_COLORS
-export CLICOLOR=true
+#  export LSCOLORS=exfxcxdxbxegedabagacad
+#  export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+#  export ZLS_COLORS=$LS_COLORS
+#  export CLICOLOR=true
 
 #予測変換
 #autoload predict-on
@@ -76,8 +76,7 @@ RPROMPT=$tmp_rprompt  # 右側のプロンプト
 SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
 # SSHログイン時のプロンプト
 [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-  PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
-;
+  PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}";
 
 alias tmux="tmux -2"
 ## tmux (auto start)
@@ -95,7 +94,7 @@ shell_has_started_interactively() {
 }
 resolve_alias() {
   cmd="$1"
-  while 
+  while
     whence "$cmd" >/dev/null 2>/dev/null && [ "$(whence "$cmd")" != "$cmd" ]
   do
     cmd=$(whence "$cmd")
@@ -110,12 +109,25 @@ if ! is_screen_or_tmux_running && shell_has_started_interactively; then
     fi
   done
 fi
- 
 
 #alias
+
+if [ `uname` = "Darwin" ]
+then
+
+    lsopt='-G'
+     alias ls="ls -G"	
+else
+    lsopt='--color=auto'
 alias ls="ls -FG --color=auto"
+fi
+echo $lsopt
+
 function chpwd(){
-    ls -v -F --color=auto
+#      ls -v -F --color=auto
+    ls $lsopt
 }
+
+export PATH=/usr/local/bin:$PATH
 
 

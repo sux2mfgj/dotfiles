@@ -34,10 +34,10 @@ set tabstop=4
 
 "status line
 set laststatus=2
-set statusline=%F%r%= 
+set statusline=%F%r%=
 set statusline+=%{fugitive#statusline()}
 set statusline+=\ [%n]
-set statusline+=\ (%l,%c) 
+set statusline+=\ (%l,%c)
 
 "appearance
 set number
@@ -49,20 +49,6 @@ set showmatch
 set matchtime=1
 set showcmd
 set showmode
-set nowrap
-set shiftround
-set hidden
-set switchbuf=useopen
-set matchpairs& matchpairs+=<:>
-
-" set list
-" set wrap
-" set textwidth=0
-" set colorcolumn=80
-
-" set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
-" set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
-
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/
 
@@ -133,14 +119,14 @@ let g:mapleader=";"
 
 
 "keymap
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-inoremap <Up> <Nop>
-inoremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-noremap <Up> <Nop>
-noremap <Down> <Nop>
+"inoremap <Left> <Nop>
+"inoremap <Right> <Nop>
+"inoremap <Up> <Nop>
+"inoremap <Down> <Nop>
+"noremap <Left> <Nop>
+"noremap <Right> <Nop>
+"noremap <Up> <Nop>
+"noremap <Down> <Nop>
 
 nnoremap ZQ <Nop>
 nnoremap Q gq
@@ -177,7 +163,8 @@ nnoremap gT <Nop>
 autocmd FileType python setl foldmethod=indent
 autocmd FileType c setl cindent
 
-            
+autocmd BufWritePre * :%s/\s\+$//e
+
 "-------------------------------
 "   Plugin
 "-------------------------------
@@ -207,7 +194,15 @@ NeoBundle 'Shougo/vimproc',{
             \}
 
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neocomplete'
+
+
+if has('lua')
+    NeoBundle 'Shougo/neocomplete'
+else
+    NeoBundle 'Shougo/neocomplcache'
+endif
+
+
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'kana/vim-smartchr'
@@ -259,8 +254,87 @@ nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
 "Unite-Mark
 nnoremap <silent> [unite]ml  :<C-u>Unite mark<CR>
 
-
+if has('lua')
 "NeoComplete
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 2
+
+    let g:neocomplete#sources#dictionary#dictionaries  =  {
+        \ 'default' : '',
+        \ 'php' : '~/.vim/dict/php.dict',
+        \ 'c' : '~/.vim/dict/c.dict',
+        \ 'cpp' : '~/.vim/dict/cpp.dict',
+        \ 'java' : '~/.vim/dict/java.dict'
+        \}
+
+    inoremap <expr><C-g>    neocomplete#undo_completion()
+    inoremap <expr><C-l>    neocomplete#complete_common_string()
+
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return neocomplete#close_popup() . "\<CR>"
+    endfunction
+
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns  =  {}
+    endif
+
+else
+    let g:neocomplcache_enable_at_startup = 1
+    let g:neocomplcache_enable_smart_case = 1
+
+    let g:neocomplcache_min_keyword_length = 2
+    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+    let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default' : '',
+        \ 'php' : '~/.vim/dict/php.dict',
+        \ 'c' : '~/.vim/dict/c.dict',
+        \ 'cpp' : '~/.vim/dict/cpp.dict',
+        \ 'java' : '~/.vim/dict/java.dict'
+        \}
+
+    inoremap <expr><C-g>    neocomplcache#undo_completion()
+    inoremap <expr><C-l>    neocomplcache#complete_check()
+
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return neocomplcache#smart_close_popup() . "\<CR>"
+      " For no inserting <CR> key.
+      "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    endfunction
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplcache#close_popup()
+    inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+      let g:neocomplcache_omni_patterns = {}
+    endif
+    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 2
@@ -282,19 +356,15 @@ function! s:my_cr_function()
   return neocomplete#close_popup() . "\<CR>"
 endfunction
 
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    " For perlomni.vim setting.
+    " https://github.com/c9s/perlomni.vim
+    let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns  =  {}
+
 endif
-
 
 "NeoSnnipet
 imap <C-k>  <Plug>(neosnippet_expand_or_jump)
@@ -302,8 +372,8 @@ smap <C-k>  <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>  <Plug>(neosnippet_expand_target)
 xmap <C-l>  <Plug>(neosnippet_start_unite_snippet_target)
 
-"Smartinput 
-"TODO:filetypeによってsmartinputを発動させるかしないかの設定 
+"Smartinput
+"TODO:filetypeによってsmartinputを発動させるかしないかの設定
 " let s:bundle = neobundle#get('vim-smartinput')
 " function! s:bundle.hooks.on_source(bundle)
 "     call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
@@ -370,17 +440,16 @@ xmap <C-l>  <Plug>(neosnippet_start_unite_snippet_target)
 " inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
 
 "indent-guides
-" set background=dark
 " let g:indent_guides_indent_levels=30
 let g:indent_guides_start_level=2
 let g:indent_guides_auto_colors=0
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
 " hi IndentGuidesOdd  guibg=red   ctermbg=3
 " hi IndentGuidesEven guibg=lightblue  ctermbg=4
-hi IndentGuidesOdd ctermbg=black
-hi IndentGuidesEven ctermbg=darkgrey
-
+hi IndentGuidesOdd ctermbg=183
+hi IndentGuidesEven ctermbg=31
 " let g:indent_guides_color_change_percent = 10
-
 
 "Syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -418,11 +487,9 @@ let g:quickrun_config = {
 \}
 
 "Vim-Surround
-        
 
 "Vim-AutoSave
 let g:auto_save = 1
-
 
 "VimFiler
 let g:vimfiler_edit_action = 'tabopen'
@@ -440,9 +507,9 @@ nnoremap [Fugitive]s :<C-u>Gstatus<CR>
 nnoremap [Fugitive]a :<C-u>Gwrite<CR>
 nnoremap [Fugitive]c :<C-u>Gcommit<CR>
 nnoremap [Fugitive]b :<C-u>Gblame<CR>
-nnoremap [Fugitive]p :<C-u>Git<Space>pull<CR> 
+nnoremap [Fugitive]p :<C-u>Git<Space>pull<CR>
 
-"Callender 
+"Callender
 
 "Gundo
 nnoremap <Leader>u :<C-u>GundoToggle<CR>

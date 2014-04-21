@@ -81,12 +81,12 @@ set nobackup
 
 "fold
 set foldenable
-set foldcolumn=2
+set foldcolumn=0
 set foldmethod=indent
 set foldlevel=10
 
 nnoremap [Fold] <Nop>
-nmap <Space>f [Fold]
+nmap f [Fold]
 
 nnoremap [Fold]a za
 nnoremap [Fold]A zA

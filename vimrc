@@ -1,5 +1,5 @@
 "himaaaatti's vimrc
-
+0
 "use vim setting
 set nocompatible
 
@@ -221,6 +221,7 @@ NeoBundle 'tpope/vim-fugitive.git'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'vim-scripts/TaskList.vim'
+NeoBundle 'daisuzu/translategoogle.vim'
 
 
 filetype plugin on
@@ -271,10 +272,10 @@ if has('lua')
     inoremap <expr><C-g>    neocomplete#undo_completion()
     inoremap <expr><C-l>    neocomplete#complete_common_string()
 
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return neocomplete#close_popup() . "\<CR>"
-    endfunction
+"     inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"     function! s:my_cr_function()
+"       return neocomplete#close_popup() . "\<CR>"
+"     endfunction
 
     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><C-e>  neocomplete#cancel_popup()
@@ -307,12 +308,12 @@ else
     inoremap <expr><C-g>    neocomplcache#undo_completion()
     inoremap <expr><C-l>    neocomplcache#complete_check()
 
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return neocomplcache#smart_close_popup() . "\<CR>"
+"     inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"     function! s:my_cr_function()
+"       return neocomplcache#smart_close_popup() . "\<CR>"
       " For no inserting <CR> key.
       "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-    endfunction
+"     endfunction
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     " <C-h>, <BS>: close popup and delete backword char.
@@ -351,10 +352,10 @@ let g:neocomplete#sources#dictionary#dictionaries  =  {
 inoremap <expr><C-g>    neocomplete#undo_completion()
 inoremap <expr><C-l>    neocomplete#complete_common_string()
 
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-endfunction
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+"   return neocomplete#close_popup() . "\<CR>"
+" endfunction
 
 " inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-e>  neocomplete#cancel_popup()
@@ -516,3 +517,8 @@ nnoremap <Leader>u :<C-u>GundoToggle<CR>
 
 "Tasklist
 nnoremap <Leader>T :<C-u>TaskList<CR>
+
+"googletranslate
+let g:translategoogle_default_sl = 'ja'
+let g:translategoogle_default_sl = 'en'
+

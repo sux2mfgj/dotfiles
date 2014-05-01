@@ -116,18 +116,21 @@ if [ `uname` = "Darwin" ]
 then
 
     lsopt='-G'
-     alias ls="ls -G"	
+    alias ls="ls -G"
+    export PATH=/usr/local/bin:$PATH
 else
     lsopt='--color=auto'
 alias ls="ls -FG --color=auto"
 fi
-echo $lsopt
+#echo $lsopt
+alias ll="ls -al"
 
 function chpwd(){
 #      ls -v -F --color=auto
     ls $lsopt
 }
 
-export PATH=/usr/local/bin:$PATH
+export LESSCHARSET=utf-8
+
 
 

@@ -1,8 +1,5 @@
 "himaaaatti's vimrc
-
-"use vim setting
-set nocompatible
-
+"
 "backup
 " if isdirectory(expand('~/.vim/backup'))
 "     set backupdir=~/.vim/backup

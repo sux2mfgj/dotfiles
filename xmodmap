@@ -11,6 +11,9 @@
 keycode 49 = Control_L
 add Control = Control_L
 
+keycode 102 = grave asciitilde
+
+
 clear Shift
 keycode 100 = Shift_R
 add Shift = Shift_L Shift_R

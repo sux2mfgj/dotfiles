@@ -9,10 +9,16 @@ ln -s $DIR/xmodmap $HOME/.xmodmap
 ln -s $DIR/zshrc $HOME/.zshrc
 
 mkdir -p ~/.vim/bundle
+mkdir ~/.vim/tmp
 
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-git clone git://github.com/vim-scripts/256-jungle $DIR/256-jungle/
-cp -r $DIR/256-jungle/colors ~/.vim/
+
+git clone git://github.com/vim-scripts/256-jungle ~/.vim/tmp/256-jungle
+cp -r ~/.vim/tmp/256-jungle/colors ~/.vim/
+
+git clone git://github.com/Shougo/neosnippet-snippets ~/.vim/tmp/neosnippet-snippets
+cp -r ~/.vim/tmp/neosnippet-snippets/neosnippets ../
+
 
 
 rm -rf $DIR/256-jungle

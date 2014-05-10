@@ -123,6 +123,7 @@ else
 alias ls="ls -FG --color=auto"
 fi
 #echo $lsopt
+#
 alias ll="ls -al"
 
 function chpwd(){

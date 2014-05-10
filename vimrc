@@ -68,15 +68,13 @@ set nobackup
 "fold
 set foldenable
 set foldcolumn=0
-set foldmethod=indent
+set foldmethod=syntax
 set foldlevel=10
 
-nnoremap [Fold] <Nop>
-nmap f [Fold]
 
-nnoremap [Fold]a za
-nnoremap [Fold]A zA
-nnoremap [Fold]R zR
+nnoremap <Space>a za
+nnoremap <Space>A zA
+nnoremap <Space>R zR
 
 
 "mark
@@ -222,6 +220,8 @@ NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'vim-scripts/TaskList.vim'
 NeoBundle 'daisuzu/translategoogle.vim'
+NeoBundle 'vim-scripts/a.vim'
+NeoBundle 'vim-scripts/c.vim'
 
 
 filetype plugin on
@@ -277,7 +277,7 @@ if has('lua')
 "       return neocomplete#close_popup() . "\<CR>"
 "     endfunction
 
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><C-e>  neocomplete#cancel_popup()
 
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -317,8 +317,8 @@ else
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+"     inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+"     inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
     inoremap <expr><C-y>  neocomplcache#close_popup()
     inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
@@ -521,4 +521,13 @@ nnoremap <Leader>T :<C-u>TaskList<CR>
 "googletranslate
 let g:translategoogle_default_sl = 'ja'
 let g:translategoogle_default_tl = 'en'
+nnoremap <Space>g :<C-u>TranslateGoogle<CR>
 
+
+"calendarvim
+nnoremap <Space>c :<C-u>Calendar<CR>
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+
+"a.vim
+nnoremap <Space>a :<C-u>AV<CR>

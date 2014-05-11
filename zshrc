@@ -110,19 +110,28 @@ if ! is_screen_or_tmux_running && shell_has_started_interactively; then
   done
 fi
 
-
 #alias
-alias ls="ls -FG --color=auto"
 
 if [ `uname` = "Darwin" ]
 then
+
     lsopt='-G'
+    alias ls="ls -G"
+    export PATH=/usr/local/bin:$PATH
 else
     lsopt='--color=auto'
+alias ls="ls -FG --color=auto"
 fi
-echo $lsopt
+#echo $lsopt
+#
+alias ll="ls -al"
 
 function chpwd(){
 #      ls -v -F --color=auto
     ls $lsopt
 }
+
+export LESSCHARSET=utf-8
+
+
+

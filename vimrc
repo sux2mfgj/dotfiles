@@ -67,9 +67,9 @@ set nobackup
 
 "fold
 set foldenable
-set foldcolumn=0
+set foldcolumn=3
 set foldmethod=syntax
-set foldlevel=10
+set foldlevel=0
 
 
 nnoremap <Space>a za
@@ -162,6 +162,11 @@ autocmd FileType python setl foldmethod=indent
 autocmd FileType c setl cindent
 
 autocmd BufWritePre * :%s/\s\+$//e
+
+augroup filetypedetect
+    au BufRead, BufNewFile *.s setfiletype gas
+augroup END
+
 
 "-------------------------------
 "   Plugin
@@ -530,4 +535,4 @@ let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 
 "a.vim
-nnoremap <Space>a :<C-u>AV<CR>
+nnoremap <Space>a :<C-u>AT<CR>

@@ -78,6 +78,21 @@ SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
 [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
   PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}";
 
+
+if [ `uname` = "Darwin" ]
+then
+
+    lsopt='-G'
+    alias ls="ls -G"
+    export PATH=$HOME/bin/darwin/bin:/usr/local/bin:$PATH
+else
+    lsopt='--color=auto'
+    export PATH=$HOME/bin/solaris/bin:$PATH
+alias ls="ls -FG --color=auto"
+fi
+
+
+
 alias tmux="tmux -2"
 ## tmux (auto start)
 is_screen_running() {
@@ -111,17 +126,6 @@ if ! is_screen_or_tmux_running && shell_has_started_interactively; then
 fi
 
 #alias
-
-if [ `uname` = "Darwin" ]
-then
-
-    lsopt='-G'
-    alias ls="ls -G"
-    export PATH=/usr/local/bin:$PATH
-else
-    lsopt='--color=auto'
-alias ls="ls -FG --color=auto"
-fi
 #echo $lsopt
 #
 alias ll="ls -al"

@@ -78,9 +78,9 @@ SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
 [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
   PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}";
 
-
 if [ `uname` = "Darwin" ]
 then
+#      echo `uname`
 
     lsopt='-G'
     alias ls="ls -G"

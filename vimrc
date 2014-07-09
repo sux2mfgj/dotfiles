@@ -19,7 +19,7 @@ set backspace=start,eol,indent
 set backspace=2
 
 "colorscheme
-syntax on
+" syntax on
 colorscheme 256-jungle
 
 "tab
@@ -217,7 +217,7 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tacroe/unite-mark'
-NeoBundle 'tpope/vim-fugitive.git'
+" NeoBundle 'tpope/vim-fugitive.git'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'vim-scripts/TaskList.vim'
@@ -502,15 +502,15 @@ let g:vimfiler_enable_auto_cd = 1
 nnoremap <Space>v :<C-u>VimFiler -explorer -quit<CR>
 
 "Fugitive
-noremap [Fugitive] <Nop>
-nmap <Space>g [Fugitive]
+" noremap [Fugitive] <Nop>
+" nmap <Space>g [Fugitive]
 
-nnoremap [Fugitive]g :<C-u>Git<Space>
-nnoremap [Fugitive]s :<C-u>Gstatus<CR>
-nnoremap [Fugitive]a :<C-u>Gwrite<CR>
-nnoremap [Fugitive]c :<C-u>Gcommit<CR>
-nnoremap [Fugitive]b :<C-u>Gblame<CR>
-nnoremap [Fugitive]p :<C-u>Git<Space>pull<CR>
+" nnoremap [Fugitive]g :<C-u>Git<Space>
+" nnoremap [Fugitive]s :<C-u>Gstatus<CR>
+" nnoremap [Fugitive]a :<C-u>Gwrite<CR>
+" nnoremap [Fugitive]c :<C-u>Gcommit<CR>
+" nnoremap [Fugitive]b :<C-u>Gblame<CR>
+" nnoremap [Fugitive]p :<C-u>Git<Space>pull<CR>
 
 "Callender
 

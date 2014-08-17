@@ -225,11 +225,10 @@ NeoBundle 'daisuzu/translategoogle.vim'
 NeoBundle 'vim-scripts/a.vim'
 NeoBundle 'vim-scripts/c.vim'
 
-
 " haskell
-NeoBundle 'dag/vim2hs'
-NeoBundle 'eagletmt/ghcmod-vim'
-NeoBundle 'eagletmt/neco-ghc'
+" NeoBundle 'dag/vim2hs'
+" NeoBundle 'eagletmt/ghcmod-vim'
+" NeoBundle 'eagletmt/neco-ghc'
 
 filetype plugin on
 filetype indent on
@@ -463,6 +462,7 @@ hi IndentGuidesEven ctermbg=31
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 2
+let g:syntastic_python_checkers = ['flake8']
 
 
 "EnhCommentify
@@ -542,6 +542,6 @@ nnoremap <Space>a :<C-u>AT<CR>
 
 " haskell
 " ghcmod-vim
-augroup ghcmodcheck
-    autocmd! BufWritePost <buffer> GhcModCheckAsync
-augroup END
+" augroup ghcmodcheck
+"     autocmd! BufWritePost <buffer> GhcModCheckAsync
+" augroup END

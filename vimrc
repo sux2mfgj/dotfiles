@@ -217,13 +217,14 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tacroe/unite-mark'
-" NeoBundle 'tpope/vim-fugitive.git'
+NeoBundle 'tpope/vim-fugitive.git'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'vim-scripts/TaskList.vim'
 NeoBundle 'daisuzu/translategoogle.vim'
 NeoBundle 'vim-scripts/a.vim'
 NeoBundle 'vim-scripts/c.vim'
+NeoBundle 'rhysd/vim-clang-format'
 
 " haskell
 " NeoBundle 'dag/vim2hs'
@@ -545,3 +546,13 @@ nnoremap <Space>a :<C-u>AT<CR>
 " augroup ghcmodcheck
 "     autocmd! BufWritePost <buffer> GhcModCheckAsync
 " augroup END
+"
+
+"clang-fomat
+let g:clang_format#command="clang-format-3.4"
+let g:clang_format#style_options = {
+    \ "BreakBeforeBraces" : "Stroustrup",
+    \ "AccessModifierOffset" : -4,
+    \}
+autocmd FileType c,cpp,objc nnoremap <Space>f :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <Space>f :<C-u>ClangFormat<CR>

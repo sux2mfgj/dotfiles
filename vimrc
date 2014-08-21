@@ -259,6 +259,14 @@ nnoremap <silent> [unite]ma  :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
 "nnoremap <silent> [unite]mr :<C-u>Unite output:marks<CR>
 
+"platina searcher
+nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+if executable('pt')
+    let g:unite_source_grep_command = 'pf'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+    let g:unite_source_grep_recursive_opt = ''
+endif
+
 "Unite-Mark
 nnoremap <silent> [unite]ml  :<C-u>Unite mark<CR>
 

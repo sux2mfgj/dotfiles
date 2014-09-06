@@ -17,9 +17,7 @@ git clone git://github.com/vim-scripts/256-jungle ~/.vim/tmp/256-jungle
 cp -r ~/.vim/tmp/256-jungle/colors ~/.vim/
 
 git clone git://github.com/Shougo/neosnippet-snippets ~/.vim/tmp/neosnippet-snippets
-cp -r ~/.vim/tmp/neosnippet-snippets/neosnippets ../
-
-
+cp -r ~/.vim/tmp/neosnippet-snippets/neosnippets ~/.vim/neosnippets
 
 rm -rf $DIR/256-jungle
 

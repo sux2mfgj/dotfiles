@@ -557,7 +557,7 @@ nnoremap <Space>a :<C-u>AT<CR>
 "
 
 "clang-fomat
-let g:clang_format#command="clang-format-3.4"
+let g:clang_format#command="clang-format-3.5"
 let g:clang_format#style_options = {
     \ "BreakBeforeBraces" : "Stroustrup",
     \ "AccessModifierOffset" : -4,

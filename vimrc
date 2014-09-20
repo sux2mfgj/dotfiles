@@ -1,13 +1,4 @@
 "himaaaatti's vimrc
-"
-"backup
-" if isdirectory(expand('~/.vim/backup'))
-"     set backupdir=~/.vim/backup
-"     set directory=~/.vim/backup
-" endif
-" set backup
-" set writebackup
-" set swapfile
 
 "encoding
 set encoding=utf-8
@@ -46,6 +37,8 @@ set showmatch
 set matchtime=1
 set showcmd
 set showmode
+
+"TODO:おそい ricty
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/
 
@@ -56,9 +49,9 @@ set ignorecase
 set smartcase
 set wildmenu
 
-
 "file
 set autoread
+"TODO:backupについて考える
 set noswapfile
 set nobackup
 
@@ -68,11 +61,9 @@ set foldcolumn=3
 set foldmethod=syntax
 set foldlevel=0
 
-
 nnoremap <Space>a za
 nnoremap <Space>A zA
 nnoremap <Space>R zR
-
 
 "mark
 nnoremap [Mark] <Nop>
@@ -98,19 +89,23 @@ endfunction
 nnoremap [Mark]n ]`
 nnoremap [Mark]p [`
 
+"TODO: :nohlsearch
+
 "other
 set autoindent
 set cindent
 set history=1000
-" set undodir=~/.vim/undo
-" set undofile
-" set undolevels=1000
+set undofile
+set undodir=~/.vim/undo
+set undolevels=1000
 
+"TODO: groupでかこむ
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 autocmd BufReadPost * delmarks!
 
 "set prefix key
 let g:mapleader=";"
+"TODO: prefix かえる
 
 
 "keymap
@@ -142,7 +137,8 @@ nnoremap <S-Down> <C-w>+<CR>
 nnoremap <Tab> %
 vnoremap <Tab> %
 
-nnoremap <Space>h :<C-u>vertical belowright help<Space>
+" nnoremap <Space>h :<C-u>vertical belowright help<Space>
+nnoremap <silent> <Space>ht :tab help <C-R><C-W><CR>
 
 nnoremap <Leader>ev :tabnew $MYVIMRC<CR>
 
@@ -161,14 +157,14 @@ autocmd FileType c setl cindent
 autocmd BufWritePre * :%s/\s\+$//e
 
 augroup filetypedetect
-    au BufRead, BufNewFile *.s setfiletype gas
+    au BufRead,BufNewFile *.s setfiletype gas
 augroup END
 
 
 "-------------------------------
 "   Plugin
 "-------------------------------
-filetype off
+" filetype off
 
 if !isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     echo 'No NeoBundle'
@@ -181,9 +177,9 @@ if has('vim_starting')
     "  set runtimepath+=d:/tool/vim/.bundle/neobundle.vim
     "  "  call neobundle#rc(expand('d:/tool/vim/.bundle'))
     set runtimepath+=~/.vim/bundle/neobundle.vim/
-    call neobundle#rc(expand('~/.vim/bundle'))
 endif
 
+call neobundle#begin()
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -194,7 +190,6 @@ NeoBundle 'Shougo/vimproc',{
             \}
 
 NeoBundle 'Shougo/unite.vim'
-
 
 if has('lua')
     NeoBundle 'Shougo/neocomplete'
@@ -217,22 +212,24 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tacroe/unite-mark'
-NeoBundle 'tpope/vim-fugitive.git'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'sjl/gundo.vim'
-NeoBundle 'vim-scripts/TaskList.vim'
+" NeoBundle 'vim-scripts/TaskList.vim'
+NeoBundle 'junkblocker/unite-tasklist'
 NeoBundle 'daisuzu/translategoogle.vim'
 NeoBundle 'vim-scripts/a.vim'
 NeoBundle 'vim-scripts/c.vim'
 NeoBundle 'rhysd/vim-clang-format'
+NeoBundle 'Shougo/neomru.vim'
 
 " haskell
 " NeoBundle 'dag/vim2hs'
 " NeoBundle 'eagletmt/ghcmod-vim'
 " NeoBundle 'eagletmt/neco-ghc'
+call neobundle#end()
 
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 "Unite
 let g:unite_data_directory = expand('~/.vim/Unite')
@@ -388,73 +385,6 @@ smap <C-k>  <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>  <Plug>(neosnippet_expand_target)
 xmap <C-l>  <Plug>(neosnippet_start_unite_snippet_target)
 
-"Smartinput
-"TODO:filetypeによってsmartinputを発動させるかしないかの設定
-" let s:bundle = neobundle#get('vim-smartinput')
-" function! s:bundle.hooks.on_source(bundle)
-"     call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
-"     call smartinput#define_rule({ 'char' : '<Space>', 'at' : '(\%#)', 'input' : '<Space><Space><Left>'})
-
-"     let lst = [   ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
-"                 \ ['>',     "smartchr#loop(' > ', ' >> ', ' >>> ', '>')"],
-"                 \ ['+',     "smartchr#loop(' + ', '++', '+')"],
-"                 \ ['-',     "smartchr#loop(' - ', '--', '-')"],
-"                 \ ['/',     "smartchr#loop(' / ', '//', '/')"],
-"                 \ ['&',     "smartchr#loop(' & ', ' && ', '&')"],
-"                 \ ['%',     "smartchr#loop(' % ', '%')"],
-"                 \ ['*',     "smartchr#loop(' * ', '*')"],
-"                 \ ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
-"                 \ [',',     "smartchr#loop(', ', ',')"]]
-
-"     for i in lst
-"         call smartinput#map_to_trigger('i', i[0], i[0], i[0])
-"         call smartinput#define_rule({ 'char' : i[0], 'at' : '\%#',                                      'input' : '<C-R>=' . i[1] . '<CR>'})
-"         if i[0] == '%'
-"             call smartinput#define_rule({'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
-"         endif
-"         call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  'input' : i[0] })
-"     endfor
-
-"     call smartinput#define_rule({'char' : '>', 'at' : ' < \%#', 'input' : '<BS><BS><BS><><Left>'})
-
-"     call smartinput#map_to_trigger('i', '=', '=', '=')
-"     call smartinput#define_rule({ 'char' : '=', 'at' : '\%#',                                       'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>"})
-"     call smartinput#define_rule({ 'char' : '=', 'at' : '[&+-/<>|] \%#',                             'input' : '<BS>= '})
-"     call smartinput#define_rule({ 'char' : '=', 'at' : '!\%#',                                      'input' : '= '})
-""     call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : '='})
-"     call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',   'input' : '='})
-
-"     call smartinput#map_to_trigger('i', '<BS>', '<BS>', '<BS>')
-"     call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '(\s*)\%#'   , 'input' : '<C-O>dF(<BS>'})
-"     call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '{\s*}\%#'   , 'input' : '<C-O>dF{<BS>'})
-"     call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '<\s*>\%#'   , 'input' : '<C-O>dF<<BS>'})
-"     call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '\[\s*\]\%#' , 'input' : '<C-O>dF[<BS>'})
-
-"     for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
-"         call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
-"     endfor
-
-"     call smartinput#map_to_trigger('i', '*', '*', '*')
-"     call smartinput#define_rule({ 'char' : '*', 'at' : 'defparameter \*\%#', 'input' : '*<Left>', 'filetype' : [ 'lisp' ]})
-" endfunction
-" unlet s:bundle
-
-"Smartchr
-"insert space before and after operater
-" inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
-" inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
-" inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
-" inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
-" inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
-
-" inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
-" inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
-" inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
-" inoremap <buffer><expr> , smartchr#one_of(', ', ',')
-
-" inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
-" inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
-
 "indent-guides
 " let g:indent_guides_indent_levels=30
 let g:indent_guides_start_level=2
@@ -479,7 +409,7 @@ let g:syntastic_python_checkers = ['flake8']
 let g:EnhCommentifyPretty = 'Yes'
 let g:EnhCommentifyUseBlockIndent = 'Yes'
 let g:EnhCommentifyCommentsOp = 'yes'
-
+"TODO:scrooloose/nerdcommenter
 
 "Vim-Airline
 let g:airline#extensions#tabline#enabled  =  1
@@ -504,6 +434,7 @@ let g:quickrun_config = {
 \}
 
 "Vim-Surround
+"TODO:rhysd/vim-operator-surround
 
 "Vim-AutoSave
 let g:auto_save = 1
@@ -513,7 +444,7 @@ let g:vimfiler_edit_action = 'tabopen'
 let g:vimfiler_enable_auto_cd = 1
 " nnoremap <Space>v :VimFiler -split -simple -winwidth=35 -quit<CR>
 
-nnoremap <Space>v :<C-u>VimFiler -explorer -quit<CR>
+nnoremap <Space>v :<C-u>VimFiler -explorer<CR>
 
 "Fugitive
 " noremap [Fugitive] <Nop>
@@ -531,14 +462,13 @@ nnoremap <Space>v :<C-u>VimFiler -explorer -quit<CR>
 "Gundo
 nnoremap <Leader>u :<C-u>GundoToggle<CR>
 
-"Tasklist
-nnoremap <Leader>T :<C-u>TaskList<CR>
+"unite-tasklist
+" nnoremap <Leader>T :<C-u>TaskList<CR>
 
 "googletranslate
 let g:translategoogle_default_sl = 'ja'
 let g:translategoogle_default_tl = 'en'
 nnoremap <Space>g :<C-u>TranslateGoogle<CR>
-
 
 "calendarvim
 nnoremap <Space>c :<C-u>Calendar<CR>
@@ -547,7 +477,6 @@ let g:calendar_google_task = 1
 
 "a.vim
 nnoremap <Space>a :<C-u>AT<CR>
-
 
 " haskell
 " ghcmod-vim
@@ -562,5 +491,6 @@ let g:clang_format#style_options = {
     \ "BreakBeforeBraces" : "Stroustrup",
     \ "AccessModifierOffset" : -4,
     \}
-autocmd FileType c,cpp,objc nnoremap <Space>f :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <Space>f :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc nnoremap <Space>f :ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <Space>f :ClangFormat<CR>
+

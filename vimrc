@@ -107,7 +107,6 @@ autocmd BufReadPost * delmarks!
 let g:mapleader=";"
 "TODO: prefix かえる
 
-
 "keymap
 "inoremap <Left> <Nop>
 "inoremap <Right> <Nop>
@@ -149,7 +148,6 @@ nnoremap <Space>k gt
 nnoremap gt <Nop>
 nnoremap gT <Nop>
 
-
 "autocmd
 autocmd FileType python setl foldmethod=indent
 autocmd FileType c setl cindent
@@ -159,7 +157,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 augroup filetypedetect
     au BufRead,BufNewFile *.s setfiletype gas
 augroup END
-
 
 "-------------------------------
 "   Plugin
@@ -197,7 +194,6 @@ else
     NeoBundle 'Shougo/neocomplcache'
 endif
 
-
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'kana/vim-smartchr'
@@ -227,8 +223,19 @@ NeoBundle 'Shougo/neomru.vim'
 " NeoBundle 'dag/vim2hs'
 " NeoBundle 'eagletmt/ghcmod-vim'
 " NeoBundle 'eagletmt/neco-ghc'
-call neobundle#end()
+NeoBundle 'lambdalisue/vim-gista'
+NeoBundle 'sudo.vim'
+NeoBundle 'louchen1990/rainbow'
+NeoBundle 'LeafCage/yankround.vim'
+NeoBundle 'boolfool/vim-sudden-death'
+NeoBundle 'sk1418/blockit'
+NeoBundle 'osyo-manga/vim-marching'
+NeoBundle 'mattn/gist-vim'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'koron/codic-vim'
+NeoBundle 'mopp/smartnumber.vim'
 
+call neobundle#end()
 filetype plugin indent on
 
 "Unite
@@ -257,7 +264,7 @@ nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
 "nnoremap <silent> [unite]mr :<C-u>Unite output:marks<CR>
 
 "platina searcher
-nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent><Space>p :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 if executable('pt')
     let g:unite_source_grep_command = 'pf'
     let g:unite_source_grep_default_opts = '--nogroup --nocolor'
@@ -493,4 +500,7 @@ let g:clang_format#style_options = {
     \}
 autocmd FileType c,cpp,objc nnoremap <Space>f :ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <Space>f :ClangFormat<CR>
+
+" vim-gista
+let g:gista#github_user = 'himaaaatti'
 

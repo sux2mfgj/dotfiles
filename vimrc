@@ -199,7 +199,7 @@ NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'scrooloose/syntastic'
+" NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/EnhCommentify.vim'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'vim-scripts/vim-auto-save'
@@ -409,6 +409,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_python_checkers = ['flake8']
+"c++11
+let g:syntastic_cpp_compiler = 'clang++'
+" let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
+let g:syntastic_cpp_compiler_options = '-std=c++11 -I ~/boost_1_57_0'
 
 
 "EnhCommentify

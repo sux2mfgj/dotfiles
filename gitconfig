@@ -33,6 +33,6 @@
     dm = diff master
 
 # conflit
-    edit-unmerged = "!f() {git ls-files --unmerged | cut -f2 | sort - u;}; vim `f`"
+    edit-unmerged = "!f() {git ls-files --unmerged | cut -f2 | sort -u; }; vim `f`"
 
 

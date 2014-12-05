@@ -7,6 +7,7 @@ ln -s $DIR/vimrc $HOME/.vimrc
 ln -s $DIR/tmux.conf $HOME/.tmux.conf
 ln -s $DIR/xmodmap $HOME/.xmodmap
 ln -s $DIR/zshrc $HOME/.zshrc
+ln -s $DIR/gitconfig $HOME/.gitconfig
 
 mkdir -p ~/.vim/bundle
 mkdir ~/.vim/tmp

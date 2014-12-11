@@ -236,6 +236,10 @@ NeoBundle 'koron/codic-vim'
 NeoBundle 'mopp/smartnumber.vim'
 NeoBundle 'mrk21/yaml-vim'
 
+"scheme
+NeoBundle 'amdt/vim-niji'
+NeoBundle 'aharisu/vim_goshrepl'
+
 call neobundle#end()
 filetype plugin indent on
 
@@ -510,3 +514,5 @@ autocmd FileType c,cpp,objc vnoremap <Space>f :ClangFormat<CR>
 " vim-gista
 let g:gista#github_user = 'himaaaatti'
 
+" scheme
+let lisp_rainbow=1

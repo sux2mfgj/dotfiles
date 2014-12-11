@@ -234,6 +234,7 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'koron/codic-vim'
 NeoBundle 'mopp/smartnumber.vim'
+NeoBundle 'mrk21/yaml-vim'
 
 call neobundle#end()
 filetype plugin indent on
@@ -266,10 +267,12 @@ nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
 "platina searcher
 nnoremap <silent><Space>p :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 if executable('pt')
-    let g:unite_source_grep_command = 'pf'
+    let g:unite_source_grep_command = 'pt'
     let g:unite_source_grep_default_opts = '--nogroup --nocolor'
     let g:unite_source_grep_recursive_opt = ''
 endif
+" search current word
+nnoremap <silent><Space>ap :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
 
 "Unite-Mark
 nnoremap <silent> [unite]ml  :<C-u>Unite mark<CR>
@@ -411,8 +414,7 @@ let g:syntastic_auto_loc_list = 2
 let g:syntastic_python_checkers = ['flake8']
 "c++11
 let g:syntastic_cpp_compiler = 'clang++'
-" let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
-let g:syntastic_cpp_compiler_options = '-std=c++11 -I ~/boost_1_57_0'
+let g:syntastic_cpp_compiler_options = '-std=c++11'
 
 
 "EnhCommentify

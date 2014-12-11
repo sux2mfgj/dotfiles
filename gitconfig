@@ -2,6 +2,9 @@
     name = himaaaatti
     email = sux2mfgj@gmail.com
 
+[credential]
+    helper = cache --timeout=7200
+
 [color]
     status = auto
     diff = auto
@@ -31,3 +34,5 @@
 
 # diff
     dm = diff master
+[credential]
+	helper = cache --timeout=7200

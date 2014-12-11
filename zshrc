@@ -142,3 +142,4 @@ export LESSCHARSET=utf-8
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+export LANG=en_US.UTF-8

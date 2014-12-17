@@ -24,8 +24,10 @@ set tabstop=4
 set laststatus=2
 set statusline=%F%r%=
 set statusline+=%{fugitive#statusline()}
+set statusline+=\ %{noscrollbar#statusline()}
 set statusline+=\ [%n]
 set statusline+=\ (%l,%c)
+
 
 "appearance
 set number
@@ -56,10 +58,10 @@ set noswapfile
 set nobackup
 
 "fold
-set foldenable
-set foldcolumn=3
-set foldmethod=syntax
-set foldlevel=0
+" set foldenable
+" set foldcolumn=3
+" set foldmethod=syntax
+" set foldlevel=0
 
 nnoremap <Space>a za
 nnoremap <Space>A zA
@@ -218,11 +220,6 @@ NeoBundle 'vim-scripts/a.vim'
 NeoBundle 'vim-scripts/c.vim'
 NeoBundle 'rhysd/vim-clang-format'
 NeoBundle 'Shougo/neomru.vim'
-
-" haskell
-" NeoBundle 'dag/vim2hs'
-" NeoBundle 'eagletmt/ghcmod-vim'
-" NeoBundle 'eagletmt/neco-ghc'
 NeoBundle 'lambdalisue/vim-gista'
 NeoBundle 'sudo.vim'
 NeoBundle 'louchen1990/rainbow'
@@ -235,6 +232,13 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'koron/codic-vim'
 NeoBundle 'mopp/smartnumber.vim'
 NeoBundle 'mrk21/yaml-vim'
+NeoBundle 'gcavallanti/vim-noscrollbar'
+
+" haskell
+" NeoBundle 'dag/vim2hs'
+" NeoBundle 'eagletmt/ghcmod-vim'
+" NeoBundle 'eagletmt/neco-ghc'
+
 
 "scheme
 NeoBundle 'amdt/vim-niji'

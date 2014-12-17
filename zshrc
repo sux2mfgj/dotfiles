@@ -20,6 +20,9 @@ SAVEHIST=10000
 setopt hist_ignore_dups # ignore duplication command history list
 setopt share_history # share command histroy data
 
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
+
 
 
 #Emacs key bind

@@ -233,12 +233,12 @@ NeoBundle 'koron/codic-vim'
 NeoBundle 'mopp/smartnumber.vim'
 NeoBundle 'mrk21/yaml-vim'
 NeoBundle 'gcavallanti/vim-noscrollbar'
+NeoBundle 'haya14busa/vim-easymotion'
 
 " haskell
 " NeoBundle 'dag/vim2hs'
 " NeoBundle 'eagletmt/ghcmod-vim'
 " NeoBundle 'eagletmt/neco-ghc'
-
 
 "scheme
 NeoBundle 'amdt/vim-niji'
@@ -508,9 +508,13 @@ nnoremap <Space>a :<C-u>AT<CR>
 
 "clang-fomat
 let g:clang_format#command="clang-format-3.5"
+let g:clang_format#code_style="chromium"
 let g:clang_format#style_options = {
     \ "BreakBeforeBraces" : "Stroustrup",
+    \ "AlwaysBreakTemplateDeclarations" : "true",
     \ "AccessModifierOffset" : -4,
+    \ "Standard" : "C++11",
+    \ "IndentWidth" : 4
     \}
 autocmd FileType c,cpp,objc nnoremap <Space>f :ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <Space>f :ClangFormat<CR>
@@ -520,3 +524,8 @@ let g:gista#github_user = 'himaaaatti'
 
 " scheme
 let lisp_rainbow=1
+
+" easymotion
+"TODO: set complete
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_use_migemo = 1

@@ -233,14 +233,14 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'koron/codic-vim'
 NeoBundle 'mopp/smartnumber.vim'
 NeoBundle 'mrk21/yaml-vim'
-" NeoBundle 'gcavallanti/vim-noscrollbar'
 NeoBundle 'vim-scripts/taglist.vim'
+NeoBundle 'gcavallanti/vim-noscrollbar'
+NeoBundle 'haya14busa/vim-easymotion'
 
 " haskell
 " NeoBundle 'dag/vim2hs'
 " NeoBundle 'eagletmt/ghcmod-vim'
 " NeoBundle 'eagletmt/neco-ghc'
-
 
 "scheme
 NeoBundle 'amdt/vim-niji'
@@ -510,9 +510,13 @@ nnoremap <Space>a :<C-u>AT<CR>
 
 "clang-fomat
 let g:clang_format#command="clang-format-3.5"
+let g:clang_format#code_style="chromium"
 let g:clang_format#style_options = {
     \ "BreakBeforeBraces" : "Stroustrup",
+    \ "AlwaysBreakTemplateDeclarations" : "true",
     \ "AccessModifierOffset" : -4,
+    \ "Standard" : "C++11",
+    \ "IndentWidth" : 4
     \}
 autocmd FileType c,cpp,objc nnoremap <Space>f vi{:ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <Space>f i{:ClangFormat<CR>
@@ -528,3 +532,8 @@ let Tlist_Exit_OnlyWindow = 1
 let Tlist_Use_Right_Window = 1
 let Tlist_Show_One_File = 1
 nnoremap <silent><space>tl :TlistToggle<CR>
+
+" easymotion
+"TODO: set complete
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_use_migemo = 1

@@ -23,8 +23,8 @@ set tabstop=4
 "status line
 set laststatus=2
 set statusline=%F%r%=
-set statusline+=%{fugitive#statusline()}
-set statusline+=\ %{noscrollbar#statusline()}
+" set statusline+=%
+" set statusline +=\ % { noscrollbar #statusline() }
 set statusline+=\ [%n]
 set statusline+=\ (%l,%c)
 
@@ -106,8 +106,7 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 autocmd BufReadPost * delmarks!
 
 "set prefix key
-let g:mapleader=";"
-"TODO: prefix かえる
+let g:mapleader=","
 
 "keymap
 "inoremap <Left> <Nop>
@@ -138,8 +137,8 @@ nnoremap <S-Down> <C-w>+<CR>
 nnoremap <Tab> %
 vnoremap <Tab> %
 
-" nnoremap <Space>h :<C-u>vertical belowright help<Space>
-nnoremap <silent> <Space>ht :tab help <C-R><C-W><CR>
+nnoremap <Space>h :<C-u>vertical belowright help<Space>
+" nnoremap <silent> <Space>ht :tab help <C-R><C-W><CR>
 
 nnoremap <Leader>ev :tabnew $MYVIMRC<CR>
 
@@ -149,6 +148,8 @@ nnoremap <Space>j gT
 nnoremap <Space>k gt
 nnoremap gt <Nop>
 nnoremap gT <Nop>
+
+nnoremap <Space>tj :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
 "autocmd
 autocmd FileType python setl foldmethod=indent
@@ -183,9 +184,9 @@ call neobundle#begin()
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/vimproc',{
-            \   'build' :{
-            \       'unix' : 'make -f make_unix.mak',
-            \   },
+    \ 'build' : {
+            \ 'unix' : 'make -f make_unix.mak',
+            \ },
             \}
 
 NeoBundle 'Shougo/unite.vim'
@@ -201,7 +202,7 @@ NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'nathanaelkane/vim-indent-guides'
-" NeoBundle 'scrooloose/syntastic'
+NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/EnhCommentify.vim'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'vim-scripts/vim-auto-save'
@@ -232,7 +233,8 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'koron/codic-vim'
 NeoBundle 'mopp/smartnumber.vim'
 NeoBundle 'mrk21/yaml-vim'
-NeoBundle 'gcavallanti/vim-noscrollbar'
+" NeoBundle 'gcavallanti/vim-noscrollbar'
+NeoBundle 'vim-scripts/taglist.vim'
 
 " haskell
 " NeoBundle 'dag/vim2hs'
@@ -264,9 +266,9 @@ endfunction
 nnoremap [unite] <Nop>
 nmap <Space>u [unite]
 
-nnoremap <silent> [unite]y  :<C-u>Unite history/yank<CR>
+nnoremap <silent> <Space>y  :<C-u>Unite history/yank<CR>
 nnoremap <silent> [unite]f  :<C-u>Unite file file_mru bookmark<CR>
-nnoremap <silent> [unite]b  :<C-u>Unite buffer<CR>
+nnoremap <silent> <Space>b  :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]r  :<C-u>Unite file_mru<CR>
 nnoremap <silent> [unite]ma  :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
@@ -292,7 +294,7 @@ if has('lua')
     let g:neocomplete#sources#syntax#min_keyword_length = 2
 
     let g:neocomplete#sources#dictionary#dictionaries  =  {
-        \ 'default' : '',
+    \ 'default' : '',
         \ 'php' : '~/.vim/dict/php.dict',
         \ 'c' : '~/.vim/dict/c.dict',
         \ 'cpp' : '~/.vim/dict/cpp.dict',
@@ -328,7 +330,7 @@ else
     let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
     let g:neocomplcache_dictionary_filetype_lists = {
-        \ 'default' : '',
+    \ 'default' : '',
         \ 'php' : '~/.vim/dict/php.dict',
         \ 'c' : '~/.vim/dict/c.dict',
         \ 'cpp' : '~/.vim/dict/cpp.dict',
@@ -376,7 +378,7 @@ let g:neocomplete#sources#dictionary#dictionaries  =  {
     \ 'c' : '~/.vim/dict/c.dict',
     \ 'cpp' : '~/.vim/dict/cpp.dict',
     \ 'java' : '~/.vim/dict/java.dict',
-    \ 'scala': '~/.vim/dict/scala.dict'
+    \ 'scala' : '~/.vim/dict/scala.dict'
     \}
 
 inoremap <expr><C-g>    neocomplete#undo_completion()
@@ -445,7 +447,7 @@ nmap #  <Plug>(anzu-sharp-with-echo)
 
 "QuickRun
 let g:quickrun_config = {
-\   '_':{
+    \   '_':{
 \       'runner': 'vimproc',
 \       'runner/vimproc/updatetime': 60,
 \       'vsplit': '',
@@ -512,11 +514,17 @@ let g:clang_format#style_options = {
     \ "BreakBeforeBraces" : "Stroustrup",
     \ "AccessModifierOffset" : -4,
     \}
-autocmd FileType c,cpp,objc nnoremap <Space>f :ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <Space>f :ClangFormat<CR>
+autocmd FileType c,cpp,objc nnoremap <Space>f vi{:ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <Space>f i{:ClangFormat<CR>
 
 " vim-gista
 let g:gista#github_user = 'himaaaatti'
 
 " scheme
 let lisp_rainbow=1
+
+" taglist
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Use_Right_Window = 1
+let Tlist_Show_One_File = 1
+nnoremap <silent><space>tl :TlistToggle<CR>

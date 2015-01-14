@@ -90,6 +90,8 @@ endfunction
 
 nnoremap [Mark]n ]`
 nnoremap [Mark]p [`
+nnoremap [Mark]l :<C-u>Unite mark<CR>
+" nnoremap <silent> [unite]ml  :<C-u>Unite mark<CR>
 
 "TODO: :nohlsearch
 
@@ -276,6 +278,7 @@ nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
 
 "platina searcher
 nnoremap <silent><Space>p :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+let g:unite_source_grep_default_opts = '-iRHn --exclude-from=tags'
 if executable('pt')
     let g:unite_source_grep_command = 'pt'
     let g:unite_source_grep_default_opts = '--nogroup --nocolor'
@@ -285,7 +288,7 @@ endif
 nnoremap <silent><Space>ap :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
 
 "Unite-Mark
-nnoremap <silent> [unite]ml  :<C-u>Unite mark<CR>
+" nnoremap <silent> [unite]ml  :<C-u>Unite mark<CR>
 
 if has('lua')
 "NeoComplete

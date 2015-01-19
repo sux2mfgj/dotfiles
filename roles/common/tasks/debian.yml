@@ -1,0 +1,26 @@
+---
+
+- apt: pkg={{ item }}
+  sudo: yes
+  with_items:
+    - git
+    - tmux
+    - vim
+
+- file: src={{ directory_name }}/files/{{ item }} dest={{ ansible_env.HOME }}/.{{ item }} state=absent
+  with_items:
+    - vimrc
+    - tmux.conf
+    - zshrc
+    - gitconfig
+    - xmodmap
+
+- file: src={{ directory_name }}/files/{{ item }} dest={{ ansible_env.HOME }}/.{{ item }} state=link
+  with_items:
+    - vimrc
+    - tmux.conf
+    - zshrc
+    - gitconfig
+    - xmodmap
+
+- file: path={{ ansible_env.HOME }}/.vim state=directory

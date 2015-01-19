@@ -52,7 +52,7 @@ set smartcase
 set wildmenu
 
 "undo
-set undodir=$HOME/.vim/undodir
+set undodir=$HOME/.vim/
 set undofile
 
 "file

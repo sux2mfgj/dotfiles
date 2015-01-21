@@ -3,11 +3,13 @@
 DIR=$(cd $(dirname $0); pwd)
 echo $DIR
 
-ln -s $DIR/vimrc $HOME/.vimrc
-ln -s $DIR/tmux.conf $HOME/.tmux.conf
-ln -s $DIR/xmodmap $HOME/.xmodmap
-ln -s $DIR/zshrc $HOME/.zshrc
-ln -s $DIR/gitconfig $HOME/.gitconfig
+FILES_DIR=DIR/files
+
+ln -s $FILES_DIR/vimrc $HOME/.vimrc
+ln -s $FILES_DIR/tmux.conf $HOME/.tmux.conf
+ln -s $FILES_DIR/xmodmap $HOME/.xmodmap
+ln -s $FILES_DIR/zshrc $HOME/.zshrc
+ln -s $FILES_DIR/gitconfig $HOME/.gitconfig
 
 mkdir -p $HOME/.vim/bundle
 mkdir -p $HOME/.vim/tmp

@@ -23,4 +23,32 @@
     - gitconfig
     - xmodmap
 
+- file: path={{ ansible_env.HOME }}/.zshrc.mine state=touch
+
 - file: path={{ ansible_env.HOME }}/.vim state=directory
+- file: path={{ ansible_env.HOME }}/.vim/bundle state=directory
+- file: path={{ ansible_env.HOME }}/.vim/undodir state=directory
+
+# neobundle
+- git: repo=git://github.com/Shougo/neobundle.vim
+       dest={{ ansible_env.HOME }}/.vim/bundle/neobundle.vim
+
+# 256-jungle
+- git: repo=git://github.com/vim-scripts/256-jungle
+       dest=/tmp/256-jungle
+
+- file: src=/tmp/256-jungle/colors dest={{ ansible_env.HOME }}/.vim/colors
+
+- file: path={{ ansible_env.HOME }}/etc state=directory
+
+# sl
+- git: repo=git://github.com/sgymtic/sl dest={{ ansible_env.HOME }}/etc/sl
+
+- apt: pkg={{ item }}
+  sudo: yes
+  with_items:
+    - ncurses-dev 
+
+- command: chdir={{ ansible_env.HOME }}/etc/sl make
+
+

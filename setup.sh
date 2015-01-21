@@ -31,5 +31,5 @@ mkdir -p $HOME/etc $HOME/tmp $HOME/bin
 #erutaso
 git clone git://github.com/sgymtic/sl $HOME/etc/sl
 
-cp -r $DIR/neosnippets $HOME/.vim/neosnippets
+# cp -r $DIR/neosnippets $HOME/.vim/neosnippets
 

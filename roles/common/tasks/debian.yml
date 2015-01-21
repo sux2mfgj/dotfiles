@@ -33,6 +33,13 @@
 - git: repo=git://github.com/Shougo/neobundle.vim
        dest={{ ansible_env.HOME }}/.vim/bundle/neobundle.vim
 
+# neosnippet
+- git: repo=git://github.com/Shougo/neosnippet-snippets
+       dest={{ ansible_env.HOME }}/tmp/neosnippet-snippets
+
+- file: src=/tmp/neosnippet-snippets/neosnippets
+        dest={{ ansible_env.HOME }}/.vim/neosnippets
+
 # 256-jungle
 - git: repo=git://github.com/vim-scripts/256-jungle
        dest=/tmp/256-jungle
@@ -47,7 +54,7 @@
 - apt: pkg={{ item }}
   sudo: yes
   with_items:
-    - ncurses-dev 
+    - ncurses-dev
 
 - command: chdir={{ ansible_env.HOME }}/etc/sl make
 

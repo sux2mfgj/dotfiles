@@ -1,0 +1,6 @@
+---
+- hosts: local
+  remote_user: hima
+
+  roles:
+    - common

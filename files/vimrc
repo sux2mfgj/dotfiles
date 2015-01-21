@@ -51,12 +51,19 @@ set ignorecase
 set smartcase
 set wildmenu
 
+"undo
+set undodir=$HOME/.vim/
+set undofile
+
 "file
 set autoread
+
+"baskup
 "TODO:backupについて考える
 set noswapfile
 set nobackup
 
+"TODO: fold を活用したい
 "fold
 " set foldenable
 " set foldcolumn=3
@@ -216,7 +223,7 @@ NeoBundle 'tacroe/unite-mark'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'sjl/gundo.vim'
-" NeoBundle 'vim-scripts/TaskList.vim'
+NeoBundle 'vim-scripts/TaskList.vim'
 NeoBundle 'junkblocker/unite-tasklist'
 NeoBundle 'daisuzu/translategoogle.vim'
 NeoBundle 'vim-scripts/a.vim'
@@ -489,7 +496,7 @@ nnoremap <Space>v :<C-u>VimFiler -explorer<CR>
 nnoremap <Leader>u :<C-u>GundoToggle<CR>
 
 "unite-tasklist
-" nnoremap <Leader>T :<C-u>TaskList<CR>
+nnoremap <Leader>T :<C-u>TaskList<CR>
 
 "googletranslate
 let g:translategoogle_default_sl = 'ja'

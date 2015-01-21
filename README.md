@@ -1,6 +1,14 @@
 dotfiles
 ========
 
+if you prepare ansible, please run  
+$./setup_anasible.sh  
 
-./setup.sh
-setup.shをansibleにかえる
+other  
+$./setup.sh  
+
+
+####TODO  
+- roles/common/tasks/redhat.yml
+
+

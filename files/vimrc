@@ -245,6 +245,7 @@ NeoBundle 'mrk21/yaml-vim'
 NeoBundle 'vim-scripts/taglist.vim'
 NeoBundle 'gcavallanti/vim-noscrollbar'
 NeoBundle 'haya14busa/vim-easymotion'
+NeoBundle 'h1mesuke/unite-outline'
 
 " haskell
 " NeoBundle 'dag/vim2hs'

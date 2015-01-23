@@ -1,0 +1,10 @@
+---
+
+- yum: name={{ item }}
+  sudo: yes
+  with_items:
+    - git
+    - tmux
+    - vim
+
+

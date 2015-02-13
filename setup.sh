@@ -3,7 +3,7 @@
 DIR=$(cd $(dirname $0); pwd)
 echo $DIR
 
-FILES_DIR=DIR/files
+FILES_DIR=$DIR/files
 
 ln -s $FILES_DIR/vimrc $HOME/.vimrc
 ln -s $FILES_DIR/tmux.conf $HOME/.tmux.conf

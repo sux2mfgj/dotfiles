@@ -245,6 +245,11 @@ NeoBundle 'mrk21/yaml-vim'
 NeoBundle 'vim-scripts/taglist.vim'
 NeoBundle 'gcavallanti/vim-noscrollbar'
 NeoBundle 'haya14busa/vim-easymotion'
+NeoBundle 'groenewege/vim-less'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'mopp/makcomp'
+" NeoBundle 'ahisheng/visualmark'
+" NeoBundle 'kshenoy/vim-signature'
 
 " haskell
 " NeoBundle 'dag/vim2hs'
@@ -547,3 +552,9 @@ nnoremap <silent><space>tl :TlistToggle<CR>
 "TODO: set complete
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_use_migemo = 1
+
+" visualmark
+" nnoremap <silent>[Mark]v <Plug>Vm_toggle_sign
+
+"vim-signature
+" nnoremap [Mark]t :<C-u>SignatureToggleSigns<CR>

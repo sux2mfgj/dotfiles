@@ -3,7 +3,7 @@
 DIR=$(cd $(dirname $0); pwd)
 echo $DIR
 
-FILES_DIR=DIR/files
+FILES_DIR=$DIR/files
 
 ln -s $FILES_DIR/vimrc $HOME/.vimrc
 ln -s $FILES_DIR/tmux.conf $HOME/.tmux.conf
@@ -20,8 +20,8 @@ git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 git clone git://github.com/vim-scripts/256-jungle ~/.vim/tmp/256-jungle
 cp -r ~/.vim/tmp/256-jungle/colors ~/.vim/
 
-# git clone git://github.com/Shougo/neosnippet-snippets ~/.vim/tmp/neosnippet-snippets
-# cp -r ~/.vim/tmp/neosnippet-snippets/neosnippets ~/.vim/neosnippets
+git clone git://github.com/Shougo/neosnippet-snippets ~/.vim/tmp/neosnippet-snippets
+cp -r ~/.vim/tmp/neosnippet-snippets/neosnippets ~/.vim/neosnippets
 
 rm -rf $DIR/256-jungle
 

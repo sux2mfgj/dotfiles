@@ -3,35 +3,53 @@
 DIR=$(cd $(dirname $0); pwd)
 echo $DIR
 
-FILES_DIR=$DIR/files
+if [ `which ansible-playbook` ]; then
+    echo "setup script use ansible"
+    by_ansible $DIR
+else
+    echo "shell script"
+    by_shell $DIR
+fi
 
-ln -s $FILES_DIR/vimrc $HOME/.vimrc
-ln -s $FILES_DIR/tmux.conf $HOME/.tmux.conf
-ln -s $FILES_DIR/xmodmap $HOME/.xmodmap
-ln -s $FILES_DIR/zshrc $HOME/.zshrc
-ln -s $FILES_DIR/gitconfig $HOME/.gitconfig
+by_shell(){
 
-mkdir -p $HOME/.vim/bundle
-mkdir -p $HOME/.vim/tmp
-mkdir -p $HOME/.vim/undodir
+    FILES_DIR=$1/files
 
-git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+    ln -s $FILES_DIR/vimrc $HOME/.vimrc
+    ln -s $FILES_DIR/tmux.conf $HOME/.tmux.conf
+    ln -s $FILES_DIR/xmodmap $HOME/.xmodmap
+    ln -s $FILES_DIR/zshrc $HOME/.zshrc
+    ln -s $FILES_DIR/gitconfig $HOME/.gitconfig
 
-git clone git://github.com/vim-scripts/256-jungle ~/.vim/tmp/256-jungle
-cp -r ~/.vim/tmp/256-jungle/colors ~/.vim/
+    mkdir -p $HOME/.vim/bundle
+    mkdir -p $HOME/.vim/tmp
+    mkdir -p $HOME/.vim/undodir
 
-git clone git://github.com/Shougo/neosnippet-snippets ~/.vim/tmp/neosnippet-snippets
-cp -r ~/.vim/tmp/neosnippet-snippets/neosnippets ~/.vim/neosnippets
+    git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
-rm -rf $DIR/256-jungle
+    git clone git://github.com/vim-scripts/256-jungle ~/.vim/tmp/256-jungle
+    cp -r ~/.vim/tmp/256-jungle/colors ~/.vim/
 
-cp $DIR/zshrc.mine $HOME/.zshrc.mine
+    git clone git://github.com/Shougo/neosnippet-snippets ~/.vim/tmp/neosnippet-snippets
+    cp -r ~/.vim/tmp/neosnippet-snippets/neosnippets ~/.vim/neosnippets
+
+    rm -rf $1/256-jungle
+
+    cp $1/zshrc.mine $HOME/.zshrc.mine
 
 
-mkdir -p $HOME/etc $HOME/tmp $HOME/bin
+    mkdir -p $HOME/etc $HOME/tmp $HOME/bin
 
-#erutaso
-git clone git://github.com/sgymtic/sl $HOME/etc/sl
+    #erutaso
+    git clone git://github.com/sgymtic/sl $HOME/etc/sl
 
-# cp -r $DIR/neosnippets $HOME/.vim/neosnippets
+    # cp -r $1/neosnippets $HOME/.vim/neosnippets
 
+}
+
+by_ansible() {
+    echo --- > group_vars/all
+    echo directory_name: $1 >> group_vars/all
+
+    ansible-playbook -i hosts main.yml --ask-sudo-pass -vvv
+}

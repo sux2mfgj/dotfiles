@@ -1,10 +1,10 @@
 
 ;;
-(global-set-key "\C-h" delete-backward-char)
+;;(global-set-key "\C-h" delete-backward-char)
+(keyboard-translate ?\C-h ?\C-?)
 
 ;;
 (setq inhibit-startup-message t)
-
 
 (show-paren-mode 1)
 

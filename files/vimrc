@@ -50,18 +50,38 @@ set hlsearch
 set ignorecase
 set smartcase
 set wildmenu
-
-"undo
-set undodir=$HOME/.vim/
-set undofile
-
 "file
 set autoread
 
-"baskup
-"TODO:backupについて考える
-set noswapfile
-set nobackup
+"swap
+set directory=~/.vim/swap
+set swapfile
+
+"undo
+set undodir=~/.vim/undodir
+set undofile
+
+"backup
+set backupdir=~/.vim/backup
+set backup
+let &directory = &backupdir
+
+autocmd BufWritePre, FileWritePre, FileAppendPre * call UpdateBackupFile()
+
+function! UpdateBackupFile()
+    let basedir = "$HOMR/.vim/backup"
+    let dir = strftime(basedir, "/%Y%m/%d", localtime())
+    if !isdirectory(dir)
+        let retval = system("chown hima:hima ".dir)
+    endif
+    exe "set backupdir=".dir
+    let time = strftime("%H_%M_%S", localtime())
+    exe "set backupext=.".time
+endfunction
+
+
+"viminfo
+set viminfo='50,\"1000,:0,n~/.vim/viminfo.txt
 
 "TODO: fold を活用したい
 "fold

@@ -1,16 +1,5 @@
 #!/bin/bash
 
-DIR=$(cd $(dirname $0); pwd)
-echo $DIR
-
-if [ `which ansible-playbook` ]; then
-    echo "setup script use ansible"
-    by_ansible $DIR
-else
-    echo "shell script"
-    by_shell $DIR
-fi
-
 by_shell(){
 
     FILES_DIR=$1/files
@@ -53,3 +42,16 @@ by_ansible() {
 
     ansible-playbook -i hosts main.yml --ask-sudo-pass -vvv
 }
+
+DIR=$(cd $(dirname $0); pwd)
+echo $DIR
+
+if [ `which ansible-playbook` ]; then
+    echo "setup script use ansible"
+    by_ansible $DIR
+else
+    echo "shell script"
+    by_shell $DIR
+fi
+
+

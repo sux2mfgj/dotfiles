@@ -1,4 +1,3 @@
-
 ;;
 ;;(global-set-key "\C-h" delete-backward-char)
 (keyboard-translate ?\C-h ?\C-?)
@@ -63,5 +62,35 @@
 ;;print line number 
 (require 'linum)
 (global-linum-mode 1)
+
+
+
+;; Irc settings
+;;(setq erc-server "irc.ircnet.ne.jp")
+;;(setq erc-port "6660")                  
+;;(setq erc-nick "himaaaatti")            
+
+;; symbolic link file to git version controle
+(setq vc-follow-symlinks t)
+
+;; back up file settings
+(setq make-backup-files nil)
+
+(setq auto-save-default nil)
+
+;; save place of cursol
+(require 'saveplace)
+(setq-default save-place t)
+
+;; add new line at last line
+(setq require-final-newline t)
+
+
+;; completion
+(icomplete-mode 1)
+
+;; spell check
+(setq-default flyspell-mode t)
+(setq ispless-directory "american")
 
 

@@ -10,7 +10,6 @@ set backspace=start,eol,indent
 set backspace=2
 
 "colorscheme
-" syntax on
 colorscheme 256-jungle
 
 "tab

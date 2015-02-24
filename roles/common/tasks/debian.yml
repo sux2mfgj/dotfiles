@@ -24,6 +24,7 @@
     - xmodmap
 
 - file: src={{ directory_name }}/files/git_pull.sh dest=/etc/cron.daily/git_pull.sh state=link
+  sudo: yes
 
 - file: path={{ ansible_env.HOME }}/.zshrc.mine state=touch
 

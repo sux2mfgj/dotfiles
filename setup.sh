@@ -37,6 +37,8 @@ by_shell(){
 }
 
 by_ansible() {
+    echo $1/group_vars
+    mkdir -p $1/group_vars
     echo --- > group_vars/all
     echo directory_name: $1 >> group_vars/all
 

@@ -271,6 +271,8 @@ NeoBundle 'mopp/makcomp'
 " NeoBundle 'kshenoy/vim-signature'
 "
 NeoBundle 'h1mesuke/unite-outline'
+" NeoBundle '5t111111/alt-gtags.vim'
+NeoBundle 'hewes/unite-gtags'
 
 " haskell
 " NeoBundle 'dag/vim2hs'
@@ -307,6 +309,7 @@ nnoremap <silent> <Space>b  :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]r  :<C-u>Unite file_mru<CR>
 nnoremap <silent> [unite]ma  :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
+nnoremap <silent> <Space>d  :<C-u>Unite tab<CR>
 "nnoremap <silent> [unite]mr :<C-u>Unite output:marks<CR>
 
 "platina searcher
@@ -579,3 +582,8 @@ let g:EasyMotion_use_migemo = 1
 
 "vim-signature
 " nnoremap [Mark]t :<C-u>SignatureToggleSigns<CR>
+
+" unite-gtags
+" g:unite_source_gtags_ref_option: "r"
+" g:unite_source_gtags_def_option: ""
+" g:unite_source_gtags_result_option: "ctags-x"

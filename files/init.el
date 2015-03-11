@@ -93,4 +93,29 @@
 (setq-default flyspell-mode t)
 (setq ispless-directory "american")
 
+;; mozc
+(require 'mozc)
+(setq default-input-mode "japanese-mozc")
+
+;; nn ん
+(setq quail-japanese-use-double-n t)
+
+
+;; print completion mini buffer
+(setq mozc-candidate-style 'echo-erea)
+
+(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/slime"))
+
+;; slime
+(require 'slime)
+(slime-setup `(slime-repl slime-fancy slime-banner))
+
+;; auto-compete
+(require 'auto-complete)
+(require 'auto-complete-config)
+(global-auto-complete-mode t)
+
+
+
 

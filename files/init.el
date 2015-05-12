@@ -39,6 +39,14 @@
 ;; use space substitute for tab
 (setq-default indent-tabs-mode nil)
 
+;; Color(background and foreground)
+(if window-system (progn
+                    (set-background-color "Black")
+                    (set-foreground-color "LightGray")
+                    (set-cursor-color "Gray")
+                    (set-frame-parameter nil 'alpha 100)
+                    ));
+
 ;; print correspont ()
 (show-paren-mode 1)
 
@@ -59,16 +67,14 @@
 (define-key global-map (kbd "C-m") 'newline-and-indent)
 
 ;; ---- default plugin setting ----
-;;print line number 
+;;print line number
 (require 'linum)
 (global-linum-mode 1)
 
-
-
 ;; Irc settings
 ;;(setq erc-server "irc.ircnet.ne.jp")
-;;(setq erc-port "6660")                  
-;;(setq erc-nick "himaaaatti")            
+;;(setq erc-port "6660")
+;;(setq erc-nick "himaaaatti")
 
 ;; symbolic link file to git version controle
 (setq vc-follow-symlinks t)
@@ -93,4 +99,5 @@
 (setq-default flyspell-mode t)
 (setq ispless-directory "american")
 
+(require 'mozc)
 

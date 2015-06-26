@@ -1,4 +1,3 @@
-
 "himaaaatti's vimrc
 
 "encoding
@@ -12,7 +11,6 @@ set backspace=2
 
 "colorscheme
 colorscheme 256-jungle
-syntax on
 
 "tab
 set expandtab
@@ -28,6 +26,7 @@ set statusline=%F%r%=
 " set statusline +=\ % { noscrollbar #statusline() }
 set statusline+=\ [%n]
 set statusline+=\ (%l,%c)
+
 
 "appearance
 set number
@@ -53,13 +52,9 @@ set wildmenu
 "file
 set autoread
 
-"other
-set autoindent
-set cindent
-set history=1000
-set undofile
-set undodir=~/.vim/undo
-set undolevels=1000
+"swap
+set directory=~/.vim/swap
+set swapfile
 
 "undo
 set undodir=~/.vim/undodir
@@ -70,24 +65,35 @@ set backupdir=~/.vim/backup
 set backup
 let &directory = &backupdir
 
-"auto backup
-autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
+autocmd BufWritePre, FileWritePre, FileAppendPre * call UpdateBackupFile()
+
 function! UpdateBackupFile()
-    let basedir = "$HOME/.vim/backup"
-    let dir = strftime(basedir."/%Y%m/%d", localtime())
+    let basedir = "$HOMR/.vim/backup"
+    let dir = strftime(basedir, "/%Y%m/%d", localtime())
     if !isdirectory(dir)
-        let retval = system("mkdir -p ".dir)
-        let retval = system("chown username:groupname ".dir)
+        let retval = system("chown hima:hima ".dir)
     endif
     exe "set backupdir=".dir
     let time = strftime("%H_%M_%S", localtime())
     exe "set backupext=.".time
 endfunction
 
+
 "viminfo
 set viminfo='50,\"1000,:0,n~/.vim/viminfo.txt
 
-" ----- mark -----
+"TODO: fold を活用したい
+"fold
+" set foldenable
+" set foldcolumn=3
+" set foldmethod=syntax
+" set foldlevel=0
+
+nnoremap <Space>a za
+nnoremap <Space>A zA
+nnoremap <Space>R zR
+
+"mark
 nnoremap [Mark] <Nop>
 nmap m [Mark]
 
@@ -110,9 +116,35 @@ endfunction
 
 nnoremap [Mark]n ]`
 nnoremap [Mark]p [`
+nnoremap [Mark]l :<C-u>Unite mark<CR>
+" nnoremap <silent> [unite]ml  :<C-u>Unite mark<CR>
+
+"TODO: :nohlsearch
+
+"other
+set autoindent
+set cindent
+set history=1000
+set undofile
+set undodir=~/.vim/undo
+set undolevels=1000
+
+"TODO: groupでかこむ
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+autocmd BufReadPost * delmarks!
 
 "set prefix key
 let g:mapleader=","
+
+"keymap
+"inoremap <Left> <Nop>
+"inoremap <Right> <Nop>
+"inoremap <Up> <Nop>
+"inoremap <Down> <Nop>
+"noremap <Left> <Nop>
+"noremap <Right> <Nop>
+"noremap <Up> <Nop>
+"noremap <Down> <Nop>
 
 nnoremap ZQ <Nop>
 nnoremap Q gq
@@ -147,9 +179,20 @@ nnoremap gT <Nop>
 
 nnoremap <Space>tj :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
+"autocmd
+autocmd FileType python setl foldmethod=indent
+autocmd FileType c setl cindent
+
+autocmd BufWritePre * :%s/\s\+$//e
+
+augroup filetypedetect
+    au BufRead,BufNewFile *.s setfiletype gas
+augroup END
+
 "-------------------------------
 "   Plugin
 "-------------------------------
+" filetype off
 
 if !isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     echo 'No NeoBundle'
@@ -174,32 +217,6 @@ NeoBundle 'Shougo/vimproc',{
             \ },
             \}
 
-" --- list ---
-
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'vim-scripts/EnhCommentify.vim'
-NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'vim-scripts/vim-auto-save'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'tacroe/unite-mark'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'vim-scripts/TaskList.vim'
-NeoBundle 'junkblocker/unite-tasklist'
-NeoBundle 'vim-scripts/a.vim'
-NeoBundle 'vim-scripts/c.vim'
-NeoBundle 'rhysd/vim-clang-format'
-NeoBundle 'sudo.vim'
-NeoBundle 'mopp/smartnumber.vim'
-NeoBundle 'groenewege/vim-less'
-
-NeoBundle 'kana/vim-smartchr'
-NeoBundle 'kana/vim-smartinput'
-
-" --- list -- end ---
 NeoBundle 'Shougo/unite.vim'
 
 if has('lua')
@@ -208,9 +225,68 @@ else
     NeoBundle 'Shougo/neocomplcache'
 endif
 
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'kana/vim-smartchr'
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'vim-scripts/EnhCommentify.vim'
+NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'vim-scripts/vim-auto-save'
+NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tacroe/unite-mark'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'itchyny/calendar.vim'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'vim-scripts/TaskList.vim'
+NeoBundle 'junkblocker/unite-tasklist'
+NeoBundle 'daisuzu/translategoogle.vim'
+NeoBundle 'vim-scripts/a.vim'
+NeoBundle 'vim-scripts/c.vim'
+NeoBundle 'rhysd/vim-clang-format'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'lambdalisue/vim-gista'
+NeoBundle 'sudo.vim'
+NeoBundle 'louchen1990/rainbow'
+NeoBundle 'LeafCage/yankround.vim'
+NeoBundle 'boolfool/vim-sudden-death'
+NeoBundle 'sk1418/blockit'
+NeoBundle 'osyo-manga/vim-marching'
+NeoBundle 'mattn/gist-vim'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'koron/codic-vim'
+NeoBundle 'mopp/smartnumber.vim'
+NeoBundle 'mrk21/yaml-vim'
+NeoBundle 'vim-scripts/taglist.vim'
+NeoBundle 'gcavallanti/vim-noscrollbar'
+NeoBundle 'haya14busa/vim-easymotion'
+NeoBundle 'groenewege/vim-less'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'mopp/makcomp'
+" NeoBundle 'ahisheng/visualmark'
+" NeoBundle 'kshenoy/vim-signature'
+"
+NeoBundle 'h1mesuke/unite-outline'
+" NeoBundle '5t111111/alt-gtags.vim'
+NeoBundle 'hewes/unite-gtags'
+
+" haskell
+" NeoBundle 'dag/vim2hs'
+" NeoBundle 'eagletmt/ghcmod-vim'
+" NeoBundle 'eagletmt/neco-ghc'
+
+"scheme
+NeoBundle 'amdt/vim-niji'
+NeoBundle 'aharisu/vim_goshrepl'
+
 call neobundle#end()
 filetype plugin indent on
 
+"Unite
 let g:unite_data_directory = expand('~/.vim/Unite')
 let g:unite_source_history_yank_enable = 1
 let g:unite_enable_start_insert = 1
@@ -234,7 +310,6 @@ nnoremap <silent> [unite]r  :<C-u>Unite file_mru<CR>
 nnoremap <silent> [unite]ma  :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
 nnoremap <silent> <Space>d  :<C-u>Unite tab<CR>
-nnoremap [Mark]l :<C-u>Unite mark<CR>
 "nnoremap <silent> [unite]mr :<C-u>Unite output:marks<CR>
 
 "platina searcher
@@ -247,6 +322,9 @@ if executable('pt')
 endif
 " search current word
 nnoremap <silent><Space>ap :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
+
+"Unite-Mark
+" nnoremap <silent> [unite]ml  :<C-u>Unite mark<CR>
 
 if has('lua')
 "NeoComplete
@@ -388,21 +466,22 @@ let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = '-std=c++11'
 
 "EnhCommentify
-let g:EnhCommentifyRespectIndent = 'No'
+"let g:EnhCommentifyRespectIndent = 'Yes'
 let g:EnhCommentifyPretty = 'Yes'
 let g:EnhCommentifyUseBlockIndent = 'Yes'
 let g:EnhCommentifyCommentsOp = 'yes'
-
-"nerdcommenter
-"let NERDSpaceDelims = 1
-"nnoremap <Leader>x NERDCommenterToggle
-"vnoremap <Leader>x NERDCommenterToggle
+"TODO:scrooloose/nerdcommenter
 
 "Vim-Airline
 let g:airline#extensions#tabline#enabled  =  1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 
+"Vim-Anzu
+nmap n  <Plug>(anzu-n-with-echo)
+nmap N  <Plug>(anzu-N-with-echo)
+nmap *  <Plug>(anzu-star-with-echo)
+nmap #  <Plug>(anzu-sharp-with-echo)
 
 "QuickRun
 let g:quickrun_config = {
@@ -425,7 +504,47 @@ let g:auto_save = 1
 let g:vimfiler_edit_action = 'tabopen'
 let g:vimfiler_enable_auto_cd = 1
 " nnoremap <Space>v :VimFiler -split -simple -winwidth=35 -quit<CR>
-nnoremap <silent> <Space>v :<C-u>VimFiler -explorer<CR>
+
+nnoremap <Space>v :<C-u>VimFiler -explorer<CR>
+
+"Fugitive
+" noremap [Fugitive] <Nop>
+" nmap <Space>g [Fugitive]
+
+" nnoremap [Fugitive]g :<C-u>Git<Space>
+" nnoremap [Fugitive]s :<C-u>Gstatus<CR>
+" nnoremap [Fugitive]a :<C-u>Gwrite<CR>
+" nnoremap [Fugitive]c :<C-u>Gcommit<CR>
+" nnoremap [Fugitive]b :<C-u>Gblame<CR>
+" nnoremap [Fugitive]p :<C-u>Git<Space>pull<CR>
+
+"Callender
+
+"Gundo
+nnoremap <Leader>u :<C-u>GundoToggle<CR>
+
+"unite-tasklist
+nnoremap <Leader>T :<C-u>TaskList<CR>
+
+"googletranslate
+let g:translategoogle_default_sl = 'ja'
+let g:translategoogle_default_tl = 'en'
+nnoremap <Space>g :<C-u>TranslateGoogle<CR>
+
+"calendarvim
+nnoremap <Space>c :<C-u>Calendar<CR>
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+
+"a.vim
+nnoremap <Space>a :<C-u>AT<CR>
+
+" haskell
+" ghcmod-vim
+" augroup ghcmodcheck
+"     autocmd! BufWritePost <buffer> GhcModCheckAsync
+" augroup END
+"
 
 "clang-fomat
 let g:clang_format#command="clang-format-3.5"
@@ -440,9 +559,30 @@ let g:clang_format#style_options = {
 autocmd FileType c,cpp,objc nnoremap <Space>f vi{:ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <Space>f i{:ClangFormat<CR>
 
-"a.vim
-nnoremap <Space>a :<C-u>AT<CR>
+" vim-gista
+let g:gista#github_user = 'himaaaatti'
 
-"unite-tasklist
-nnoremap <Leader>T :<C-u>TaskList<CR>
+" scheme
+let lisp_rainbow=1
 
+" taglist
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Use_Right_Window = 1
+let Tlist_Show_One_File = 1
+nnoremap <silent><space>tl :TlistToggle<CR>
+
+" easymotion
+"TODO: set complete
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_use_migemo = 1
+
+" visualmark
+" nnoremap <silent>[Mark]v <Plug>Vm_toggle_sign
+
+"vim-signature
+" nnoremap [Mark]t :<C-u>SignatureToggleSigns<CR>
+
+" unite-gtags
+" g:unite_source_gtags_ref_option: "r"
+" g:unite_source_gtags_def_option: ""
+" g:unite_source_gtags_result_option: "ctags-x"

@@ -182,3 +182,5 @@ bindkey "^[q" show_command_line_stack
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export LANG=en_US.UTF-8
+
+export PATH=$HOME/bin:$PATH

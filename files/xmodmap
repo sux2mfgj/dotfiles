@@ -13,6 +13,7 @@ add Control = Control_L
 
 keycode 102 = grave asciitilde
 
+keycode 132 = Super_R
 
 clear Shift
 keycode 100 = Shift_R

@@ -193,3 +193,4 @@ export LANG=en_US.UTF-8
 #  fi
 
 export LC_ALL=C
+alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'

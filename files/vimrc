@@ -190,7 +190,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-scripts/TaskList.vim'
 NeoBundle 'junkblocker/unite-tasklist'
 NeoBundle 'vim-scripts/a.vim'
-NeoBundle 'vim-scripts/c.vim'
+" NeoBundle 'vim-scripts/c.vim'
 NeoBundle 'rhysd/vim-clang-format'
 NeoBundle 'sudo.vim'
 NeoBundle 'mopp/smartnumber.vim'
@@ -198,6 +198,14 @@ NeoBundle 'groenewege/vim-less'
 
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'kana/vim-smartinput'
+
+NeoBundle 'thinca/vim-template'
+
+" For python
+if has('python3') || has('python')
+    NeoBundle 'davidhalter/jedi-vim'
+    NeoBundle 'andviro/flake8-vim'
+endif
 
 " --- list -- end ---
 NeoBundle 'Shougo/unite.vim'
@@ -356,7 +364,6 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
     " For perlomni.vim setting.
     " https://github.com/c9s/perlomni.vim
     let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
 
 endif
 

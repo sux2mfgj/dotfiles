@@ -184,3 +184,13 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export LANG=en_US.UTF-8
 
 export PATH=$HOME/bin:$PATH
+if [ -z $TMUX ] ;then
+
+    if [ -z `tmux ls` ]; then
+        tmux
+    else
+        tmux attach
+    fi
+fi
+
+alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'

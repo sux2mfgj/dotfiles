@@ -34,13 +34,23 @@ do
 done
 echo ----- finish -----
 
-echo [start install neobundle]
+pid_array=()
+
+
+echo start install 
+echo [ neobundle ]
 if [ -e $HOME/.vim/bundle/neobundle.vim ]; then
-    echo neobundle already installed.   
+    echo neobundle already installed
 else
     $(git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim)
+    pid_array+=$! "installed neobundle"
 fi
 
+
+for line in ${pid_array}
+do
+    echo ${line}
+done
 
 
 

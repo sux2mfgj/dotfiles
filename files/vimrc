@@ -195,11 +195,13 @@ NeoBundle 'rhysd/vim-clang-format'
 NeoBundle 'sudo.vim'
 NeoBundle 'mopp/smartnumber.vim'
 NeoBundle 'groenewege/vim-less'
+NeoBundle "scrooloose/syntastic"
 
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'kana/vim-smartinput'
 
 NeoBundle 'thinca/vim-template'
+
 
 " For python
 if has('python3') || has('python')
@@ -426,7 +428,7 @@ let g:quickrun_config = {
 "TODO:rhysd/vim-operator-surround
 
 "Vim-AutoSave
-let g:auto_save = 1
+let g:auto_save = 0
 
 "VimFiler
 let g:vimfiler_edit_action = 'tabopen'

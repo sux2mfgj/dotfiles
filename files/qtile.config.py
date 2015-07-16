@@ -27,7 +27,8 @@
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
-mod = "mod4"
+#  mod = "mod4"
+mod = "mod1"
 
 keys = [
     # Switch between windows in current stack pane
@@ -127,35 +128,36 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                widget.TextBox("default config", name="default"),
+#                  widget.TextBox("default config", name="default"),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
-            30,
+            25,
         ),
         bottom=bar.Bar(
             [
-                widget.Notify(),
-                widget.BatteryIcon(),
-                widget.GmailChecker(),
-                widget.Systray(),
+#                  widget.BatteryIcon(),
+#                  widget.GmailChecker(),
 #                  widget.KeyboardLayout(),
                 widget.CPUGraph(),
                 widget.MemoryGraph(),
                 widget.NetGraph(),
+                widget.Notify(),
 #                  widget.HDDGraph(path = '/home'),
 #                  widget.LoadAverageGraph(),
             ],
-            30,
+            25,
         ),
     ),
 ]
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
+    Drag(
+        [mod], "Button1", lazy.window.set_position_floating(),
         start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
+    Drag(
+        [mod], "Button3", lazy.window.set_size_floating(),
         start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
@@ -178,3 +180,11 @@ auto_fullscreen = True
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+from libqtile import hook
+import subprocess
+
+
+@hook.subscribe.startup_once
+def startup_once():
+    subprocess.Popen(['fcitx-autostart'])
+    subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])

@@ -1,59 +1,47 @@
 #!/bin/bash
 
-by_shell(){
+current_dir=$(cd $(dirname $0); pwd)
 
-    FILES_DIR=$1/files
+files_path=$current_dir/files
 
-    ln -s $FILES_DIR/vimrc $HOME/.vimrc
-    ln -s $FILES_DIR/tmux.conf $HOME/.tmux.conf
-    ln -s $FILES_DIR/xmodmap $HOME/.xmodmap
-    ln -s $FILES_DIR/zshrc $HOME/.zshrc
-    ln -s $FILES_DIR/gitconfig $HOME/.gitconfig
+echo $files_path
 
-    mkdir -p $HOME/.vim/bundle
-    mkdir -p $HOME/.vim/tmp
-    mkdir -p $HOME/.vim/undodir
-
-    git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-
-    git clone git://github.com/vim-scripts/256-jungle ~/.vim/tmp/256-jungle
-    cp -r ~/.vim/tmp/256-jungle/colors ~/.vim/
-
-    git clone git://github.com/Shougo/neosnippet-snippets ~/.vim/tmp/neosnippet-snippets
-    cp -r ~/.vim/tmp/neosnippet-snippets/neosnippets ~/.vim/neosnippets
-
-    rm -rf $1/256-jungle
-
-    cp $1/zshrc.mine $HOME/.zshrc.mine
+home_dot_files=("tmux.conf" "vimrc" "xmodmap" "zshrc")
+create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".emacs.d" "bin" "work" "tmp" "src")
 
 
-    mkdir -p $HOME/etc $HOME/tmp $HOME/bin
+echo ----- create symbolic link -----
+for f in ${home_dot_files[@]}
+do
+#     echo ${files_path}/${f} $HOME/.${f}
+    if [ -e $HOME/.${f} ]; then
+        echo ${f} is already exists.
+    else
+        ln -s ${files_path}/${f} $HOME/.${f}
+    fi
+done
+echo ----- finish -----
 
-    #erutaso
-    git clone git://github.com/sgymtic/sl $HOME/etc/sl
+echo ----- create dir  -----
+for dir in ${create_dirs[@]}
+do
+#     echo $HOME/${dir}
+    if [ -e $HOME/${dir} ]; then
+        echo $HOME/${dir} is already exists.
+    else
+        mkdir -p $HOME/${dir}
+    fi
+done
+echo ----- finish -----
 
-    # cp -r $1/neosnippets $HOME/.vim/neosnippets
-
-}
-
-by_ansible() {
-    echo $1/group_vars
-    mkdir -p $1/group_vars
-    echo --- > group_vars/all
-    echo directory_name: $1 >> group_vars/all
-
-    ansible-playbook -i hosts main.yml --ask-sudo-pass -vvv
-}
-
-DIR=$(cd $(dirname $0); pwd)
-echo $DIR
-
-if [ `which ansible-playbook` ]; then
-    echo "setup script use ansible"
-    by_ansible $DIR
+echo [start install neobundle]
+if [ -e $HOME/.vim/bundle/neobundle.vim ]; then
+    echo neobundle already installed.   
 else
-    echo "shell script"
-    by_shell $DIR
+    $(git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim)
 fi
+
+
+
 
 

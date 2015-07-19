@@ -40,9 +40,19 @@ if [ -e $HOME/.config/qtile/config.py ]
 then
     echo config.py is already exists.
 else
-    mkdir -p $HOME/.config/qtile 
+    mkdir -p $HOME/.config/qtile
     ln -s ${files_path}/qtile.config.py $HOME/.config/qtile/config.py
     echo ${files_path}/qtile.config.py $HOME/.config/qtile/config.py
+fi
+
+# for terminator config file
+if [ -e $HOME/.config/terminator/config ]
+then
+    echo terminator config file is already exists.
+else
+    mkdir -p $HOME/.config/terminator
+    ln -s ${files_path}/terminator.config $HOME/.config/terminator/config
+    echo ${files_path}/terminator.config $HOME/.config/terminator/config
 fi
 
 echo ----- create dir  -----
@@ -66,13 +76,13 @@ fi
 
 
 goto_exit(){
-    echo -------- finish --------- >> ${logfile_dir} 
+    echo -------- finish --------- >> ${logfile_dir}
     exit $1
 }
 
 echo -------- start ---------- >> ${logfile_dir} &
 date >> ${logfile_dir}
-which git >> ${logfile_dir} 2>&1 
+which git >> ${logfile_dir} 2>&1
 if [ $? -ne 0 ]
 then
     goto_exit 1
@@ -86,7 +96,7 @@ echo ----- start install -----
 
 echo "[ neobundle(vim) ]"
 # process(){
-#     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim 
+#     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 #     exit $?
 # }
 
@@ -95,14 +105,14 @@ if [ -e $HOME/.vim/bundle/neobundle.vim ]; then
     pid_array+=(" ${pass_pid} neobundle")
 else
     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim >> ${logfile_dir} 2>&1 &
-#     process >> ${logfile_dir} 2>&1 & 
+#     process >> ${logfile_dir} 2>&1 &
     pid_array+=(" $! neobundle")
 fi
 
 echo "[ 256-jungle(vim) ]"
 process(){
     git clone git://github.com/vim-scripts/256-jungle /tmp/256-jungle && \
-    cp /tmp/256-jungle/colors/256-jungle.vim $HOME/.vim/colors/ 
+    cp /tmp/256-jungle/colors/256-jungle.vim $HOME/.vim/colors/
     exit $?
 }
 export -f process
@@ -111,7 +121,7 @@ if [ -e $HOME/.vim/colors/256-jungle.vim ]; then
     echo 256-jungle was installed already.
     pid_array+=(" ${pass_pid} 256-jungle")
 else
-    process >> ${logfile_dir} 2>&1 & 
+    process >> ${logfile_dir} 2>&1 &
     pid_array+=(" $! 256-jungle")
 fi
 
@@ -127,7 +137,7 @@ then
     echo neosnippets was installed already.
     pid_array+=(" ${pass_pid} neosnippets")
 else
-    process >> ${logfile_dir} 2>&1 & 
+    process >> ${logfile_dir} 2>&1 &
     pid_array+=(" $! neosnippets")
 fi
 
@@ -143,7 +153,7 @@ then
     echo erutaso was installed already.
     pid_array+=(" ${pass_pid} erutaso")
 else
-    process >> ${logfile_dir} 2>&1 & 
+    process >> ${logfile_dir} 2>&1 &
     pid_array+=(" $! erutaso")
 fi
 

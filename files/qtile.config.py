@@ -89,7 +89,7 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
 ]
 
-groups = [Group(i) for i in "asdfuiop"]
+groups = [Group(i) for i in "qweruiop"]
 
 for i in groups:
     # mod1 + letter of group = switch to group
@@ -110,9 +110,9 @@ borders = {
 
 layouts = [
 #      layout.TreeTab(),
-    layout.Max(),
-    layout.Stack(num_stacks=2),
     layout.MonadTall(**borders),
+#      layout.Stack(stacks=2),
+    layout.Max(),
 ]
 
 widget_defaults = dict(
@@ -188,3 +188,4 @@ import subprocess
 def startup_once():
     subprocess.Popen(['fcitx-autostart'])
     subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])
+    subprocess.Popen(['xrandr', '--size', '1920x1080'])

@@ -7,7 +7,7 @@ files_path=$current_dir/files
 # echo $files_path
 
 copy_files=("zshrc.mine")
-home_dot_files=("tmux.conf" "vimrc" "xmodmap" "zshrc" "pyrc")
+home_dot_files=("tmux.conf" "vimrc" "xmodmap" "zshrc" "pyrc", "gdbinit")
 create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "bin" "work" "tmp" "src")
 
 

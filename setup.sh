@@ -95,11 +95,6 @@ pid_array=()
 echo ----- start install -----
 
 echo "[ neobundle(vim) ]"
-# process(){
-#     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-#     exit $?
-# }
-
 if [ -e $HOME/.vim/bundle/neobundle.vim ]; then
     echo neobundle was installed already.
     pid_array+=(" ${pass_pid} neobundle")
@@ -155,6 +150,21 @@ then
 else
     process >> ${logfile_dir} 2>&1 &
     pid_array+=(" $! erutaso")
+fi
+
+echo "[ zsh-completions(zsh) ]"
+process(){
+    mkdir -p $HOME/.zsh 
+    git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions.git
+    exit $?
+}
+if [ -e $HOME/.zsh/zsh-completions ]
+then
+    echo zsh-completions was installed already.
+    pid_array+=(" ${pass_pid} zsh-completions")
+else
+    process >> ${logfile_dir} 2>&1 &
+    pid_array+=(" $! zsh-completions")
 fi
 
 # compile qtile.config.py

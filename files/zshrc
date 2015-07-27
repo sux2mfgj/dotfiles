@@ -1,6 +1,10 @@
+
 #保管
-autoload -U compinit
-compinit
+if [[ -d $HOME/.zsh/zsh-completions/src ]]; then
+    fpath=($HOME/.zsh/zsh-completions/src $fpath)
+fi
+autoload -Uz compinit
+compinit -u
 
 setopt correct
 setopt list_packed

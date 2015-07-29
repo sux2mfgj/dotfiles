@@ -28,78 +28,95 @@ from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
 #  mod = "mod4"
-mod = "mod1"
+alt = "mod1"
 
 keys = [
     # Switch between windows in current stack pane
     Key(
-        [mod], "k",
+        [alt], "k",
         lazy.layout.down()
     ),
     Key(
-        [mod], "j",
+        [alt], "j",
         lazy.layout.up()
     ),
 
     #
-    Key([mod, "shift"], "h",
+    Key([alt, "shift"], "h",
         lazy.layout.move_left()),
-    Key([mod, "shift"], "l",
+    Key([alt, "shift"], "l",
         lazy.layout.move_right()),
 
     # Move windows up or down in current stack
     Key(
-        [mod, "control"], "k",
+        [alt, "control"], "k",
         lazy.layout.shuffle_down()
     ),
     Key(
-        [mod, "control"], "j",
+        [alt, "control"], "j",
         lazy.layout.shuffle_up()
     ),
 
     # Switch window focus to other pane(s) of stack
     Key(
-        [mod], "space",
-        lazy.layout.next()
+        [alt], "space",
+        lazy.layout.shuffle_up()
     ),
 
     # Swap panes of split stack
-    Key(
-        [mod, "shift"], "space",
-        lazy.layout.rotate()
-    ),
+#      Key(
+#          [alt, "shift"], "space",
+#          lazy.layout.rotate()
+#      ),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key(
-        [mod, "shift"], "Return",
-        lazy.layout.toggle_split()
-    ),
-    Key([mod], "Return", lazy.spawn("terminator")),
-    Key([mod], "g", lazy.spawn("google-chrome-stable")),
+#      Key(
+#          [alt, "shift"], "Return",
+#          lazy.layout.toggle_split()
+#      ),
+    Key([alt], "Return", lazy.spawn("terminator")),
+    Key([alt], "g", lazy.spawn("google-chrome-stable")),
+
+    Key([alt], "i", lazy.layout.grow()),
+    Key([alt], "m", lazy.layout.shrink()),
+#      Key([alt], "n", lazy.layout.normalize()),
+#      Key([alt], "o", lazy.layout.maximize()),
+
+    Key([alt], "f", lazy.window.toggle_floating()),
 
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.nextlayout()),
-    Key([mod], "w", lazy.window.kill()),
+    Key([alt], "Tab", lazy.nextlayout()),
+    Key([alt, 'shift'], "d", lazy.window.kill()),
 
-    Key([mod, "control"], "r", lazy.restart()),
-    Key([mod, "control"], "q", lazy.shutdown()),
-    Key([mod], "r", lazy.spawncmd()),
+    Key([alt, "control"], "r", lazy.restart()),
+    Key([alt, "control"], "q", lazy.shutdown()),
+    Key([alt], "t", lazy.spawncmd()),
 ]
 
-groups = [Group(i) for i in "qweruiop"]
+groups = [
+    Group('1'),
+    Group('2'),
+    Group('3'),
+    Group('4'),
+
+    Group('7', layout='treetab'),
+    Group('8', layout='stack'),
+    Group('9'),
+    Group('0'),
+]
 
 for i in groups:
-    # mod1 + letter of group = switch to group
+    # alt1 + letter of group = switch to group
     keys.append(
-        Key([mod], i.name, lazy.group[i.name].toscreen())
+        Key([alt], i.name, lazy.group[i.name].toscreen())
     )
 
-    # mod1 + shift + letter of group = switch to & move focused window to group
+    # alt1 + shift + letter of group = switch to & move focused window to group
     keys.append(
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name))
+        Key([alt, "shift"], i.name, lazy.window.togroup(i.name))
     )
 
 borders = {
@@ -109,9 +126,9 @@ borders = {
 }
 
 layouts = [
-#      layout.TreeTab(),
     layout.MonadTall(**borders),
-#      layout.Stack(stacks=2),
+    layout.Stack(stacks=2),
+    layout.TreeTab(),
     layout.Max(),
 ]
 
@@ -128,6 +145,7 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
+                widget.CurrentLayout(),
 #                  widget.TextBox("default config", name="default"),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
@@ -136,15 +154,31 @@ screens = [
         ),
         bottom=bar.Bar(
             [
-#                  widget.BatteryIcon(),
+                widget.Battery(),
 #                  widget.GmailChecker(),
 #                  widget.KeyboardLayout(),
                 widget.CPUGraph(),
                 widget.MemoryGraph(),
                 widget.NetGraph(),
+                widget.Clipboard(),
                 widget.Notify(),
+
 #                  widget.HDDGraph(path = '/home'),
 #                  widget.LoadAverageGraph(),
+            ],
+            25,
+        ),
+    ),
+    Screen(
+        top=bar.Bar(
+            [
+                widget.GroupBox(),
+                widget.Prompt(),
+                widget.WindowName(),
+                widget.CurrentLayout(),
+#                  widget.TextBox("default config", name="default"),
+                widget.Systray(),
+                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
             25,
         ),
@@ -154,12 +188,12 @@ screens = [
 # Drag floating layouts.
 mouse = [
     Drag(
-        [mod], "Button1", lazy.window.set_position_floating(),
+        [alt], "Button1", lazy.window.set_position_floating(),
         start=lazy.window.get_position()),
     Drag(
-        [mod], "Button3", lazy.window.set_size_floating(),
+        [alt], "Button3", lazy.window.set_size_floating(),
         start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
+    Click([alt], "Button2", lazy.window.bring_to_front())
 ]
 
 dgroups_key_binder = None

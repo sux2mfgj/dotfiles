@@ -208,7 +208,7 @@ NeoBundle 'mopp/next-alter.vim'
 " For python
 if has('python3') || has('python')
     NeoBundle 'davidhalter/jedi-vim'
-    NeoBundle 'andviro/flake8-vim'
+"     NeoBundle 'andviro/flake8-vim'
 endif
 
 "for vlb

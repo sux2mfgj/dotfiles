@@ -223,3 +223,4 @@ def startup_once():
     subprocess.Popen(['fcitx-autostart'])
     subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])
     subprocess.Popen(['xrandr', '--size', '1920x1080'])
+    subprocess.Popen(['start-pulseaudio-x11'])

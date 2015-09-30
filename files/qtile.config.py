@@ -33,12 +33,21 @@ alt = "mod1"
 keys = [
     # Switch between windows in current stack pane
     Key(
-        [alt], "k",
+        [alt], "j",
         lazy.layout.down()
     ),
     Key(
-        [alt], "j",
+        [alt], "k",
         lazy.layout.up()
+    ),
+    Key(
+        [alt], "h",
+        lazy.layout.previous(),
+    ),
+
+    Key(
+        [alt], "l",
+        lazy.layout.next(),
     ),
 
     #
@@ -64,10 +73,10 @@ keys = [
     ),
 
     # Swap panes of split stack
-#      Key(
-#          [alt, "shift"], "space",
-#          lazy.layout.rotate()
-#      ),
+    Key(
+        [alt, "shift"], "space",
+        lazy.layout.rotate()
+    ),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -100,12 +109,11 @@ groups = [
     Group('1'),
     Group('2'),
     Group('3'),
-    Group('4'),
-
-    Group('7', layout='treetab'),
+    Group('4', layout='stack'),
+    Group('7', layout='stack'),
     Group('8', layout='stack'),
     Group('9'),
-    Group('0'),
+    Group('0', layout='treetab'),
 ]
 
 for i in groups:

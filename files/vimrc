@@ -148,6 +148,9 @@ nnoremap gT <Nop>
 
 nnoremap <Space>tj :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
+"set clipboard+=unnamed
+set clipboard=unnamedplus
+
 "-------------------------------
 "   Plugin
 "-------------------------------
@@ -207,7 +210,7 @@ NeoBundle 'mopp/next-alter.vim'
 
 " For python
 if has('python3') || has('python')
-    NeoBundle 'davidhalter/jedi-vim'
+"     NeoBundle 'davidhalter/jedi-vim'
 "     NeoBundle 'andviro/flake8-vim'
 endif
 
@@ -395,10 +398,10 @@ hi IndentGuidesEven ctermbg=31
 " let g:indent_guides_color_change_percent = 10
 
 "Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_python_checkers = ['flake8']
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_enable_signs = 1
+" let g:syntastic_auto_loc_list = 2
+" let g:syntastic_python_checkers = ['flake8']
 "c++11
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = '-std=c++11'

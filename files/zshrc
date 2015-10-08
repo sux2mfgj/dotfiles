@@ -159,4 +159,4 @@ bindkey "^[q" show_command_line_stack
 export PATH="/usr/local/heroku/bin:$PATH"
 
 alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
-zstyle ':completion:*:*files' ignored-patterns '*?.o' '*?~' '*\#'
+zstyle ':completion:*:*files' ignored-patterns '*?.o' '*?~' '*\#' '*?.img'

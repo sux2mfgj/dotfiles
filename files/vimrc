@@ -148,6 +148,9 @@ nnoremap gT <Nop>
 
 nnoremap <Space>tj :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
+"set clipboard+=unnamed
+set clipboard=unnamedplus
+
 "-------------------------------
 "   Plugin
 "-------------------------------
@@ -190,7 +193,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-scripts/TaskList.vim'
 NeoBundle 'junkblocker/unite-tasklist'
-NeoBundle 'vim-scripts/a.vim'
+" NeoBundle 'vim-scripts/a.vim'
 " NeoBundle 'vim-scripts/c.vim'
 NeoBundle 'rhysd/vim-clang-format'
 NeoBundle 'sudo.vim'
@@ -202,13 +205,19 @@ NeoBundle 'kana/vim-smartchr'
 NeoBundle 'kana/vim-smartinput'
 
 NeoBundle 'thinca/vim-template'
+NeoBundle 'mopp/next-alter.vim'
 
 
 " For python
 if has('python3') || has('python')
-    NeoBundle 'davidhalter/jedi-vim'
-    NeoBundle 'andviro/flake8-vim'
+"     NeoBundle 'davidhalter/jedi-vim'
+"     NeoBundle 'andviro/flake8-vim'
 endif
+
+"for vlb
+NeoBundle 'innocentyknr/vim-vlb'
+
+
 
 " --- list -- end ---
 NeoBundle 'Shougo/unite.vim'
@@ -389,10 +398,10 @@ hi IndentGuidesEven ctermbg=31
 " let g:indent_guides_color_change_percent = 10
 
 "Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_python_checkers = ['flake8']
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_enable_signs = 1
+" let g:syntastic_auto_loc_list = 2
+" let g:syntastic_python_checkers = ['flake8']
 "c++11
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = '-std=c++11'
@@ -438,7 +447,7 @@ let g:vimfiler_enable_auto_cd = 1
 nnoremap <silent> <Space>v :<C-u>VimFiler -explorer<CR>
 
 "clang-fomat
-let g:clang_format#command="clang-format-3.5"
+let g:clang_format#command="clang-format"
 let g:clang_format#code_style="chromium"
 let g:clang_format#style_options = {
     \ "BreakBeforeBraces" : "Stroustrup",
@@ -447,12 +456,19 @@ let g:clang_format#style_options = {
     \ "Standard" : "C++11",
     \ "IndentWidth" : 4
     \}
-autocmd FileType c,cpp,objc nnoremap <Space>f vi{:ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <Space>f i{:ClangFormat<CR>
+" autocmd FileType c,cpp,objc nnoremap <Space>f vi{:ClangFormat<CR>
+" autocmd FileType c,cpp,objc vnoremap <Space>f i{:ClangFormat<CR>
 
 "a.vim
-nnoremap <Space>a :<C-u>AT<CR>
+" nnoremap <Space>a :<C-u>AT<CR>
 
 "unite-tasklist
 nnoremap <Leader>T :<C-u>TaskList<CR>
 
+"next-alter
+" nnoremap <expr> <Space>l <Plug>(next-alter-open)
+"y nnoremap <expr> <Leader>
+nnoremap <Space>l :<C-u>OpenNAlter vertical<CR>
+
+" vlb-vim
+autocmd FileType vlb let g:neosnippet#snippets_directory='~/.vim/bundle/vim-vlb/snippet'

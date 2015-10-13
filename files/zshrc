@@ -71,7 +71,10 @@ bindkey '^R' history-incremental-search-backward
 #predict-on
 
 #zshrc.mineの読み込み
-[ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
+[ -f $HOME/.zshrc.mine ] && source $HOME/.zshrc.mine
+
+#enhancd
+[ -f $HOME/.zsh/enhancd/enhancd.sh ] && source $HOME/.zsh/enhancd/enhancd.sh
 
 
 autoload -U colors

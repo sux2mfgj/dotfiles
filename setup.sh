@@ -167,6 +167,21 @@ else
     pid_array+=(" $! zsh-completions")
 fi
 
+echo "[ enhancd ]"
+process(){
+    mkdir -p $HOME/.zsh
+    git clone https://github.com/b4b4r07/enhancd.git $HOME/.zsh/enhancd
+    exit $?
+}
+if [ -e $HOME/.zsh/enhancd ]
+then
+    echo enhancd was installed already.
+    pid_array+=(" ${pass_pid} enhancd")
+else
+    process >> ${logfile_dir} 2>&1 &
+    pid_array+=(" $! enhancd")
+fi
+
 # compile qtile.config.py
 python -m py_compile $HOME/.config/qtile/config.py >> ${logfile_dir} 2>&1 &
 pid_array+=(" $! check_qtile.config.py")

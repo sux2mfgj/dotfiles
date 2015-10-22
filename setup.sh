@@ -7,9 +7,8 @@ files_path=$current_dir/files
 # echo $files_path
 
 copy_files=("zshrc.mine")
-home_dot_files=("tmux.conf" "vimrc" "xmodmap" "zshrc" "pyrc", "gdbinit")
+home_dot_files=("tmux.conf" "vimrc" "xmodmap" "zshrc" "pyrc", "gdbinit" "gitconfig")
 create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" "src" ".go")
-
 
 echo ----- copy files -----
 for f in ${copy_files[@]}
@@ -34,6 +33,12 @@ do
         echo ${files_path}/${f} $HOME/.${f}
     fi
 done
+
+if [ -e $HOME/.ssh/config ]; then
+    echo .ssh/config is already exists. 
+else
+    ln -s ${files_path}/ssh_config $HOME/.ssh/config
+fi
 
 # for qtile config file
 if [ -e $HOME/.config/qtile/config.py ]

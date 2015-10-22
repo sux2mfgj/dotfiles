@@ -157,6 +157,9 @@ stack: $LBUFFER"
 zle -N show_command_line_stack
 bindkey "^[q" show_command_line_stack
 
+# for GO
+export GOPATH=$HOME/.go
+export PATH=$GOPATH/bin:$PATH
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

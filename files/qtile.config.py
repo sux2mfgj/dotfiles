@@ -103,6 +103,10 @@ keys = [
     Key([alt, "control"], "r", lazy.restart()),
     Key([alt, "control"], "q", lazy.shutdown()),
     Key([alt], "t", lazy.spawncmd()),
+
+    # change screen
+    Key([alt], "e", lazy.to_screen(0)),
+    Key([alt], "w", lazy.to_screen(1)),
 ]
 
 groups = [
@@ -150,8 +154,7 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(),
-                widget.Prompt(),
+                widget.GroupBox(), widget.Prompt(),
                 widget.WindowName(),
                 widget.CurrentLayout(),
 #                  widget.TextBox("default config", name="default"),
@@ -177,6 +180,7 @@ screens = [
             25,
         ),
     ),
+
     Screen(
         top=bar.Bar(
             [

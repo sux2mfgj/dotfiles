@@ -36,3 +36,7 @@
     dm = diff master
 [credential]
 	helper = cache --timeout=7200
+
+[ghq]
+    root = ~/src
+    root = ~/.go/src

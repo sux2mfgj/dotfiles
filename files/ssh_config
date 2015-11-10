@@ -1,0 +1,10 @@
+Host *
+  ServerAliveInterval 60
+  ServerAliveCountMax 10 
+
+Host */*
+           ProxyCommand ssh -W "$(basename "%h")":%p "$(dirname "%h")"
+Host *+*
+           ProxyCommand ssh -W "$(sed -E 's/.*\+//'<<<"%h")":%p "$(sed -E 's/\+[^\+]*//'<<<"%h")"
+
+

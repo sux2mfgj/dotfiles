@@ -40,15 +40,15 @@ keys = [
         [alt], "k",
         lazy.layout.up()
     ),
-    Key(
-        [alt], "h",
-        lazy.layout.previous(),
-    ),
+#      Key(
+#          [alt], "h",
+#          lazy.layout.previous(),
+#      ),
 
-    Key(
-        [alt], "l",
-        lazy.layout.next(),
-    ),
+#      Key(
+#          [alt], "l",
+#          lazy.layout.next(),
+#      ),
 
     #
     Key([alt, "shift"], "h",
@@ -105,8 +105,8 @@ keys = [
     Key([alt], "t", lazy.spawncmd()),
 
     # change screen
-    Key([alt], "e", lazy.to_screen(0)),
-    Key([alt], "w", lazy.to_screen(1)),
+    Key([alt], "l", lazy.to_screen(0)),
+    Key([alt], "h", lazy.to_screen(1)),
 ]
 
 groups = [

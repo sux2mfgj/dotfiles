@@ -1,1 +1,11 @@
 #This is zshrc.mine
+
+
+export PATH=$HOME/local/bin:$PATH
+
+export GTEST_ROOT=/home/hima/local/src/googletest
+
+export PYENV_ROOT=$HOME/.pyenv 
+export PATH=$PYENV_ROOT/bin:$PATH
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"

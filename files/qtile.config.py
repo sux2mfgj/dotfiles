@@ -40,10 +40,10 @@ keys = [
         [alt], "k",
         lazy.layout.up()
     ),
-#      Key(
-#          [alt], "h",
-#          lazy.layout.previous(),
-#      ),
+    Key(
+        [alt], "p",
+        lazy.layout.previous(),
+    ),
 
 #      Key(
 #          [alt], "l",

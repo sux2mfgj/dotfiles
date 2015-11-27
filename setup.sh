@@ -8,7 +8,7 @@ files_path=$current_dir/files
 
 copy_files=("zshrc.mine")
 home_dot_files=("tmux.conf" "vimrc" "xmodmap" "zshrc" "pyrc", "gdbinit" "gitconfig")
-create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" "src" ".go")
+create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" "src" ".go" ".irssi")
 
 echo ----- copy files -----
 for f in ${copy_files[@]}
@@ -58,6 +58,15 @@ else
     mkdir -p $HOME/.config/terminator
     ln -s ${files_path}/terminator.config $HOME/.config/terminator/config
     echo ${files_path}/terminator.config $HOME/.config/terminator/config
+fi
+
+if [ -e $HOME/.irssi/config ]
+then
+    echo irrssi config file is already exists.
+else
+    mkdir -p $HOME/.irssi/
+    ln -s ${files_path}/irssi_config $HOME/.irssi/config
+    echo ${files_path}/irssi_config $HOME/.irssi/config 
 fi
 
 echo ----- create dir  -----

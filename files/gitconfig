@@ -37,6 +37,9 @@
 [credential]
 	helper = cache --timeout=7200
 
+[merge]
+    keepBackup = false
+
 [ghq]
     root = ~/src
     root = ~/.go/src

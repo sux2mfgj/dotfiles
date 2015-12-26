@@ -8,7 +8,9 @@ files_path=$current_dir/files
 
 copy_files=("zshrc.mine")
 home_dot_files=("tmux.conf" "vimrc" "xmodmap" "zshrc" "pyrc", "gdbinit" "gitconfig")
-create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" "src" ".go" ".irssi")
+create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" "src" ".go" ".emacs.d/inits")
+# emacs_inits=("02_linum.el 01_load_macro.el 00_init.el")
+emacs_inits=(`ls ${files_path}/inits`)
 
 echo ----- copy files -----
 for f in ${copy_files[@]}
@@ -80,7 +82,20 @@ do
         echo $HOME/${dir}
     fi
 done
-# echo ----- finish -----
+
+echo ----- link emacs inits -----
+for elfile in ${emacs_inits[@]}
+do
+    if [ -e $HOME/.emacs.d/inits/${elfile} ];
+    then
+        echo $HOME/.emacs.d/inits${elfile} is already exists.
+    else
+        ln -s ${files_path}/inits/${elfile} $HOME/.emacs.d/inits/${elfile}
+        echo $HOME/.emacs.d/inits/${elfile}
+    fi
+done
+
+
 
 logfile_dir=$HOME/.dotfile_setup.log
 
@@ -100,6 +115,13 @@ which git >> ${logfile_dir} 2>&1
 if [ $? -ne 0 ]
 then
     goto_exit 1
+fi
+
+if [ -e $HOME/.emacs.d/init.el ]
+then
+    echo found init.el
+else
+    ln -s ${files_path}/init.el $HOME/.emacs.d/init.el
 fi
 
 pass_pid=$!

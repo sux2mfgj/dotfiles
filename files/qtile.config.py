@@ -27,8 +27,9 @@
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
-#  mod = "mod4"
-alt = "mod1"
+alt = "mod4"
+#  alt = "mod1"
+
 
 keys = [
     # Switch between windows in current stack pane
@@ -94,7 +95,7 @@ keys = [
 #      Key([alt], "n", lazy.layout.normalize()),
 #      Key([alt], "o", lazy.layout.maximize()),
 
-    Key([alt], "f", lazy.window.toggle_floating()),
+    #Key([alt], "f", lazy.window.toggle_floating()),
 
     # Toggle between different layouts as defined below
     Key([alt], "Tab", lazy.nextlayout()),
@@ -154,7 +155,8 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(), widget.Prompt(),
+                widget.GroupBox(),
+                widget.Prompt(),
                 widget.WindowName(),
                 widget.CurrentLayout(),
 #                  widget.TextBox("default config", name="default"),
@@ -229,10 +231,10 @@ wmname = "LG3D"
 from libqtile import hook
 import subprocess
 
-
 @hook.subscribe.startup_once
 def startup_once():
     subprocess.Popen(['fcitx-autostart'])
     subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])
     subprocess.Popen(['xrandr', '--size', '1920x1080'])
     subprocess.Popen(['start-pulseaudio-x11'])
+    subprocess.Popen(['start_chrome.sh'])

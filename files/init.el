@@ -1,125 +1,20 @@
-;;
-;;(global-set-key "\C-h" delete-backward-char)
-(keyboard-translate ?\C-h ?\C-?)
+;; -*- tab-width: 4; coding: utf-8; lexical-binding:t  -*-
 
-;;
-(setq inhibit-startup-message t)
-
-(show-paren-mode 1)
-
-(global-hl-line-mode)
-
-(column-number-mode t)
-
-(line-number-mode t)
-
-(require 'saveplace)
-(setq-default save-place t)
-
-
-; (el-get 'sync '(auto-complete))
-; (add-hook auto-complete-mode-hook
-;         (lambda ()
-;             (define-key ac-completing-map (kbd "C-n") 'ac-next)
-;             (define-key ac-completing-map (kbd "C-p") 'ac-previous)))
-
-
-;; disable display statup message
-(setq inhibit-startup-screen t)
-
-;; tool-bar
-(tool-bar-mode 0)
-
-;; menu-bar
-(menu-bar-mode 0)
-
-;; TAB
-(setq default-tab-width 4)
-
-;; use space substitute for tab
-(setq-default indent-tabs-mode nil)
-
-;; Color(background and foreground)
-(if window-system (progn
-                    (set-background-color "Black")
-                    (set-foreground-color "LightGray")
-                    (set-cursor-color "Gray")
-                    (set-frame-parameter nil 'alpha 100)
-                    ));
-
-;; print correspont ()
-(show-paren-mode 1)
-
-;; set color current line
-(global-hl-line-mode 1)
-
-;; show color resion
-(transient-mark-mode 1)
-
-;; print line and column number
-(line-number-mode 1)
-(column-number-mode 1)
-
-;; we answer y or n for emacs
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; C-m set newline-and-indent(default is newline)
-(define-key global-map (kbd "C-m") 'newline-and-indent)
-
-;; ---- default plugin setting ----
-;;print line number
-(require 'linum)
-(global-linum-mode 1)
-
-;; Irc settings
-;;(setq erc-server "irc.ircnet.ne.jp")
-;;(setq erc-port "6660")
-;;(setq erc-nick "himaaaatti")
-
-;; symbolic link file to git version controle
-(setq vc-follow-symlinks t)
-
-;; back up file settings
-(setq make-backup-files nil)
-
-(setq auto-save-default nil)
-
-;; save place of cursol
-(require 'saveplace)
-(setq-default save-place t)
-
-;; add new line at last line
-(setq require-final-newline t)
-
-
-;; completion
-(icomplete-mode 1)
-
-;; spell check
-(setq-default flyspell-mode t)
-(setq ispless-directory "american")
-
-;; mozc
-(require 'mozc)
-(setq default-input-mode "japanese-mozc")
-
-;; nn ん
-(setq quail-japanese-use-double-n t)
-
-; print completion mini buffer
-; (setq mozc-candidate-style 'echo-erea)
-
-; (add-to-list 'load-path "~/.emacs.d")
-; (add-to-list 'load-path (expand-file-name "~/.emacs.d/slime"))
-
-; slime
-; (require 'slime)
-; (slime-setup `(slime-repl slime-fancy slime-banner))
-
-;auto-compete
-; (require 'auto-complete)
-; (require 'auto-complete-config)
-; (global-auto-complete-mode t)
-
-
-
+(cond
+ ((>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (package-initialize)
+  (package-refresh-contents)
+  
+  (unless (package-installed-p 'init-loader)
+	(package-install init-loader))
+  
+  (require 'init-loader)
+  (init-loader-load "~/.emacs.d/inits")
+  )
+ (t
+  (message "don't load init.el. please use emase 24 or after"))
+  )
+ 

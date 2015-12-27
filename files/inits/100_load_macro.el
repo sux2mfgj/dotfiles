@@ -6,14 +6,14 @@
     ((locate-library ,(symbol-name package-name))
      (require ',package-name)
      ,@body
-     (message (concat "[package] " ,(symbol-name package-name) " was loaded"))
+     (message (concat "[ok] " ,(symbol-name package-name) " was loaded"))
      )
     ((unless (package-installed-p ',package-name))
      (package-install ',package-name)
-     (message (concat "install " ,(symbol-name package-name)))
+     (message (concat "[ok] install " ,(symbol-name package-name)))
      )
     (t
-     (message (concat ,(symbol-name package-name) " error occured"))
+     (message (concat "[error] " ,(symbol-name package-name)))
      )
     )
   )

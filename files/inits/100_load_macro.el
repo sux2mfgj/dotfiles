@@ -8,7 +8,7 @@
      ,@body
      (message (concat "[ok] " ,(symbol-name package-name) " was loaded"))
      )
-    ((unless (package-installed-p ',package-name))
+    ((package-installed-p ',package-name)
      (package-install ',package-name)
      (message (concat "[ok] install " ,(symbol-name package-name)))
      )

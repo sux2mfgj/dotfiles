@@ -1,4 +1,4 @@
-;; -*- tab-width: 4; coding: utf-8; lexical-binding:t  -*-
+;; -*- tab-width: 4; coding: utf-8; lexical-binding: t -*-
 
 ;; for backspace (C-h)
 (keyboard-translate ?\C-h ?\C-?)
@@ -54,6 +54,14 @@
 ;; add new line at last line
 (setq require-final-newline t)
 
+;; font size 
+(set-face-attribute 'default nil :height 150)
+
+;; change meta key
+;(100 . 'hira)
+;(add-to-list 'system-key-alist '(100 . hiragana-katakana))
+;(setq x-super-keysym 'hiragana-katakana) 
+;system-key-alist
 
 ;;TODO
 ;; add another configuration

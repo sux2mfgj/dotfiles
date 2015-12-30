@@ -1,8 +1,9 @@
 ;; -*- tab-width: 4; coding: utf-8; lexical-binding: t -*-
 
 (package-load-with-check
- smartparens-config
+ jedi
  (
-  (smartparens-global-mode t))
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
+  )
  )
-

@@ -10,6 +10,26 @@
   (ac-set-trigger-key "TAB")
   (setq ac-use-menu-map t)
   (setq ac-use-fuzzy t)
+
+  ;; config for eshell
+  (require 'pcomplete)
+  (add-to-list 'ac-modes 'eshell-mode)
+  (ac-define-source pcomplete
+    '((candidates . pcomplete-completions)))
+
+  (defun my-ac-eshell-mode ()            
+   (setq ac-sources
+         '(ac-source-pcomplete
+           ac-sources-filename
+           ac-sources-files-in-current-dir
+           ac-sources-words-in-buffer
+           ac-sources-dictionary)))
+
+  (add-hook 'eshell-mode-hook
+            (lambda ()
+              (my-ac-eshell-mode)
+              (define-key eshell-mode-map (kbd "C-i") 'auto-complete)
+              (define-key eshell-mode-map [(tab)] 'auto-complete)))
   )
  )
 

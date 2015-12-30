@@ -89,6 +89,7 @@ keys = [
 #      ),
     Key([alt], "Return", lazy.spawn("terminator")),
     Key([alt], "g", lazy.spawn("google-chrome-stable")),
+    Key([alt], "e", lazy.spawn("emacsclient -c")),
 
     Key([alt], "i", lazy.layout.grow()),
     Key([alt], "m", lazy.layout.shrink()),
@@ -112,13 +113,13 @@ keys = [
 
 groups = [
     Group('1'),
-    Group('2'),
+    Group('2', spawn="emacs"),
     Group('3'),
-    Group('4', layout='stack'),
-    Group('7', layout='stack'),
-    Group('8', layout='stack'),
+    Group('4'),
+    Group('7'),
+    Group('8'),
     Group('9'),
-    Group('0', layout='treetab'),
+    Group('0', layout='treetab', spawn="start_chrome.sh"),
 ]
 
 for i in groups:
@@ -174,7 +175,7 @@ screens = [
                 widget.MemoryGraph(),
                 widget.NetGraph(),
                 widget.Clipboard(),
-                widget.Notify(),
+#                  widget.Notify(),
 
 #                  widget.HDDGraph(path = '/home'),
 #                  widget.LoadAverageGraph(),
@@ -237,4 +238,5 @@ def startup_once():
     subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])
     subprocess.Popen(['xrandr', '--size', '1920x1080'])
     subprocess.Popen(['start-pulseaudio-x11'])
-    subprocess.Popen(['start_chrome.sh'])
+#      subprocess.Popen(['start_chrome.sh'])
+    #subprocess.Popen(['emacs', '--daemon'])

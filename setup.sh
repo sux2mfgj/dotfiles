@@ -71,6 +71,7 @@ else
     echo ${files_path}/irssi_config $HOME/.irssi/config 
 fi
 
+
 echo ----- create dir  -----
 for dir in ${create_dirs[@]}
 do
@@ -82,6 +83,15 @@ do
         echo $HOME/${dir}
     fi
 done
+
+if [ -e $HOME/local/bin/start_chrome.sh ]
+then
+    echo start_chrome.sh is already exists.
+else
+    ln -s ${files_path}/start_chrome.sh $HOME/local/bin/start_chrome.sh
+    echo ${files_path}/start_chrome.sh $HOME/local/bin/start_chrome.sh
+fi
+
 
 echo ----- link emacs inits -----
 for elfile in ${emacs_inits[@]}

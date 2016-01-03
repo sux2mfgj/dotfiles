@@ -114,12 +114,12 @@ keys = [
 groups = [
     Group('1'),
     Group('2', spawn="emacs"),
-    Group('3'),
+    Group('3'),# spawn="xmodmap /home/hima/.xmodmap"),
     Group('4'),
     Group('7'),
-    Group('8'),
-    Group('9'),
-    Group('0', layout='treetab', spawn="start_chrome.sh"),
+    Group('8'),# spawn="start_chrome.sh"),
+    Group('9'),# layout='wmii'),
+    Group('0', layout='treetab')#, spawn="line.sh"),
 ]
 
 for i in groups:
@@ -140,10 +140,11 @@ borders = {
 }
 
 layouts = [
-    layout.MonadTall(**borders),
-    layout.Stack(stacks=2),
-    layout.TreeTab(),
-    layout.Max(),
+      layout.MonadTall(**borders),
+      layout.Stack(stacks=2),
+      layout.TreeTab(),
+      layout.Max(),
+        layout.Wmii(),
 ]
 
 widget_defaults = dict(
@@ -228,15 +229,39 @@ auto_fullscreen = True
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+
+wmname = "qtile"
 from libqtile import hook
 import subprocess
+
+def wallpaper():
+    import glob
+    import random
+    import time
+
+    file_lists = glob.glob('/home/hima/wallpaper/*')
+    random.shuffle(file_lists)
+    c = 0
+
+    while True:
+        import subprocess
+        subprocess.Popen(['feh', '--bg-max', file_lists[c%len(file_lists)]])
+        c += 1
+        time.sleep(300)
 
 @hook.subscribe.startup_once
 def startup_once():
     subprocess.Popen(['fcitx-autostart'])
-    subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])
     subprocess.Popen(['xrandr', '--size', '1920x1080'])
     subprocess.Popen(['start-pulseaudio-x11'])
+    subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])
 #      subprocess.Popen(['start_chrome.sh'])
     #subprocess.Popen(['emacs', '--daemon'])
+
+    from threading import Thread
+    Thread(target=wallpaper).start()
+
+@hook.subscribe.startup
+def startup():
+    pass
+

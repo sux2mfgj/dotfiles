@@ -5,7 +5,7 @@ MAINTAINER himaaaatti
 RUN apt-get -y update
 RUN apt-get -y upgrade
 
-RUN apt-get install -y git
+RUN apt-get install -y git python libncurses-dev make
 
 RUN useradd -m -s /bin/bash hima
 

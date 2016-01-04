@@ -256,5 +256,5 @@ do
         status_code=1
     fi
 done
-
+exit 0
 goto_exit 0 #${status_code}

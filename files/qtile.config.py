@@ -118,7 +118,7 @@ groups = [
     Group('4'),
     Group('7'),
     Group('8'),# spawn="start_chrome.sh"),
-    Group('9'),# layout='wmii'),
+    Group('9', layout='stack'),# layout='wmii'),
     Group('0', layout='treetab')#, spawn="line.sh"),
 ]
 
@@ -144,7 +144,7 @@ layouts = [
       layout.Stack(stacks=2),
       layout.TreeTab(),
       layout.Max(),
-        layout.Wmii(),
+      layout.Wmii(),
 ]
 
 widget_defaults = dict(
@@ -234,12 +234,13 @@ wmname = "qtile"
 from libqtile import hook
 import subprocess
 
+import glob
+file_lists = glob.glob('/home/hima/wallpaper/*')
+
 def wallpaper():
-    import glob
     import random
     import time
 
-    file_lists = glob.glob('/home/hima/wallpaper/*')
     random.shuffle(file_lists)
     c = 0
 
@@ -249,19 +250,23 @@ def wallpaper():
         c += 1
         time.sleep(300)
 
+from threading import Thread
+wallpaper_thread = Thread(target=wallpaper)
+        
 @hook.subscribe.startup_once
 def startup_once():
     subprocess.Popen(['fcitx-autostart'])
     subprocess.Popen(['xrandr', '--size', '1920x1080'])
     subprocess.Popen(['start-pulseaudio-x11'])
     subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])
+    subprocess.Popen(['xcompmgr', '-c'])
 #      subprocess.Popen(['start_chrome.sh'])
     #subprocess.Popen(['emacs', '--daemon'])
-
-    from threading import Thread
-    Thread(target=wallpaper).start()
-
+    
+    
 @hook.subscribe.startup
 def startup():
-    pass
+    if wallpaper_thread.isAlive():
+        wallpaper_thread.join()
 
+    wallpaper_thread.start()

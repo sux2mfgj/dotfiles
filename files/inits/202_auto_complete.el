@@ -13,17 +13,19 @@
 
   ;; config for eshell
   (require 'pcomplete)
+  
   (add-to-list 'ac-modes 'eshell-mode)
+  
   (ac-define-source pcomplete
     '((candidates . pcomplete-completions)))
 
   (defun my-ac-eshell-mode ()            
    (setq ac-sources
          '(ac-source-pcomplete
-           ac-sources-filename
-           ac-sources-files-in-current-dir
-           ac-sources-words-in-buffer
-           ac-sources-dictionary)))
+           ac-source-filename
+           ac-source-files-in-current-dir
+           ac-source-words-in-buffer
+           ac-source-dictionary)))
 
   (add-hook 'eshell-mode-hook
             (lambda ()

@@ -28,21 +28,13 @@
 ;; use space substitute for tab
 (setq-default indent-tabs-mode nil)
 
-;; Color(background and foreground)
-(if window-system (progn
-                    (set-background-color "Black")
-                    (set-foreground-color "LightGray")
-                    (set-cursor-color "Gray")
-                    (set-frame-parameter nil 'alpha 100)
-                    ));
-
 ;; tool-bar
 (tool-bar-mode 0)
 
 ;; menu-bar
 (menu-bar-mode 0)
 
-;;
+;; hi line mode
 (global-hl-line-mode)
 
 ;; symbolic link file to git version controle
@@ -56,6 +48,10 @@
 
 ;; font size 
 (set-face-attribute 'default nil :height 150)
+
+;; startup eshell
+(require 'eshell)
+(add-hook 'after-init-hook (lambda () (eshell)))
 
 ;; change meta key
 ;(100 . 'hira)

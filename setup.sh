@@ -88,8 +88,16 @@ if [ -e $HOME/local/bin/start_chrome.sh ]
 then
     echo start_chrome.sh is already exists.
 else
-    ln -s ${files_path}/start_chrome.sh $HOME/local/bin/start_chrome.sh
-    echo ${files_path}/start_chrome.sh $HOME/local/bin/start_chrome.sh
+    ln -s ${files_path}/chrome/start_chrome.sh $HOME/local/bin/start_chrome.sh
+    echo ${files_path}/chrome/start_chrome.sh $HOME/local/bin/start_chrome.sh
+fi
+
+if [ -e $HOME/local/bin/line.sh ]
+then
+    echo line.sh is already exists.
+else
+    ln -s ${files_path}/chrome/line.sh $HOME/local/bin/line.sh
+    echo ${files_path}/chrome/line.sh $HOME/local/bin/line.sh
 fi
 
 
@@ -201,7 +209,7 @@ fi
 echo "[ zsh-completions(zsh) ]"
 process(){
     mkdir -p $HOME/.zsh 
-    git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions.git
+    git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions
     exit $?
 }
 if [ -e $HOME/.zsh/zsh-completions ]

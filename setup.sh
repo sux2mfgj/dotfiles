@@ -257,4 +257,4 @@ do
     fi
 done
 
-goto_exit ${status_code}
+goto_exit 0 #${status_code}

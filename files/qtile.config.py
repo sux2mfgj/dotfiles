@@ -113,7 +113,7 @@ keys = [
 
 groups = [
     Group('1'),
-    Group('2', spawn="emacs"),
+    Group('2', spawn="emacsclient -c"),
     Group('3'),# spawn="xmodmap /home/hima/.xmodmap"),
     Group('4'),
     Group('7'),
@@ -149,6 +149,7 @@ layouts = [
 
 widget_defaults = dict(
     font='Arial',
+#    font='Ricty'
     fontsize=16,
     padding=3,
 )
@@ -176,7 +177,7 @@ screens = [
                 widget.MemoryGraph(),
                 widget.NetGraph(),
                 widget.Clipboard(),
-#                  widget.Notify(),
+                widget.Notify(),
 
 #                  widget.HDDGraph(path = '/home'),
 #                  widget.LoadAverageGraph(),
@@ -261,7 +262,7 @@ def startup_once():
     subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])
     subprocess.Popen(['xcompmgr', '-c'])
 #      subprocess.Popen(['start_chrome.sh'])
-    #subprocess.Popen(['emacs', '--daemon'])
+    subprocess.Popen(['emacs', '--daemon'])
     
     
 @hook.subscribe.startup

@@ -2,6 +2,7 @@
 
 ;; for backspace (C-h)
 (keyboard-translate ?\C-h ?\C-?)
+(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
 
 ;; don't show start up message
 (setq inhibit-startup-message t)

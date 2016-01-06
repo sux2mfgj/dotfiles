@@ -32,7 +32,26 @@
                   (kbd "M-n")
                   'helm-esh-pcomplete)))
 
-  
+  ;; config for gtags
+  (add-hook 'helm-gtags-mode-hook
+            '(lambda ()
+               ;;jump to definition
+               (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+
+               ;;jump to reference
+               (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+
+               ;;jump to symbol
+               (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+
+               ;;list of tags
+               (local-set-key (kbd "M-l") 'helm-gtags-select)
+
+               ;;back to the feature
+               (local-set-key (kbd "C-t") 'helm-gtags-pop-stack)))
+
+  (add-hook 'c-mode-common-hook 'helm-gtags-mode)
+  (add-hook 'asm-mode-hook 'helm-gtags-mode)
   
   )
  )

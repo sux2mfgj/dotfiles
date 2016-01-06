@@ -1,4 +1,4 @@
-;; -*- tab-width: 4; coding: utf-8; lexical-binding:t  -*-
+;; -*- tab-width: 3; coding: utf-8; lexical-binding: t -*-
 
 ;; macro for package
 (defmacro package-load-with-check (package-name body)

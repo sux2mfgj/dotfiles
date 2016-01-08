@@ -81,9 +81,7 @@
 
 ;; back up file settings
 (setq make-backup-files nil)
-(setq delete-auto-save-files t
 
-;; auto save
 (setq auto-save-default nil)
 
 ;; save place of cursol

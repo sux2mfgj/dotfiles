@@ -1,0 +1,191 @@
+;; -*- tab-width: 4; coding: utf-8; lexical-binding:t  -*-
+;;(global-set-key "\C-h" delete-backward-char)
+(keyboard-translate ?\C-h ?\C-?)
+
+;;
+(setq inhibit-startup-message t)
+
+((setq inhibit-startup-message t)
+show-paren-mode 1)
+
+(global-hl-line-mode)
+
+(column-number-mode t)
+
+(line-number-mode t)
+
+(require 'saveplace)
+(setq-default save-place t)
+
+;; disable display statup message
+(setq inhibit-startup-screen t)
+
+;; tool-bar
+(tool-bar-mode 0)
+
+;; menu-bar
+(menu-bar-mode 0)
+
+;; TAB
+(setq default-tab-width 4)
+
+;; use space substitute for tab
+(setq-default indent-tabs-mode nil)
+
+;; Color(background and foreground)
+(if window-system (progn
+                    (set-background-color "Black")
+                    (set-foreground-color "LightGray")
+                    (set-cursor-color "Gray")
+                    (set-frame-parameter nil 'alpha 100)
+                    ));
+
+;; print correspont ()
+(show-paren-mode 1)
+
+;; set color current line
+(global-hl-line-mode 1)
+
+;; show color resion
+(transient-mark-mode 1)
+
+;; print line and column number
+(line-number-mode 1)
+(column-number-mode 1)
+
+;; we answer y or n for emacs
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; C-m set newline-and-indent(default is newline)
+(define-key global-map (kbd "C-m") 'newline-and-indent)
+
+;; ---- default plugin setting ----
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+(package-refresh-contents)
+
+;; macro for package
+(defmacro package-load-with-check (package-name body)
+  `(cond
+    ((locate-library ,(symbol-name package-name))
+     (require ',package-name)
+     ,@body
+     (message (concat "[package] " ,(symbol-name package-name) " was loaded"))
+     )
+    (t
+     (message (concat ,(symbol-name package-name) "faild"))
+     )
+    )
+  )
+
+;;(package-load-with-check mozc
+;;  ((setq default-input-mode "japanese-mozc")
+;;   )
+;;)
+
+;;print line number
+(package-load-with-check
+ linum
+ ((global-linum-mode 1))
+ )
+;;(require 'linum)
+;;(global-linum-mode 1)
+
+;; Irc settings
+;;(setq erc-server "irc.ircnet.ne.jp")
+;;(setq erc-port "6660")
+;;(setq erc-nick "himaaaatti")
+
+;; symbolic link file to git version controle
+(setq vc-follow-symlinks t)
+
+;; back up file settings
+(setq make-backup-files nil)
+
+(setq auto-save-default nil)
+
+;; save place of cursol
+(package-load-with-check
+ saveplace
+ ((setq-default save-place t))
+;;(require 'saveplace)
+;;(setq-default save-place t)
+
+;; add new line at last line
+(setq require-final-newline t)
+
+;; completion
+(icomplete-mode 1)
+
+;; spell check
+(setq-default flyspell-mode t)
+(setq ispless-directory "american")
+
+;; mozc
+(package-load-with-check mozc
+ ((setq default-input-mode "japanese-mozc")
+  )
+ )
+;(cond ((locate-library "mozc")
+;       (require 'mozc)
+;       (setq default-input-mode "japanese-mozc")
+;       
+;       (message "mozc found"))
+;      (t
+;       (message "mozc not found")))
+
+
+;; nn ん
+(setq quail-japanese-use-double-n t)
+
+; print completion mini buffer
+; (setq mozc-candidate-style 'echo-erea)
+
+; (add-to-list 'load-path "~/.emacs.d")
+; (add-to-list 'load-path (expand-file-name "~/.emacs.d/slime"))
+
+; slime
+; (require 'slime)
+; (slime-setup `(slime-repl slime-fancy slime-banner))
+
+;auto-compete
+(package-load-with-check
+ auto-complete-config
+ ((ac-config-default)
+  (add-to-list 'ac-modes 'text-mode)
+  (add-to-list 'ac-modes 'fundamental-mode)
+  (add-to-list 'ac-modes 'org-mode)
+  (ac-set-trigger-key "TAB")
+  (setq ac-use-menu-map t)
+  (setq ac-use-fuzzy t)
+  )
+ )
+
+;(when (locate-library "auto-complete-config")
+;  (require 'auto-complete-config)
+;  (ac-config-default)
+;  (add-to-list 'ac-modes 'text-mode)
+;  (add-to-list 'ac-modes 'fundamental-mode)
+;  (add-to-list 'ac-modes 'org-mode)
+;  (ac-set-trigger-key "TAB")
+;  (setq ac-use-menu-map t)
+;  (setq ac-use-fuzzy t)
+;  )
+
+;; for google translate
+(package-load-with-check google-translate
+                         ((global-set-key "\C-xt" 'google-translate-at-point)
+                          (global-set-key "\C-Xt" 'google-translate-query-translate)
+                          (custom-set-variables
+                           '(google-translate-default-source-language "ja")
+                           '(google-translate-default-target-language "en"))
+                         ))
+
+;(when (locate-library "google-translate")
+;  (require 'google-translate)
+;  (global-set-key "\C-xt" 'google-translate-at-point)
+;  (global-set-key "\x-xT" 'google-translate-query-translate)
+;  )

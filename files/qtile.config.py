@@ -27,8 +27,9 @@
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
-#  mod = "mod4"
-alt = "mod1"
+alt = "mod4"
+#  alt = "mod1"
+
 
 keys = [
     # Switch between windows in current stack pane
@@ -88,13 +89,14 @@ keys = [
 #      ),
     Key([alt], "Return", lazy.spawn("terminator")),
     Key([alt], "g", lazy.spawn("google-chrome-stable")),
+    Key([alt], "e", lazy.spawn("emacsclient -c")),
 
     Key([alt], "i", lazy.layout.grow()),
     Key([alt], "m", lazy.layout.shrink()),
 #      Key([alt], "n", lazy.layout.normalize()),
 #      Key([alt], "o", lazy.layout.maximize()),
 
-    Key([alt], "f", lazy.window.toggle_floating()),
+    #Key([alt], "f", lazy.window.toggle_floating()),
 
     # Toggle between different layouts as defined below
     Key([alt], "Tab", lazy.nextlayout()),
@@ -111,13 +113,13 @@ keys = [
 
 groups = [
     Group('1'),
-    Group('2'),
-    Group('3'),
-    Group('4', layout='stack'),
-    Group('7', layout='stack'),
-    Group('8', layout='stack'),
-    Group('9'),
-    Group('0', layout='treetab'),
+    Group('2', spawn="emacs"),
+    Group('3'),# spawn="xmodmap /home/hima/.xmodmap"),
+    Group('4'),
+    Group('7'),
+    Group('8'),# spawn="start_chrome.sh"),
+    Group('9', layout='stack'),# layout='wmii'),
+    Group('0', layout='treetab')#, spawn="line.sh"),
 ]
 
 for i in groups:
@@ -138,10 +140,11 @@ borders = {
 }
 
 layouts = [
-    layout.MonadTall(**borders),
-    layout.Stack(stacks=2),
-    layout.TreeTab(),
-    layout.Max(),
+      layout.MonadTall(**borders),
+      layout.Stack(stacks=2),
+      layout.TreeTab(),
+      layout.Max(),
+      layout.Wmii(),
 ]
 
 widget_defaults = dict(
@@ -154,7 +157,8 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(), widget.Prompt(),
+                widget.GroupBox(),
+                widget.Prompt(),
                 widget.WindowName(),
                 widget.CurrentLayout(),
 #                  widget.TextBox("default config", name="default"),
@@ -172,7 +176,7 @@ screens = [
                 widget.MemoryGraph(),
                 widget.NetGraph(),
                 widget.Clipboard(),
-                widget.Notify(),
+#                  widget.Notify(),
 
 #                  widget.HDDGraph(path = '/home'),
 #                  widget.LoadAverageGraph(),
@@ -225,14 +229,44 @@ auto_fullscreen = True
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+
+wmname = "qtile"
 from libqtile import hook
 import subprocess
 
+import glob
+file_lists = glob.glob('/home/hima/wallpaper/*')
 
+def wallpaper():
+    import random
+    import time
+
+    random.shuffle(file_lists)
+    c = 0
+
+    while True:
+        import subprocess
+        subprocess.Popen(['feh', '--bg-max', file_lists[c%len(file_lists)]])
+        c += 1
+        time.sleep(300)
+
+from threading import Thread
+wallpaper_thread = Thread(target=wallpaper)
+        
 @hook.subscribe.startup_once
 def startup_once():
     subprocess.Popen(['fcitx-autostart'])
-    subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])
     subprocess.Popen(['xrandr', '--size', '1920x1080'])
     subprocess.Popen(['start-pulseaudio-x11'])
+    subprocess.Popen(['xmodmap', '/home/hima/.xmodmap'])
+    subprocess.Popen(['xcompmgr', '-c'])
+#      subprocess.Popen(['start_chrome.sh'])
+    #subprocess.Popen(['emacs', '--daemon'])
+    
+    
+@hook.subscribe.startup
+def startup():
+    if wallpaper_thread.isAlive():
+        wallpaper_thread.join()
+
+    wallpaper_thread.start()

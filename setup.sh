@@ -8,7 +8,9 @@ files_path=$current_dir/files
 
 copy_files=("zshrc.mine")
 home_dot_files=("tmux.conf" "vimrc" "xmodmap" "zshrc" "pyrc", "gdbinit" "gitconfig")
-create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" "src" ".go" ".irssi")
+create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" "src" ".go" ".emacs.d/inits")
+# emacs_inits=("02_linum.el 01_load_macro.el 00_init.el")
+emacs_inits=(`ls ${files_path}/inits`)
 
 echo ----- copy files -----
 for f in ${copy_files[@]}
@@ -69,6 +71,7 @@ else
     echo ${files_path}/irssi_config $HOME/.irssi/config 
 fi
 
+
 echo ----- create dir  -----
 for dir in ${create_dirs[@]}
 do
@@ -80,7 +83,37 @@ do
         echo $HOME/${dir}
     fi
 done
-# echo ----- finish -----
+
+if [ -e $HOME/local/bin/start_chrome.sh ]
+then
+    echo start_chrome.sh is already exists.
+else
+    ln -s ${files_path}/chrome/start_chrome.sh $HOME/local/bin/start_chrome.sh
+    echo ${files_path}/chrome/start_chrome.sh $HOME/local/bin/start_chrome.sh
+fi
+
+if [ -e $HOME/local/bin/line.sh ]
+then
+    echo line.sh is already exists.
+else
+    ln -s ${files_path}/chrome/line.sh $HOME/local/bin/line.sh
+    echo ${files_path}/chrome/line.sh $HOME/local/bin/line.sh
+fi
+
+
+echo ----- link emacs inits -----
+for elfile in ${emacs_inits[@]}
+do
+    if [ -e $HOME/.emacs.d/inits/${elfile} ];
+    then
+        echo $HOME/.emacs.d/inits${elfile} is already exists.
+    else
+        ln -s ${files_path}/inits/${elfile} $HOME/.emacs.d/inits/${elfile}
+        echo $HOME/.emacs.d/inits/${elfile}
+    fi
+done
+
+
 
 logfile_dir=$HOME/.dotfile_setup.log
 
@@ -100,6 +133,13 @@ which git >> ${logfile_dir} 2>&1
 if [ $? -ne 0 ]
 then
     goto_exit 1
+fi
+
+if [ -e $HOME/.emacs.d/init.el ]
+then
+    echo found init.el
+else
+    ln -s ${files_path}/init.el $HOME/.emacs.d/init.el
 fi
 
 pass_pid=$!
@@ -169,7 +209,7 @@ fi
 echo "[ zsh-completions(zsh) ]"
 process(){
     mkdir -p $HOME/.zsh 
-    git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions.git
+    git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions
     exit $?
 }
 if [ -e $HOME/.zsh/zsh-completions ]
@@ -216,5 +256,5 @@ do
         status_code=1
     fi
 done
-
-goto_exit ${status_code}
+exit 0
+goto_exit 0 #${status_code}

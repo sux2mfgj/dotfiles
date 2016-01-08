@@ -153,6 +153,9 @@ set clipboard=unnamedplus
 " fold
 set foldmethod=syntax
 
+" tags
+nnoremap <C-]> g<C-]> 
+
 "-------------------------------
 "   Plugin
 "-------------------------------
@@ -441,16 +444,17 @@ let g:quickrun_config = {
 "TODO:rhysd/vim-operator-surround
 
 "Vim-AutoSave
-let g:auto_save = 0
+let g:auto_save = 1
 
 "VimFiler
-let g:vimfiler_edit_action = 'tabopen'
-let g:vimfiler_enable_auto_cd = 1
+" let g:vimfiler_edit_action = 'tabopen'
+" let g:vimfiler_enable_auto_cd = 1
 " nnoremap <Space>v :VimFiler -split -simple -winwidth=35 -quit<CR>
 nnoremap <silent> <Space>v :<C-u>VimFiler -explorer<CR>
 
 "clang-fomat
-let g:clang_format#command="clang-format-3.5"
+" let g:clang_format#command="clang-format-3.5"
+let g:clang_format#command="clang-format"
 let g:clang_format#code_style="chromium"
 let g:clang_format#style_options = {
     \ "BreakBeforeBraces" : "Stroustrup",

@@ -1,0 +1,6 @@
+package
+000 first config
+100 load macro
+200 setup package
+300 depend on 200 package
+400 own scripts?

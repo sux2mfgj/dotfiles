@@ -1,4 +1,4 @@
-;; -*- tab-width: 4; coding: utf-8; lexical-binding:t  -*-
+;; -*- tab-width: 4; coding: utf-8; lexical-binding: t -*-
 
 (package-load-with-check
  helm-config
@@ -19,6 +19,7 @@
 
   ;; C-; assign helm-mini
   (define-key global-map (kbd "C-;") 'helm-mini)
+  (define-key global-map (kbd "C-x C-b") 'helm-buffers-list)
 
   ;; config for eshell
   (add-hook 'eshell-mode-hook
@@ -52,7 +53,7 @@
 
   (add-hook 'c-mode-common-hook 'helm-gtags-mode)
   (add-hook 'asm-mode-hook 'helm-gtags-mode)
-  
+
   )
  )
-
+ 

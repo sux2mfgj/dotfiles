@@ -8,7 +8,7 @@
      ,@body
      (message (concat "[ok] " ,(symbol-name package-name) " was loaded"))
      )
-    ((package-installed-p ',package-name)
+    ((eq nil (package-installed-p ',package-name))
      (package-install ',package-name)
      (message (concat "[ok] install " ,(symbol-name package-name)))
      )

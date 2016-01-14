@@ -48,7 +48,7 @@
 (setq require-final-newline t)
 
 ;; font size 
-(set-face-attribute 'default nil :height 150)
+;;(set-face-attribute 'default nil :height 150)
 
 ;; startup eshell
 (require 'eshell)

@@ -10,11 +10,11 @@
   
   (unless (package-installed-p 'init-loader)
 	(package-install init-loader))
-  
-  (require 'init-loader)
+
+    (require 'init-loader)
   (init-loader-load "~/.emacs.d/inits")
   )
  (t
-  (message "don't load init.el. please use emase 24 or after"))
+  (message "don't load init.el. please use emase 24 or later"))
   )
  

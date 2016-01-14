@@ -30,6 +30,25 @@ from libqtile import layout, bar, widget
 alt = "mod4"
 #  alt = "mod1"
 
+import subprocess
+# TODO
+need_commands = {
+        "terminator":   "terminator",
+        "emacsclient":  "emacsclient -c",
+        "chrome":       "google-chrome-stable",
+        "line":         "line.sh",
+        }
+
+not_found = "send-notify"
+
+def cmd_exists(cmd):
+    return subprocess.call("type " + cmd.split(" ")[0], shell=True, 
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0
+
+for k, v in need_commands.items():
+    if not cmd_exists(v):
+        need_commands[k] = None
+
 
 keys = [
     # Switch between windows in current stack pane
@@ -87,6 +106,7 @@ keys = [
 #          [alt, "shift"], "Return",
 #          lazy.layout.toggle_split()
 #      ),
+
     Key([alt], "Return", lazy.spawn("terminator")),
     Key([alt], "g", lazy.spawn("google-chrome-stable")),
     Key([alt], "e", lazy.spawn("emacsclient -c")),

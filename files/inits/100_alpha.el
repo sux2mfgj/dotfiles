@@ -8,8 +8,8 @@
 
 
 (if window-system (progn
-    (set-background-color "Gray")
-    (set-foreground-color "LightGray")
-    (set-cursor-color "Gray")
+;;    (set-background-color "Gray")
+;;    (set-foreground-color "LightGray")
+;;    (set-cursor-color "Gray")
     (set-frame-parameter nil 'alpha 70)
     ))

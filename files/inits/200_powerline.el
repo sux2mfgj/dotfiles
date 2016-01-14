@@ -5,5 +5,4 @@
  (
   (powerline-default-theme)
   )
-
  )

@@ -74,6 +74,8 @@ bindkey '^R' history-incremental-search-backward
 [ -f $HOME/.zshrc.mine ] && source $HOME/.zshrc.mine
 
 #enhancd
+#TODO
+#[ which peco ] [ -f $HOME/.zsh/enhancd/enhancd.sh ] && source $HOME/.zsh/enhancd/enhancd.sh
 [ -f $HOME/.zsh/enhancd/enhancd.sh ] && source $HOME/.zsh/enhancd/enhancd.sh
 
 
@@ -134,7 +136,7 @@ fi
 
 
 alias tmux="tmux -2"
-[[ -z "$TMUX" && -z "$WINDOW" && ! -z "$PS1" ]] && tmux
+[[ -z "$TMUX" && -n "$DISPLAY" && -z "$WINDOW" && ! -z "$PS1" ]] && tmux
 
 alias ll="ls -al"
 alias mkdir='mkdir -p'

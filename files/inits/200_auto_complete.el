@@ -19,8 +19,6 @@
    (ac-define-source pcomplete
      '((candidates . pcomplete-completions)))
 
-
-ac-complete-pcomplete
    (defun my-ac-eshell-mode ()            
     (setq ac-sources
           '(ac-source-pcomplete

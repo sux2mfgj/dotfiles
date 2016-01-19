@@ -11,7 +11,7 @@
             '(lambda ()
                (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
                (local-set-key (kbd "M-r") 'helm-gtags-find-rtags)
-               (local-set-key (kdb "M-s") 'helm-gtags-find-symbol)
+               (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
                (local-set-key (kbd "C-t") 'helm-gtags-pop-stack)
                ))
   )

@@ -1,5 +1,4 @@
 "himaaaatti's vimrc
-
 "encoding
 set encoding=utf-8
 set fileencodings=utf-8,sjis,cp932,euc-jp
@@ -155,6 +154,7 @@ set foldmethod=syntax
 
 " tags
 nnoremap <C-]> g<C-]> 
+
 
 "-------------------------------
 "   Plugin
@@ -385,6 +385,9 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 endif
 
+
+"finish
+
 "NeoSnnipet
 imap <C-k>  <Plug>(neosnippet_expand_or_jump)
 smap <C-k>  <Plug>(neosnippet_expand_or_jump)
@@ -444,7 +447,7 @@ let g:quickrun_config = {
 "TODO:rhysd/vim-operator-surround
 
 "Vim-AutoSave
-let g:auto_save = 1
+let g:auto_save = 0
 
 "VimFiler
 " let g:vimfiler_edit_action = 'tabopen'

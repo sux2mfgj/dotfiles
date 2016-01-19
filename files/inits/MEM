@@ -12,6 +12,9 @@
 
   = other
     * 201_helm.el
+    * 203_popwin.el
 
 - 300
   * 301_helm_gtags.el
+  * 303_google_translate.el
+  

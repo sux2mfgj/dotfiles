@@ -127,19 +127,22 @@ keys = [
     Key([alt], "t", lazy.spawncmd()),
 
     # change screen
-    Key([alt], "l", lazy.to_screen(0)),
-    Key([alt], "h", lazy.to_screen(1)),
+    #Key([alt], "l", lazy.to_screen(0)),
+    #Key([alt], "h", lazy.to_screen(1)),
+
+    Key([alt], "l", lazy.next_screen()),
+
 ]
 
 groups = [
-    Group('1'),
-    Group('2', spawn="emacsclient -c"),
-    Group('3'),# spawn="xmodmap /home/hima/.xmodmap"),
+    Group('1', spawn='terminator'),
+    Group('2'),
+    Group('3'),  # spawn="xmodmap /home/hima/.xmodmap"),
     Group('4'),
     Group('7'),
-    Group('8'),# spawn="start_chrome.sh"),
-    Group('9', layout='stack'),# layout='wmii'),
-    Group('0', layout='treetab')#, spawn="line.sh"),
+    Group('8'),  # spawn="start_chrome.sh"),
+    Group('9', layout='treetab'),  # layout='wmii'),
+    Group('0', layout='treetab'),   # , spawn="line.sh"),
 ]
 
 for i in groups:

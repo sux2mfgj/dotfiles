@@ -17,6 +17,24 @@
   (define-key helm-map (kbd "C-h") 'delete-backward-char)
   (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 
+  ;;
+  (defvar helm-source-emacs-commands
+  (helm-build-sync-source "Emacs commands"
+    :candidates (lambda ()
+                  (let ((cmds))
+                    (mapatoms
+                     (lambda (elt) (when (commandp elt) (push elt cmds))))
+                    cmds))
+    :coerce #'intern-soft
+    :action #'command-execute)
+  "A simple helm source for Emacs commands.")
+  
+  ;; behavior of helm-mini
+  (custom-set-variables
+   '(helm-mini-default-sources '(helm-source-buffers-list
+                                 helm-source-emacs-commands
+                                 )))
+  
   ;; C-; assign helm-mini
   (define-key global-map (kbd "C-;") 'helm-mini)
   (define-key global-map (kbd "C-x C-b") 'helm-buffers-list)

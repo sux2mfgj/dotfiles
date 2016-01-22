@@ -18,3 +18,26 @@ keycode 132 = Super_R
 clear Shift
 keycode 100 = Shift_R
 add Shift = Shift_L Shift_R
+
+
+!  clear Hiragana_Katakana
+!clear 101
+!  clear Alt_L
+!clear 64
+!  clear Super_L
+!clear 133
+!
+clear mod1
+clear mod2
+clear mod3
+clear mod4
+
+add mod1 = Alt_L
+add mod4 = Super_L
+
+!  add Hiragana_Katakana = Alt_L
+!keycode 101 = Alt_L
+keycode 101 = Alt_L
+!  add Alt_L = Super_L
+keycode 64 = Super_L
+

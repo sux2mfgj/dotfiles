@@ -1,0 +1,7 @@
+- TODO
+
+twittering-modeを読み込んでいるファイルに追加する。
+* git clone https://github.com/mhayashi1120/Emacs-twittering-stream.git ~/.emacs.d/twittering-stream?
+
+* add-to-list? load-path twittering-stream?
+

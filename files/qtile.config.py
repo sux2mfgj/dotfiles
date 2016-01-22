@@ -142,7 +142,7 @@ groups = [
     Group('7'),
     Group('8'),  # spawn="start_chrome.sh"),
     Group('9', layout='treetab'),  # layout='wmii'),
-    Group('0', layout='treetab'),   # , spawn="line.sh"),
+    Group('0', layout='treetab', spawn="line.sh"),
 ]
 
 for i in groups:
@@ -225,6 +225,8 @@ screens = [
     ),
 ]
 
+
+
 # Drag floating layouts.
 mouse = [
     Drag(
@@ -259,7 +261,7 @@ from libqtile import hook
 import subprocess
 
 import glob
-file_lists = glob.glob('/home/hima/wallpaper/*')
+file_lists = glob.glob('/home/hima/wallpapers/*')
 
 def wallpaper():
     import random

@@ -7,6 +7,8 @@
   (setq twittering-use-master-password t)
   
   (setq twittering-allow-insecure-server-cert t)
+
+  (setq twittering-icon-mode t)
   )
  )
 

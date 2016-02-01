@@ -211,6 +211,7 @@ NeoBundle 'kana/vim-smartinput'
 
 NeoBundle 'thinca/vim-template'
 NeoBundle 'mopp/next-alter.vim'
+NeoBundle 'vim-scripts/gtags.vim'
 
 
 " For python

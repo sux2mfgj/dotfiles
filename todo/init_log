@@ -1,0 +1,14 @@
+# fix errors at init_log
+
+------- error log -------
+
+nil. Cannot open load file: no such file or directory, 200_helm
+/home/hima/.emacs.d/inits/200_mozc.el. Fontset `tty' does not exist
+nil. Cannot open load file: no such file or directory, 201_linum
+nil. Cannot open load file: no such file or directory, 202_auto_complete
+nil. Cannot open load file: no such file or directory, 204_smartparens
+nil. Cannot open load file: no such file or directory, 205_tabbar
+
+
+# delete tabber
+ I cannot use tabber.

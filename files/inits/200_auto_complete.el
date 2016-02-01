@@ -15,6 +15,7 @@
   (require 'pcomplete)
   
   (add-to-list 'ac-modes 'eshell-mode)
+  (add-to-list 'ac-modes 'makefile-mode)
   
    (ac-define-source pcomplete
      '((candidates . pcomplete-completions)))

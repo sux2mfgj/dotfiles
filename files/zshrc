@@ -141,6 +141,11 @@ alias tmux="tmux -2"
 alias ll="ls -al"
 alias mkdir='mkdir -p'
 
+# config for emacs 
+alias killemacs="emacsclient -e '(save-buffers-kill-emacs)'"
+alias emax="emacsclient -t"
+
+
 function chpwd(){
 #      ls -v -F --color=auto
     ls $lsopt

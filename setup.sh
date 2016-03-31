@@ -7,7 +7,7 @@ files_path=$current_dir/files
 # echo $files_path
 
 copy_files=("zshrc.mine")
-home_dot_files=("tmux.conf" "vimrc" "xmodmap" "zshrc" "pyrc", "gdbinit" "gitconfig")
+home_dot_files=("tmux.conf" "vimrc" "xmodmap" "xmodmap.a" "zshrc" "pyrc", "gdbinit" "gitconfig")
 create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" "src" ".go" ".emacs.d/inits")
 # emacs_inits=("02_linum.el 01_load_macro.el 00_init.el")
 emacs_inits=(`ls ${files_path}/inits`)

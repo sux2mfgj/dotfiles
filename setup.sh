@@ -5,10 +5,10 @@ current_dir=$(cd $(dirname $0); pwd)
 files_path=$current_dir/files
 
 # echo $files_path
-
+logfile_dir=$HOME/.dotfiles_setup.log
 copy_files=("zshrc.mine")
-home_dot_files=("tmux.conf" "vimrc" "xmodmap" "zshrc" "pyrc", "gdbinit" "gitconfig")
-create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" "src" ".go" ".emacs.d/inits")
+home_dot_files=("tmux.conf" "xmodmap" "vimrc" "zshrc" "pyrc", "gdbinit" "gitconfig")
+create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" ".go" ".emacs.d/inits")
 # emacs_inits=("02_linum.el 01_load_macro.el 00_init.el")
 emacs_inits=(`ls ${files_path}/inits`)
 
@@ -61,6 +61,17 @@ else
     ln -s ${files_path}/terminator.config $HOME/.config/terminator/config
     echo ${files_path}/terminator.config $HOME/.config/terminator/config
 fi
+
+# for nvim config file
+if [ -e $HOME/.config/nvim/init.vim ]
+then
+    echo nvim config file is already exists.
+else
+    mkdir -p $HOME/.config/nvim
+    ln -s ${files_path}/vimrc $HOME/.config/nvim/init.vim
+    echo ${files_path}/vimrc $HOME/.config/nvim/init.vim
+fi
+
 
 if [ -e $HOME/.irssi/config ]
 then
@@ -115,7 +126,6 @@ done
 
 
 
-logfile_dir=$HOME/.dotfile_setup.log
 
 if [ ! -e ${logfile_dir} ]; then
     touch ${logfile_dir}

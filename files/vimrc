@@ -9,7 +9,10 @@ set backspace=start,eol,indent
 set backspace=2
 
 "colorscheme
-colorscheme 256-jungle
+" colorscheme 256-jungle
+" colorscheme brogrammer
+colorscheme hybrid
+set background=dark
 syntax on
 
 "tab
@@ -212,6 +215,7 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'thinca/vim-template'
 NeoBundle 'mopp/next-alter.vim'
 NeoBundle 'vim-scripts/gtags.vim'
+NeoBundle 'airblade/vim-gitgutter'
 
 
 " For python

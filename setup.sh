@@ -4,6 +4,8 @@ current_dir=$(cd $(dirname $0); pwd)
 
 files_path=$current_dir/files
 
+local_bin=`ls $current_dir/files/local/bin`
+
 # echo $files_path
 logfile_dir=$HOME/.dotfiles_setup.log
 copy_files=("zshrc.mine")
@@ -34,6 +36,25 @@ do
         ln -s ${files_path}/${f} $HOME/.${f}
         echo ${files_path}/${f} $HOME/.${f}
     fi
+done
+
+if [ -e $HOME/local/bin/ ]
+then
+    echo $HOME/local/bin is already exists.
+else
+    mkdir -p $HOME/local/bin
+fi
+
+for f in ${local_bin[@]}
+do
+    if [ -e $HOME/local/bin/${f} ]
+    then
+        echo ${f} is already exists.
+    else
+        ln -s ${files_path}/local/bin/${f} $HOME/local/bin/${f}
+        echo ${files_path}/local/bin/${f} $HOME/local/bin/${f}
+    fi
+
 done
 
 if [ -e $HOME/.ssh/config ]; then

@@ -1,0 +1,33 @@
+#!/bin/sh
+
+search_root() {
+#     echo ${1}
+    if [ -e ${1}/.git ];
+    then
+#         echo go to ${1}
+#         cd ${1}
+        echo ${1}
+        return 
+    fi
+
+    next=$(dirname ${1})
+    if [ / = ${next} ]; then
+        echo ""
+        return
+    fi
+    search_root ${next}
+}
+
+root=$(search_root `pwd`)
+
+# echo ${root}
+
+if [ -z ${root} ]; then
+    echo .git not found
+else
+    cd ${root}
+    shell=`sh -c "getent passwd ${LOGNAME} | cut -d: -f7"`
+    echo ${root}
+    exec ${shell}
+fi
+

@@ -76,6 +76,8 @@ bindkey '^R' history-incremental-search-backward
 #enhancd
 #TODO
 #[ which peco ] [ -f $HOME/.zsh/enhancd/enhancd.sh ] && source $HOME/.zsh/enhancd/enhancd.sh
+
+ENHANCD_COMMAND=hc
 [ -f $HOME/.zsh/enhancd/enhancd.sh ] && source $HOME/.zsh/enhancd/enhancd.sh
 
 

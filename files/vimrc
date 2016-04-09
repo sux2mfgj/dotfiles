@@ -9,8 +9,11 @@ set backspace=start,eol,indent
 set backspace=2
 
 "colorscheme
-colorscheme 256-jungle
-syntax on
+" colorscheme 256-jungle
+" colorscheme brogrammer
+" set background=dark
+" colorscheme hybrid
+" syntax on
 
 "tab
 set expandtab
@@ -212,6 +215,10 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'thinca/vim-template'
 NeoBundle 'mopp/next-alter.vim'
 NeoBundle 'vim-scripts/gtags.vim'
+NeoBundle 'airblade/vim-gitgutter'
+
+"color scheme
+NeoBundle 'w0ng/vim-hybrid'
 
 
 " For python
@@ -483,3 +490,9 @@ nnoremap <Space>l :<C-u>OpenNAlter vertical<CR>
 
 " vlb-vim
 autocmd FileType vlb let g:neosnippet#snippets_directory='~/.vim/bundle/vim-vlb/snippet'
+
+" vim-hybrid
+set background=dark
+colorscheme hybrid
+syntax on
+

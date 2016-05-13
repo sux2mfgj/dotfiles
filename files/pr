@@ -1,0 +1,8 @@
+#!/bin/bash
+
+search_root() {
+    echo ${1}
+}
+
+search_root `pwd`
+

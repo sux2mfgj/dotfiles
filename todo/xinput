@@ -1,0 +1,3 @@
+こいつらをそれぞれいれる
+xinput --set-prop "PS/2 Synaptics TouchPad" "Device Enabled" 0
+xinput --set-prop "PS/2 Synaptics TouchPad" "Device Enabled" 1

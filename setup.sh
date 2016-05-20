@@ -281,6 +281,19 @@ else
     pid_array+=(" $! pyenv")
 fi
 
+process(){
+    git clone https://github.com/yyuu/pyenv.git $HOME/.pyenv
+    exit $?
+}
+if [ -e $HOME/.pyenv/plugins/pyenv-virtualenv ]
+then
+    echo virtualenv was installed already. 
+    pid_array+=(" ${pass_pid} virtualenv")
+else 
+    process >> ${logfile_dir} 2>&1 &
+    pid_array+=(" $! virtualenv")
+fi
+
 
 # compile qtile.config.py
 python -m py_compile $HOME/.config/qtile/config.py >> ${logfile_dir} 2>&1 &

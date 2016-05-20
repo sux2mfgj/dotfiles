@@ -74,7 +74,7 @@ bindkey '^R' history-incremental-search-backward
 [ -f $HOME/.zshrc.mine ] && source $HOME/.zshrc.mine
 
 #for pyenv
-[ -f $HOME/.zshrc.pyenv ] && source $HOME/.zshrc.pyenv
+type pyenv && [ -f $HOME/.zshrc.pyenv ] && source $HOME/.zshrc.pyenv
 
 #enhancd
 #TODO

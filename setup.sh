@@ -267,6 +267,21 @@ else
     pid_array+=(" $! enhancd")
 fi
 
+echo "[ pyenv ]"
+process(){
+    git clone https://github.com/yyuu/pyenv.git $HOME/.pyenv
+    exit $?
+}
+if [ -e $HOME/.pyenv ]
+then
+    echo enhancd was installed already.
+    pid_array+=(" ${pass_pid} pyenv")
+else
+    process >> ${logfile_dir} 2>&1 &
+    pid_array+=(" $! pyenv")
+fi
+
+
 # compile qtile.config.py
 python -m py_compile $HOME/.config/qtile/config.py >> ${logfile_dir} 2>&1 &
 pid_array+=(" $! check_qtile.config.py")

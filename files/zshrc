@@ -73,6 +73,9 @@ bindkey '^R' history-incremental-search-backward
 #zshrc.mineの読み込み
 [ -f $HOME/.zshrc.mine ] && source $HOME/.zshrc.mine
 
+#for pyenv
+[ -f $HOME/.zshrc.pyenv ] && source $HOME/.zshrc.pyenv
+
 #enhancd
 #TODO
 #[ which peco ] [ -f $HOME/.zsh/enhancd/enhancd.sh ] && source $HOME/.zsh/enhancd/enhancd.sh
@@ -175,3 +178,5 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
 zstyle ':completion:*:*files' ignored-patterns '*?.o' '*?~' '*\#' '*?.img'
+
+stty stop undef

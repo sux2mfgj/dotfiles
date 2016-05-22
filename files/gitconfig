@@ -22,6 +22,9 @@
     ci = commit -a # move modified file to statge
     cam = commit -a --amend #amendment just before commit
     co = checkout
+    tags = tag
+	graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+
 
 # branch
     br = branch

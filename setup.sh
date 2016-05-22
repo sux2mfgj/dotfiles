@@ -9,7 +9,7 @@ local_bin=`ls $current_dir/files/local/bin`
 # echo $files_path
 logfile_dir=$HOME/.dotfiles_setup.log
 copy_files=("zshrc.mine")
-home_dot_files=("tmux.conf" "vimrc" "xmodmap" "xmodmap.a" "vimrc" "zshrc" "pyrc", "gdbinit" "gitconfig")
+home_dot_files=("tmux.conf" "vimrc" "xmodmap" "xmodmap.a" "vimrc" "zshrc" "pyrc", "gdbinit" "gitconfig" "zshrc.pyenv")
 create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" ".go" ".emacs.d/inits")
 # emacs_inits=("02_linum.el 01_load_macro.el 00_init.el")
 emacs_inits=(`ls ${files_path}/inits`)
@@ -266,6 +266,34 @@ else
     process >> ${logfile_dir} 2>&1 &
     pid_array+=(" $! enhancd")
 fi
+
+echo "[ pyenv ]"
+process(){
+    git clone https://github.com/yyuu/pyenv.git $HOME/.pyenv
+    exit $?
+}
+if [ -e $HOME/.pyenv ]
+then
+    echo enhancd was installed already.
+    pid_array+=(" ${pass_pid} pyenv")
+else
+    process >> ${logfile_dir} 2>&1 &
+    pid_array+=(" $! pyenv")
+fi
+
+process(){
+    git clone https://github.com/yyuu/pyenv.git $HOME/.pyenv
+    exit $?
+}
+if [ -e $HOME/.pyenv/plugins/pyenv-virtualenv ]
+then
+    echo virtualenv was installed already. 
+    pid_array+=(" ${pass_pid} virtualenv")
+else 
+    process >> ${logfile_dir} 2>&1 &
+    pid_array+=(" $! virtualenv")
+fi
+
 
 # compile qtile.config.py
 python -m py_compile $HOME/.config/qtile/config.py >> ${logfile_dir} 2>&1 &

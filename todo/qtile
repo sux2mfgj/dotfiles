@@ -1,4 +1,17 @@
 * netglaph のlogまわりが整備されていなくて起動できない
+fixed?
+
+*qsh
+emacsからqshをいじれるように
+
+group rename?
+barに表示されている番号（現在）の表示の動的に変更できるものがほしい
+
+www.qtile.org
+current release が古い
+
+
+
 
 - dual display
     * 自分が今どっちのディスプレイで作業しているのかわからなくなることがある

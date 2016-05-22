@@ -22,7 +22,7 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/s
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
 zstyle ':completion:*' group-name ''
-
+zstyle ':completion:*' rehash true
 
 export EDITOR=vim
 
@@ -72,6 +72,9 @@ bindkey '^R' history-incremental-search-backward
 
 #zshrc.mineの読み込み
 [ -f $HOME/.zshrc.mine ] && source $HOME/.zshrc.mine
+
+#for pyenv
+type pyenv && [ -f $HOME/.zshrc.pyenv ] && source $HOME/.zshrc.pyenv
 
 #enhancd
 #TODO
@@ -175,3 +178,5 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
 zstyle ':completion:*:*files' ignored-patterns '*?.o' '*?~' '*\#' '*?.img'
+
+stty stop undef

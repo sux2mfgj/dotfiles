@@ -220,6 +220,8 @@ NeoBundle 'airblade/vim-gitgutter'
 "color scheme
 NeoBundle 'w0ng/vim-hybrid'
 
+"for Scala
+NeoBundle 'derekwyatt/vim-scala'
 
 " For python
 if has('python3') || has('python')

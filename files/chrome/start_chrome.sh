@@ -9,7 +9,7 @@ calender='https://calendar.google.com/'
 
 # line_app_id=menkifleemblimdogmoihpfopnplikde
 
-addresses=(${inbox} ${slack} ${skype} ${tweetdeck} ${aslweb} ${calendar})
+addresses=(${inbox} ${slack} ${skype} ${tweetdeck} ${aslweb} ${calender})
 echo ${addresses}
 
 # google-chrome-stable --app-id=${line_app_id} > /dev/null 2>&1 &

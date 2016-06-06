@@ -24,7 +24,7 @@ zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' rehash true
 
-export EDITOR=vim
+export EDITOR=nvim
 
 #History
 HISTFILE=~/.zsh_history

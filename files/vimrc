@@ -87,7 +87,7 @@ function! UpdateBackupFile()
 endfunction
 
 "viminfo
-set viminfo='50,\"1000,:0,n~/.vim/viminfo.txt
+set viminfo='50,\"1000,:0,n~/.nviminfo
 
 " ----- mark -----
 nnoremap [Mark] <Nop>

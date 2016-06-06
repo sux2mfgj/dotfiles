@@ -116,7 +116,7 @@ keys = [
 #      Key([alt], "n", lazy.layout.normalize()),
 #      Key([alt], "o", lazy.layout.maximize()),
 
-    #Key([alt], "f", lazy.window.toggle_floating()),
+    Key([alt], "f", lazy.window.toggle_floating()),
 
     # Toggle between different layouts as defined below
     Key([alt], "Tab", lazy.nextlayout()),

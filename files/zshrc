@@ -24,7 +24,7 @@ zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' rehash true
 
-export EDITOR=vim
+export EDITOR=nvim
 
 #History
 HISTFILE=~/.zsh_history
@@ -74,7 +74,7 @@ bindkey '^R' history-incremental-search-backward
 [ -f $HOME/.zshrc.mine ] && source $HOME/.zshrc.mine
 
 #for pyenv
-type pyenv && [ -f $HOME/.zshrc.pyenv ] && source $HOME/.zshrc.pyenv
+[ -f $HOME/.zshrc.pyenv ] && source $HOME/.zshrc.pyenv
 
 #enhancd
 #TODO

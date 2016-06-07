@@ -5,3 +5,4 @@ export PATH=$HOME/local/bin:$PATH
 
 export GTEST_ROOT=/home/hima/local/src/googletest
 
+alias vim="nvim"

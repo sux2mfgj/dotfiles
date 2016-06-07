@@ -1,8 +1,0 @@
----
-
-- include: utopic.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_release == "utopic"
-
-
-- include: 7_0.yml
-  when: ansible_os_family == "RedHat" and ansible_distribution_version == "7.0.1406"

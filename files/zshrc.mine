@@ -5,3 +5,8 @@ export PATH=$HOME/local/bin:$PATH
 
 export GTEST_ROOT=/home/hima/local/src/googletest
 
+
+altera_path=/home/hima/altera_lite/16.0
+export PATH=$PATH:${altera_path}/quartus/bin:${altera_path}/nios2eds/bin
+export PATH=$PATH:${altera_path}/modelsim_ase/bin
+

@@ -116,7 +116,7 @@ keys = [
 #      Key([alt], "n", lazy.layout.normalize()),
 #      Key([alt], "o", lazy.layout.maximize()),
 
-    #Key([alt], "f", lazy.window.toggle_floating()),
+    Key([alt], "f", lazy.window.toggle_floating()),
 
     # Toggle between different layouts as defined below
     Key([alt], "Tab", lazy.nextlayout()),
@@ -186,10 +186,12 @@ screens = [
                 widget.WindowName(),
                 widget.CurrentLayout(),
 #                  widget.TextBox("default config", name="default"),
+#                widget.TaskList(),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
-            25,
+            size=30,
+            background=['222222', '111111'],
         ),
         bottom=bar.Bar(
             [
@@ -205,8 +207,9 @@ screens = [
 #                  widget.HDDGraph(path = '/home'),
 #                  widget.LoadAverageGraph(),
             ],
-            25,
-        ),
+            size=30,
+            background=['222222', '111111'],
+            ),
     ),
 
     Screen(
@@ -220,7 +223,8 @@ screens = [
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
-            25,
+            size=30,
+            background=['222222', '111111'],
         ),
     ),
 ]
@@ -245,7 +249,8 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating()
-auto_fullscreen = True
+#auto_fullscreen = True
+auto_fullscreen = False
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

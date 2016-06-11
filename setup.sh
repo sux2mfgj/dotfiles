@@ -294,6 +294,18 @@ else
     pid_array+=(" $! virtualenv")
 fi
 
+process(){
+    git clone https://github.com/tmux-plugins/tmux-yank ~/local/tmux-yank
+    exit $?
+}
+if [ -e $HOME/local/tmux-yank ]
+then
+    echo yank.tmux was installed already.
+    pid_array+=(" ${pass_pid} yank.tmux")
+else
+    process >> ${logfile_dir} 2>&1 &
+    pid_array+=(" $! yank.tmux")
+fi
 
 # compile qtile.config.py
 python -m py_compile $HOME/.config/qtile/config.py >> ${logfile_dir} 2>&1 &

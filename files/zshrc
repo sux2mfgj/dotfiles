@@ -74,7 +74,16 @@ bindkey '^R' history-incremental-search-backward
 [ -f $HOME/.zshrc.mine ] && source $HOME/.zshrc.mine
 
 #for pyenv
-type pyenv && [ -f $HOME/.zshrc.pyenv ] && source $HOME/.zshrc.pyenv
+[ -f $HOME/.zshrc.pyenv ] && source $HOME/.zshrc.pyenv
+
+# for tmux
+type tmux && source $HOME/.zshrc.tmux
+if [ type tmux ]; then
+    source $HOME/.zshrc.tmux
+else 
+    echo not found tmux
+fi
+
 
 #enhancd
 #TODO
@@ -137,11 +146,6 @@ else
     export PATH=$HOME/bin/solaris/bin:$PATH
 alias ls="ls -FG --color=auto"
 fi
-
-
-
-alias tmux="tmux -2"
-[[ -z "$TMUX" && -n "$DISPLAY" && -z "$WINDOW" && ! -z "$PS1" ]] && tmux
 
 alias ll="ls -al"
 alias mkdir='mkdir -p'

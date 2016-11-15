@@ -41,8 +41,10 @@ need_commands = {
 
 not_found = "send-notify"
 
+
 def cmd_exists(cmd):
-    return subprocess.call("type " + cmd.split(" ")[0], shell=True, 
+    return subprocess.call(
+            "type " + cmd.split(" ")[0], shell=True,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0
 
 for k, v in need_commands.items():
@@ -64,12 +66,7 @@ keys = [
         [alt], "p",
         lazy.layout.previous(),
     ),
-#      Key(
-#          [alt], "l",
-#          lazy.layout.next(),
-#      ),
 
-    #
     Key([alt, "shift"], "h",
         lazy.layout.move_left()),
     Key([alt, "shift"], "l",
@@ -101,15 +98,6 @@ keys = [
         lazy.layout.next_layout()
     ),
 
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-#      Key(
-#          [alt, "shift"], "Return",
-#          lazy.layout.toggle_split()
-#      ),
-
     Key([alt], "Return", lazy.spawn("terminator")),
     Key([alt], "g", lazy.spawn("google-chrome-stable")),
     Key([alt], "e", lazy.spawn("emacsclient -c")),
@@ -117,8 +105,8 @@ keys = [
 
     Key([alt], "i", lazy.layout.grow()),
     Key([alt], "m", lazy.layout.shrink()),
-#      Key([alt], "n", lazy.layout.normalize()),
-#      Key([alt], "o", lazy.layout.maximize()),
+    # Key([alt], "n", lazy.layout.normalize()),
+    # Key([alt], "o", lazy.layout.maximize()),
 
     Key([alt], "f", lazy.window.toggle_floating()),
 
@@ -131,8 +119,8 @@ keys = [
     Key([alt], "t", lazy.spawncmd()),
 
     # change screen
-    #Key([alt], "l", lazy.to_screen(0)),
-    #Key([alt], "h", lazy.to_screen(1)),
+    # Key([alt], "l", lazy.to_screen(0)),
+    # Key([alt], "h", lazy.to_screen(1)),
 
     Key([alt], "l", lazy.next_screen()),
 
@@ -176,7 +164,7 @@ layouts = [
 
 widget_defaults = dict(
     font='Arial',
-#    font='Ricty'
+    # font='Ricty'
     fontsize=16,
     padding=3,
 )
@@ -186,13 +174,12 @@ screens = [
         top=bar.Bar(
             [
                 widget.GroupBox(),
-                widget.DeadLine(),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.CurrentScreen(),
                 widget.CurrentLayout(),
-#                  widget.TextBox("default config", name="default"),
-#                widget.TaskList(),
+                # widget.TextBox("default config", name="default"),
+                # widget.TaskList(),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
@@ -202,16 +189,19 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.Battery(),
-#                  widget.GmailChecker(),
-#                  widget.KeyboardLayout(),
+                # widget.GmailChecker(),
+                # widget.KeyboardLayout(),
                 widget.CPUGraph(),
                 widget.MemoryGraph(),
                 widget.NetGraph(),
+                # submit thesis
+                widget.Countdown(date=datetime(2017, 1, 27, 17, 00)),
                 widget.Clipboard(),
                 widget.Notify(),
 
-#                  widget.HDDGraph(path = '/home'),
-#                  widget.LoadAverageGraph(),
+                # widget.HDDGraph(path='/'),
+                widget.DF(visible_on_warn=False),
+                # widget.LoadAverageGraph(),
             ],
             size=30,
             background=['222222', '111111'],
@@ -226,7 +216,6 @@ screens = [
                 widget.WindowName(),
                 widget.CurrentScreen(),
                 widget.CurrentLayout(),
-#                  widget.TextBox("default config", name="default"),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
@@ -236,7 +225,15 @@ screens = [
     ),
 ]
 
+countdown_widget = next(
+        (widget for widget in screens[0].bottom.widgets
+            if widget.name == 'countdown'),
+        None)
 
+if countdown_widget is not None:
+    keys.append(Key([alt], "c", lazy.widget['countdown'].toggle_visible()))
+
+#  keys.append(Key([alt, "shift"], "t", lazy.widget['cpugraph'].toggle_visible()))
 
 # Drag floating layouts.
 #  mouse = [
@@ -256,7 +253,6 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating()
-#auto_fullscreen = True
 auto_fullscreen = False
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
@@ -290,7 +286,7 @@ def wallpaper():
 
 from threading import Thread
 wallpaper_thread = Thread(target=wallpaper)
-        
+
 @hook.subscribe.startup_once
 def startup_once():
     subprocess.Popen(['fcitx-autostart'])
@@ -300,8 +296,8 @@ def startup_once():
     subprocess.Popen(['xcompmgr', '-c'])
 #      subprocess.Popen(['start_chrome.sh'])
     subprocess.Popen(['emacs', '--daemon'])
-    
-    
+
+
 @hook.subscribe.startup
 def startup():
     if wallpaper_thread.isAlive():

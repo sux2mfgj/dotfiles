@@ -27,6 +27,7 @@
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
+from datetime import datetime
 alt = "mod4"
 #  alt = "mod1"
 

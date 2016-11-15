@@ -64,7 +64,6 @@ keys = [
         [alt], "p",
         lazy.layout.previous(),
     ),
-
 #      Key(
 #          [alt], "l",
 #          lazy.layout.next(),
@@ -97,6 +96,10 @@ keys = [
         [alt, "shift"], "space",
         lazy.layout.rotate()
     ),
+    Key(
+        [alt], "n",
+        lazy.layout.next_layout()
+    ),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -110,6 +113,7 @@ keys = [
     Key([alt], "Return", lazy.spawn("terminator")),
     Key([alt], "g", lazy.spawn("google-chrome-stable")),
     Key([alt], "e", lazy.spawn("emacsclient -c")),
+    Key([alt, "shift"], "l", lazy.spawn("i3lock")),
 
     Key([alt], "i", lazy.layout.grow()),
     Key([alt], "m", lazy.layout.shrink()),
@@ -119,7 +123,7 @@ keys = [
     Key([alt], "f", lazy.window.toggle_floating()),
 
     # Toggle between different layouts as defined below
-    Key([alt], "Tab", lazy.nextlayout()),
+#      Key([alt], "tab", lazy.nextlayout()),
     Key([alt, 'shift'], "d", lazy.window.kill()),
 
     Key([alt, "control"], "r", lazy.restart()),
@@ -182,8 +186,10 @@ screens = [
         top=bar.Bar(
             [
                 widget.GroupBox(),
+                widget.DeadLine(),
                 widget.Prompt(),
                 widget.WindowName(),
+                widget.CurrentScreen(),
                 widget.CurrentLayout(),
 #                  widget.TextBox("default config", name="default"),
 #                widget.TaskList(),
@@ -218,6 +224,7 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
+                widget.CurrentScreen(),
                 widget.CurrentLayout(),
 #                  widget.TextBox("default config", name="default"),
                 widget.Systray(),
@@ -261,7 +268,7 @@ auto_fullscreen = False
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 
-wmname = "qtile"
+wmname = "LG3D"
 from libqtile import hook
 import subprocess
 

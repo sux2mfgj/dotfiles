@@ -36,8 +36,8 @@ set title
 set cursorline
 set cmdheight=1
 set scrolloff=3
-set showmatch
-set matchtime=1
+"set showmatch
+set matchtime=0
 set showcmd
 set showmode
 
@@ -153,11 +153,15 @@ nnoremap <Space>tj :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 set clipboard=unnamedplus
 
 " fold
-set foldmethod=syntax
+" set foldmethod=syntax
+set nofoldenable
 
 " tags
 nnoremap <C-]> g<C-]> 
+set tags=tags;
 
+"for racket (scheme)
+au BufRead,BufNewFile *.rkt set filetype=scheme
 
 "-------------------------------
 "   Plugin
@@ -452,6 +456,7 @@ let g:quickrun_config = {
 \       'outputter/buffer/close_on_empty': 1
 \   },
 \}
+nnoremap <silent> <Space>r :QuickRun<CR>
 
 "Vim-Surround
 "TODO:rhysd/vim-operator-surround

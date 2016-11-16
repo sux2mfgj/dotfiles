@@ -96,7 +96,7 @@ keys = [
     ),
     Key(
         [alt], "n",
-        lazy.layout.next_layout()
+        lazy.next_layout()
     ),
 
     Key([alt], "Return", lazy.spawn("terminator")),

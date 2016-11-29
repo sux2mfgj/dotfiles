@@ -32,10 +32,20 @@ PROMPT="[%{${fg[cyan]}%}%n@%m%{${reset_color}%}]$ "
 RPROMPT="[%{${fg[cyan]}%}%~%{${reset_color}%}]"
 
 # for tmux
-if which tmux 2>&1 /dev/null; then
-    alias tmux="tmux -2"
+alias tmux="tmux -2"
+if which tmux 2>/dev/null; then
     [[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
 fi
+
+# aliases
+alias ls="ls --color=auto"
+alias mkdir="mkdir -p"
+
+# cdls
+cd() {
+    builtin cd "$@" && ls --color=auto
+}
+
 
 #  --- peco ---
 #  history
@@ -50,11 +60,12 @@ function peco-kill-process () {
     ps -ef | peco | awk '{ print $2 }' | xargs kill
 }
 
-if which peco 2>&1 /dev/null; then
+if which peco 2>/dev/null; then
     alias kill="peco-kill-process"
     zle -N peco-history-selection
     bindkey '^R' peco-history-selection
 fi
+
 
 #  load external files
 [ -f $HOME/.zshrc.mine ] && source $HOME/.zshrc.mine

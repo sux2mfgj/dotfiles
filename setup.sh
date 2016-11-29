@@ -21,8 +21,8 @@ do
     then
         echo ${f} is already exists.
     else
-        ln -s ${files_path}/${f} $HOME/.${f}
-        echo ${files_path}/${f} $HOME/.${f}
+        touch $HOME/.${f}
+        echo "touch $HOME/.${f}"
     fi
 done
 

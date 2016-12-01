@@ -50,9 +50,25 @@ cd() {
 #  --- peco ---
 #  history
 function peco-history-selection() {
-    eval $(history -n 1 | tac | awk '!a[$0]++' | peco)
-	zle reset-prompt
+    BUFFER=`history -n 1 | tac | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+#      zle accept-line
 }
+zle -N peco-history-selection
+
+function peco-history-set-on-cursol()
+{
+    peco-history-selection
+    zle reset-prompt
+}
+zle -N peco-history-set-on-cursol
+
+function peco-history-execute()
+{
+    peco-history-selection
+    zle accept-line
+}
+zle -N peco-history-execute
 
 
 # process
@@ -62,8 +78,8 @@ function peco-kill-process () {
 
 if which peco 2>/dev/null; then
     alias kill="peco-kill-process"
-    zle -N peco-history-selection
-    bindkey '^R' peco-history-selection
+    bindkey '^r' peco-history-execute
+    bindkey '^t' peco-history-set-on-cursol
 fi
 
 

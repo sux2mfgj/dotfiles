@@ -34,7 +34,7 @@ RPROMPT="[%{${fg[cyan]}%}%~%{${reset_color}%}]"
 # for tmux
 alias tmux="tmux -2"
 if which tmux 2>/dev/null; then
-    [[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
+    [[ -z "$TMUX" && ! -z "$PS1" && ! -z "$DISPLAY" ]] && tmux
 fi
 
 # aliases

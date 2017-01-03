@@ -31,12 +31,6 @@ colors
 PROMPT="[%{${fg[cyan]}%}%n@%m%{${reset_color}%}]$ "
 RPROMPT="[%{${fg[cyan]}%}%~%{${reset_color}%}]"
 
-# for tmux
-alias tmux="tmux -2"
-if which tmux 2>/dev/null; then
-    [[ -z "$TMUX" && ! -z "$PS1" && ! -z "$DISPLAY" ]] && tmux
-fi
-
 # aliases
 alias ls="ls --color=auto"
 alias mkdir="mkdir -p"
@@ -85,3 +79,14 @@ fi
 
 #  load external files
 [ -f $HOME/.zshrc.mine ] && source $HOME/.zshrc.mine
+
+# for tmux
+if [ -z "$TMUXCLIENT" ]; then
+    alias tmux="tmux -2"
+else
+    alias tmux='tmux -2 -f"$HOME/.tmux.conf.client"'
+fi
+
+if which tmux 2>/dev/null; then
+    [[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
+fi

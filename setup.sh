@@ -38,6 +38,9 @@ do
     fi
 done
 
+# for tmux
+sed -e "s/C-t/C-g/" $HOME/.tmux.conf >> $HOME/.tmux.conf.client
+
 if [ -e $HOME/local/bin/ ]
 then
     echo $HOME/local/bin is already exists.

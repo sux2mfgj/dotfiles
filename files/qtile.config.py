@@ -196,13 +196,15 @@ screens = [
                 widget.MemoryGraph(),
                 widget.NetGraph(),
                 # submit thesis
-                widget.Countdown(date=datetime(2017, 1, 27, 17, 00)),
                 widget.Clipboard(),
                 widget.Notify(),
-
                 # widget.HDDGraph(path='/'),
                 widget.DF(visible_on_warn=False),
                 # widget.LoadAverageGraph(),
+                widget.Sep(padding=4),
+                widget.TextBox("GT submit : ", name="gt_submit_text_box"),
+                widget.Countdown(date=datetime(2017, 1, 27, 17, 00)),
+                widget.Sep(padding=4),
             ],
             size=30,
             background=['222222', '111111'],

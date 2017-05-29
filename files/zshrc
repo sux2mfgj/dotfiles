@@ -28,7 +28,20 @@ autoload -U colors
 colors
 
 # prompt
-PROMPT="[%{${fg[cyan]}%}%n@%m%{${reset_color}%}]$ "
+function is_in_chroot() {
+    tmp=$(ls -id / | awk '{print $1}')
+    if [ ${tmp} -eq 2 ]; then
+        echo 0
+    else 
+        echo 1
+    fi
+}
+
+if [ `is_in_chroot` -eq 0 ]; then
+    PROMPT="[%{${fg[cyan]}%}%n@%m%{${reset_color}%}]$ "
+else 
+    PROMPT="[%{${fg[blue]}%}%n@chroot%{${reset_color}%}]$ "
+fi
 RPROMPT="[%{${fg[cyan]}%}%~%{${reset_color}%}]"
 
 # aliases

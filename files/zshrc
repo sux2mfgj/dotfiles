@@ -103,3 +103,7 @@ fi
 if which tmux 2>/dev/null; then
     [[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
 fi
+
+function lb() {
+    vim ~/logbook/$(date '+%Y-%m-%d').md
+}

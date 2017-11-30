@@ -462,7 +462,7 @@ nnoremap <silent> <Space>r :QuickRun<CR>
 "TODO:rhysd/vim-operator-surround
 
 "Vim-AutoSave
-let g:auto_save = 0
+let g:auto_save = 1
 
 "VimFiler
 " let g:vimfiler_edit_action = 'tabopen'

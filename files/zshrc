@@ -37,12 +37,6 @@ function is_in_chroot() {
     fi
 }
 
-if [ `is_in_chroot` -eq 0 ]; then
-    PROMPT="[%{${fg[cyan]}%}%n@%m%{${reset_color}%}]$ "
-else 
-    PROMPT="[%{${fg[blue]}%}%n@chroot%{${reset_color}%}]$ "
-fi
-RPROMPT="[%{${fg[cyan]}%}%~%{${reset_color}%}]"
 
 # aliases
 alias ls="ls --color=auto"
@@ -107,3 +101,21 @@ fi
 function lb() {
     vim ~/logbook/$(date '+%Y-%m-%d').md
 }
+
+#  autoload
+autoload -Uz vcs_info
+setopt prompt_subst
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+precmd () { vcs_info }
+
+if [ `is_in_chroot` -eq 0 ]; then
+    PROMPT='${vcs_info_msg_0_} '"[%{${fg[cyan]}%}%n@%m%{${reset_color}%}]$ "
+else 
+    PROMPT="[%{${fg[blue]}%}%n@chroot%{${reset_color}%}]$ "
+fi
+RPROMPT="[%{${fg[cyan]}%}%~%{${reset_color}%}]"
+

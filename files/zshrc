@@ -119,3 +119,7 @@ else
 fi
 RPROMPT="[%{${fg[cyan]}%}%~%{${reset_color}%}]"
 
+
+function lb() {
+    vim ~/logbook/$(date '+%Y-%m-%d').md
+}

@@ -102,7 +102,8 @@ keys = [
     Key([alt], "Return", lazy.spawn("terminator")),
     Key([alt], "g", lazy.spawn("google-chrome-stable")),
     Key([alt], "e", lazy.spawn("emacsclient -c")),
-    Key([alt, "shift"], "l", lazy.spawn("i3lock")),
+    Key([alt, "control"], "l", lazy.spawn("i3lock")),
+    Key([alt, "shift"], "l", lazy.spawn("sh -c 'i3lock && systemctl suspend'")),
 
     Key([alt], "i", lazy.layout.grow()),
     Key([alt], "m", lazy.layout.shrink()),
@@ -118,6 +119,10 @@ keys = [
     Key([alt, "control"], "r", lazy.restart()),
     Key([alt, "control"], "q", lazy.shutdown()),
     Key([alt], "t", lazy.spawncmd()),
+
+    # move section
+    Key([alt, "shift"], "j", lazy.layout.section_down()),
+    Key([alt, "shift"], "k", lazy.layout.section_up()),
 
     # change screen
     # Key([alt], "l", lazy.to_screen(0)),
@@ -182,7 +187,7 @@ screens = [
                 # widget.TextBox("default config", name="default"),
                 # widget.TaskList(),
                 widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+                widget.Clock(format='%Y-%m-%d %a %H:%M %p'),
             ],
             size=30,
             background=['222222', '111111'],
@@ -201,10 +206,7 @@ screens = [
                 # widget.HDDGraph(path='/'),
                 widget.DF(visible_on_warn=False),
                 # widget.LoadAverageGraph(),
-                widget.Sep(padding=4),
-                widget.TextBox("GT submit : ", name="gt_submit_text_box"),
-                widget.Countdown(date=datetime(2017, 1, 27, 17, 00)),
-                widget.Sep(padding=4),
+		widget.Notify(),
             ],
             size=30,
             background=['222222', '111111'],

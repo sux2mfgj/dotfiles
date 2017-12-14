@@ -98,10 +98,6 @@ if which tmux 2>/dev/null; then
     [[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
 fi
 
-function lb() {
-    vim ~/logbook/$(date '+%Y-%m-%d').md
-}
-
 #  autoload
 autoload -Uz vcs_info
 setopt prompt_subst
@@ -132,3 +128,7 @@ function make_func () {
  }
 zle -N make_func  # my_functionをwidgetとして登録
 bindkey '^V' make_func # my_functionをCtrl-Aにバインド
+
+function lb() {
+    vim ~/logbook/$(date '+%Y-%m-%d').md
+}

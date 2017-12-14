@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 current_dir=$(cd $(dirname $0); pwd)
 
@@ -10,7 +10,7 @@ local_bin=`ls $current_dir/files/local/bin`
 logfile_dir=$HOME/.dotfiles_setup.log
 copy_files=("zshrc.mine")
 home_dot_files=("tmux.conf" "vimrc" "xmodmap" "xmodmap.a" "vimrc" "zshrc" "pyrc", "gdbinit" "gitconfig" "zshrc.pyenv")
-create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" ".go" ".emacs.d/inits")
+create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" ".go" ".emacs.d/inits" "logbook")
 # emacs_inits=("02_linum.el 01_load_macro.el 00_init.el")
 emacs_inits=(`ls ${files_path}/inits`)
 

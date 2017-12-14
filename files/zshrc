@@ -119,3 +119,16 @@ else
 fi
 RPROMPT="[%{${fg[cyan]}%}%~%{${reset_color}%}]"
 
+function ls_func() {
+    ls 
+    zle reset-prompt  # プロンプトを再描画
+ }
+zle -N ls_func # my_functionをwidgetとして登録
+bindkey '^O' ls_func # my_functionをCtrl-Aにバインド
+
+function make_func () {
+    make 
+    zle reset-prompt  # プロンプトを再描画
+ }
+zle -N make_func  # my_functionをwidgetとして登録
+bindkey '^V' make_func # my_functionをCtrl-Aにバインド

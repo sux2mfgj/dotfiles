@@ -206,7 +206,6 @@ screens = [
                 # widget.HDDGraph(path='/'),
                 widget.DF(visible_on_warn=False),
                 # widget.LoadAverageGraph(),
-		widget.Notify(),
             ],
             size=30,
             background=['222222', '111111'],

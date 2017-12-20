@@ -135,7 +135,7 @@ function lb() {
 eval "$(fasd --init zsh-hook)"
 
 fasd_peco() {
-    cd "$(fasd -s | awk '{print $2}' | peco)"
+    cd "$(fasd -ld | peco)"
 }
 alias z=fasd_peco
 

@@ -100,6 +100,7 @@ keys = [
     ),
 
     Key([alt], "Return", lazy.spawn("terminator")),
+    Key([alt, "shift"], "Return", lazy.spawn("alacritty")),
     Key([alt], "g", lazy.spawn("google-chrome-stable")),
     Key([alt], "e", lazy.spawn("emacsclient -c")),
     Key([alt, "control"], "l", lazy.spawn("i3lock")),

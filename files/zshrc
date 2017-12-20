@@ -71,7 +71,6 @@ function peco-history-execute()
 }
 zle -N peco-history-execute
 
-
 # process
 function peco-kill-process () {
     ps -ef | peco | awk '{ print $2 }' | xargs kill
@@ -132,3 +131,16 @@ bindkey '^V' make_func # my_functionをCtrl-Aにバインド
 function lb() {
     vim ~/logbook/$(date '+%Y-%m-%d').md
 }
+
+eval "$(fasd --init zsh-hook)"
+
+fasd_peco() {
+    cd "$(fasd -s | awk '{print $2}' | peco)"
+}
+alias z=fasd_peco
+
+tmux_attach() {
+    tmux attach -t "$(tmux ls |peco | awk '{print substr($1, 0, 1)}')"
+}
+alias tattach=tmux_attach
+

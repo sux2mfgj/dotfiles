@@ -86,6 +86,15 @@ else
     echo ${files_path}/terminator.config $HOME/.config/terminator/config
 fi
 
+if [ -e $HOME/.config/alacritty/alacritty.yml ]
+then
+    echo alacritty.yml is already exists.
+else
+    mkdir -p $HOME/.config/alacritty/
+    ln -s ${files_path}/alacritty.yml $HOME/.config/alacritty/alacritty.yml
+    echo ${files_path}/alacritty.yml $HOME/.config/alacritty/alacritty.yml
+fi
+
 # for nvim config file
 if [ -e $HOME/.config/nvim/init.vim ]
 then

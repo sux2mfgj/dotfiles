@@ -47,3 +47,6 @@ inspect_history:
 
 show_lbs:
 	tail -vn +1 $(HOME)/logbook/*
+
+ssh_gsoc:
+	ssh root@`sudo virsh net-dhcp-leases default | grep gsoc2017 | awk '{print substr($$5, 1, (length($$5)+1)-4)}'`

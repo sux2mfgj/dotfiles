@@ -139,6 +139,11 @@ fasd_peco() {
 }
 alias z=fasd_peco
 
+fasd_vim(){
+    vim "$(fasd -lf | peco)"
+}
+alias v=fasd_vim
+
 tmux_attach() {
     tmux attach -t "$(tmux ls |peco | awk '{print substr($1, 0, 1)}')"
 }

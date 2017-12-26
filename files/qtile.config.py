@@ -130,6 +130,8 @@ keys = [
     # Key([alt], "h", lazy.to_screen(1)),
 
     Key([alt], "l", lazy.next_screen()),
+#TODO
+#Key([alt], "a", lazy.group.group.set_label(using prompt widget)),
 
 ]
 

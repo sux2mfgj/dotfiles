@@ -46,7 +46,11 @@ inspect_history:
 	cat ~/.zsh_history| sort |uniq -c |sort -n |tail -n 30
 
 show_lbs:
-	tail -vn +1 $(HOME)/logbook/*
+	sort -n `find ~/logbook/ -type f`
+#tail -vn +1 `find ~/logbook/ -type f`
+#tail -vn +1 $(HOME)/logbook/*
+
 
 ssh_gsoc:
-	ssh root@`sudo virsh net-dhcp-leases default | grep gsoc2017 | awk '{print substr($$5, 1, (length($$5)+1)-4)}'`
+#ssh root@`sudo virsh net-dhcp-leases default | grep gsoc2017 | awk '{print substr($$5, 1, (length($$5)+1)-4)}'`
+	ssh hima@`sudo virsh net-dhcp-leases default | grep gsoc2017 | awk '{print substr($$5, 1, (length($$5)+1)-4)}'`

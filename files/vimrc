@@ -110,7 +110,7 @@ endfunction
 nnoremap [Mark]n ]`
 nnoremap [Mark]p [`
 
-" --- set prefix key --- 
+" --- set prefix key ---
 let g:mapleader=","
 
 nnoremap ZQ <Nop>
@@ -149,7 +149,7 @@ set clipboard=unnamedplus
 set foldmethod=syntax
 
 " --- tags ---
-nnoremap <C-]> g<C-]> 
+nnoremap <C-]> g<C-]>
 set tags=tags;
 
 " --- for racket (scheme) ---
@@ -189,6 +189,10 @@ if dein#load_state(s:dein_dir)
     call dein#add('w0ng/vim-hybrid')
     call dein#add('majutsushi/tagbar')
     call dein#add('tyru/caw.vim')
+    call dein#add('bronson/vim-trailing-whitespace')
+    ":FixWhitespace remote white space
+    call dein#add('cohama/lexima.vim')
+
 
     "" for each langrages
     call dein#add('ekalinin/Dockerfile.vim')
@@ -204,12 +208,12 @@ if dein#check_install()
   call dein#install()
 endif
 
-" snippets 
+" snippets
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" deoplete 
+" deoplete
 call deoplete#enable()
 
 " --- lightline ---

@@ -10,7 +10,7 @@ local_bin=`ls $current_dir/files/local/bin`
 logfile_dir=$HOME/.dotfiles_setup.log
 copy_files=("zshrc.mine")
 home_dot_files=("tmux.conf" "vimrc" "xmodmap" "xmodmap.a" "vimrc" "zshrc" "pyrc", "gdbinit" "gitconfig" "zshrc.pyenv")
-create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" ".go" ".emacs.d/inits" "logbook")
+create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" ".go" ".emacs.d/inits" "logbook" ".tmux/plugins")
 # emacs_inits=("02_linum.el 01_load_macro.el 00_init.el")
 emacs_inits=(`ls ${files_path}/inits`)
 
@@ -61,7 +61,7 @@ do
 done
 
 if [ -e $HOME/.ssh/config ]; then
-    echo .ssh/config is already exists. 
+    echo .ssh/config is already exists.
 else
     ln -s ${files_path}/ssh_config $HOME/.ssh/config
 fi
@@ -112,7 +112,7 @@ then
 else
     mkdir -p $HOME/.irssi/
     ln -s ${files_path}/irssi_config $HOME/.irssi/config
-    echo ${files_path}/irssi_config $HOME/.irssi/config 
+    echo ${files_path}/irssi_config $HOME/.irssi/config
 fi
 
 
@@ -157,13 +157,9 @@ do
     fi
 done
 
-
-
-
 if [ ! -e ${logfile_dir} ]; then
     touch ${logfile_dir}
 fi
-
 
 goto_exit(){
     echo -------- finish --------- >> ${logfile_dir}
@@ -251,7 +247,7 @@ fi
 
 echo "[ zsh-completions(zsh) ]"
 process(){
-    mkdir -p $HOME/.zsh 
+    mkdir -p $HOME/.zsh
     git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions
     exit $?
 }
@@ -299,24 +295,37 @@ process(){
 }
 if [ -e $HOME/.pyenv/plugins/pyenv-virtualenv ]
 then
-    echo virtualenv was installed already. 
+    echo virtualenv was installed already.
     pid_array+=(" ${pass_pid} virtualenv")
-else 
+else
     process >> ${logfile_dir} 2>&1 &
     pid_array+=(" $! virtualenv")
 fi
 
-process(){
-    git clone https://github.com/tmux-plugins/tmux-yank ~/local/tmux-yank
+#process(){
+#    git clone https://github.com/tmux-plugins/tmux-yank ~/local/tmux-yank
+#    exit $?
+#}
+#if [ -e $HOME/local/tmux-yank ]
+#then
+#    echo yank.tmux was installed already.
+#    pid_array+=(" ${pass_pid} yank.tmux")
+#else
+#    process >> ${logfile_dir} 2>&1 &
+#    pid_array+=(" $! yank.tmux")
+#fi
+
+process() {
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     exit $?
 }
-if [ -e $HOME/local/tmux-yank ]
+if [ -e $HOME/.tmux/plugins/tpm ]
 then
-    echo yank.tmux was installed already.
-    pid_array+=(" ${pass_pid} yank.tmux")
+    echo "tpm was installed already."
+    pid_array+=(" ${pass_pid} tpm" )
 else
     process >> ${logfile_dir} 2>&1 &
-    pid_array+=(" $! yank.tmux")
+    pid_array+=(" $! tpm")
 fi
 
 # compile qtile.config.py

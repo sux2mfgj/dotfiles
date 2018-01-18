@@ -30,6 +30,9 @@ ssh_u_aizu:
 ssh_kadoccho:
 	ssh ubuntu@kadoccho.org
 
+ssh_to_lab_freebsd:
+	ssh 163.143.94.180+192.168.1.4
+
 minecraft_isi:
 	ssh -i ~/.ssh/chacha_isizaka_minecraft.pem ubuntu@$(MINECRAFT_IP)
 
@@ -37,10 +40,10 @@ run_minecraft:
 	java -jar ~/Downloads/Minecraft.jar
 
 display_conn:
-	xrandr --output LVDS-1 --auto --output VGA1 --auto --right-of LVDS-1  
+	xrandr --output LVDS-1 --auto --output VGA-1 --auto --right-of LVDS-1  
 
 display_dis:
-	xrandr --output VGA1 --off
+	xrandr --output VGA-1 --off
 
 inspect_history:
 	cat ~/.zsh_history| sort |uniq -c |sort -n |tail -n 30

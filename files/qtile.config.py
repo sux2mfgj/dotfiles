@@ -105,6 +105,7 @@ keys = [
     Key([alt], "e", lazy.spawn("emacsclient -c")),
     Key([alt, "control"], "l", lazy.spawn("i3lock")),
     Key([alt, "shift"], "l", lazy.spawn("sh -c 'i3lock && systemctl suspend'")),
+    Key([alt], "u", lazy.spawn("rofi -show window")),
 
     Key([alt], "i", lazy.layout.grow()),
     Key([alt], "m", lazy.layout.shrink()),
@@ -136,7 +137,8 @@ keys = [
 ]
 
 groups = [
-    Group('1', spawn='terminator'),
+#Group('1', spawn='terminator'),
+    Group('1', spawn='alacritty'),
     Group('2'),
     Group('3'),  # spawn="xmodmap /home/hima/.xmodmap"),
     Group('4'),

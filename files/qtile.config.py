@@ -24,7 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from libqtile.config import Key, Screen, Group, Drag, Click
+from libqtile.config import Key, Screen, Group, ScratchPad, DropDown, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
 from datetime import datetime
@@ -101,7 +101,7 @@ keys = [
 
     Key([alt], "Return", lazy.spawn("terminator")),
     Key([alt, "shift"], "Return", lazy.spawn("alacritty")),
-    Key([alt], "g", lazy.spawn("google-chrome-stable")),
+    Key([alt], "g", lazy.spawn("google-chrome-stable --renderer-process-limit=1")),
     Key([alt], "e", lazy.spawn("emacsclient -c")),
     Key([alt, "control"], "l", lazy.spawn("i3lock")),
     Key([alt, "shift"], "l", lazy.spawn("sh -c 'i3lock && systemctl suspend'")),
@@ -120,11 +120,22 @@ keys = [
 
     Key([alt, "control"], "r", lazy.restart()),
     Key([alt, "control"], "q", lazy.shutdown()),
-    Key([alt], "t", lazy.spawncmd()),
+#    Key([alt], "t", lazy.spawncmd()),
+    Key([alt], "t", lazy.spawn("rofi -show run")),
 
     # move section
     Key([alt, "shift"], "j", lazy.layout.section_down()),
     Key([alt, "shift"], "k", lazy.layout.section_up()),
+
+    Key([alt, 'shift'], 'i',
+            lazy.layout.collapse_branch()),
+    Key([alt, 'shift'], 'u',
+            lazy.layout.expand_branch()),
+    Key([alt, 'shift'], 'y',
+            lazy.layout.move_left()),
+    Key([alt, 'shift'], 'o',
+            lazy.layout.move_right()),
+
 
     # change screen
     # Key([alt], "l", lazy.to_screen(0)),
@@ -134,9 +145,26 @@ keys = [
 #TODO
 #Key([alt], "a", lazy.group.group.set_label(using prompt widget)),
 
+    Key([alt], 'F1',
+            lazy.widget['prompt'].exec_general(
+                'section(add)',
+                'layout',
+                'add_section')),
+
+    Key([alt], 'F2',
+            lazy.widget['prompt'].exec_general(
+                'section(del)',
+                'layout',
+                'del_section')),
+
+    Key([alt], 'F12', lazy.group['scratchpad'].dropdown_toggle('memo')),
 ]
 
 groups = [
+	ScratchPad("scratchpad", [
+        DropDown("memo", "terminator -e lb", opacity=0.8),
+    ]),
+
 #Group('1', spawn='terminator'),
     Group('1', spawn='alacritty'),
     Group('2'),
@@ -145,10 +173,13 @@ groups = [
     Group('7'),
     Group('8'),  # spawn="start_chrome.sh"),
     Group('9', layout='treetab'),  # layout='wmii'),
-    Group('0', layout='treetab', spawn="line.sh"),
+    Group('0', layout='treetab'),
 ]
 
 for i in groups:
+    if isinstance(i, ScratchPad):
+        continue
+
     # alt1 + letter of group = switch to group
     keys.append(
         Key([alt], i.name, lazy.group[i.name].toscreen())
@@ -187,6 +218,7 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
+                widget.Volume(),
                 widget.CurrentScreen(),
                 widget.CurrentLayout(),
                 # widget.TextBox("default config", name="default"),

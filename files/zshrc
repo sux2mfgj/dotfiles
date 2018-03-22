@@ -126,15 +126,15 @@ function make_func () {
 zle -N make_func  # my_functionをwidgetとして登録
 bindkey '^V' make_func # my_functionをCtrl-Aにバインド
 
-function lb() {
-    year=`date +%Y`
-    month=`date +%m`
-    day=`date +%d`
-    logbook_path=$HOME/logbook/${year}/${month}
-    mkdir -p ${logbook_path}
-    vim ${logbook_path}/${day}.md
-#vim ~/logbook/$(date '+%Y-%m-%d').md
-}
+#function lb() {
+#    year=`date +%Y`
+#    month=`date +%m`
+#    day=`date +%d`
+#    logbook_path=$HOME/logbook/${year}/${month}
+#    mkdir -p ${logbook_path}
+#    vim ${logbook_path}/${day}.md
+##vim ~/logbook/$(date '+%Y-%m-%d').md
+#}
 
 eval "$(fasd --init zsh-hook)"
 
@@ -168,3 +168,5 @@ if [[ ! -n $TMUX ]]; then
     tmux attach-session -t "$ID"
   fi
 fi
+
+export BROWSER=google-chrome-stable

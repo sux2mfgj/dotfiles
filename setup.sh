@@ -4,13 +4,11 @@ current_dir=$(cd $(dirname $0); pwd)
 
 files_path=$current_dir/files
 
-local_bin=`ls $current_dir/files/local/bin`
-
 # echo $files_path
 logfile_dir=$HOME/.dotfiles_setup.log
 copy_files=("zshrc.mine")
 home_dot_files=("tmux.conf" "vimrc" "xmodmap" "xmodmap.a" "vimrc" "zshrc" "pyrc", "gdbinit" "gitconfig" "zshrc.pyenv")
-create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d" "local" "local/bin" "work" "tmp" ".go" ".emacs.d/inits" "logbook" ".tmux/plugins")
+create_dirs=(".vim/bundle" ".vim/backup" ".vim/undodir" ".vim/colors" ".emacs.d"  "work" "tmp" ".go" ".emacs.d/inits" "logbook" ".tmux/plugins")
 # emacs_inits=("02_linum.el 01_load_macro.el 00_init.el")
 emacs_inits=(`ls ${files_path}/inits`)
 
@@ -40,25 +38,6 @@ done
 
 # for tmux
 sed -e "s/C-t/C-g/" $HOME/.tmux.conf >> $HOME/.tmux.conf.client
-
-if [ -e $HOME/local/bin/ ]
-then
-    echo $HOME/local/bin is already exists.
-else
-    mkdir -p $HOME/local/bin
-fi
-
-for f in ${local_bin[@]}
-do
-    if [ -e $HOME/local/bin/${f} ]
-    then
-        echo ${f} is already exists.
-    else
-        ln -s ${files_path}/local/bin/${f} $HOME/local/bin/${f}
-        echo ${files_path}/local/bin/${f} $HOME/local/bin/${f}
-    fi
-
-done
 
 if [ -e $HOME/.ssh/config ]; then
     echo .ssh/config is already exists.
@@ -127,22 +106,6 @@ do
         echo $HOME/${dir}
     fi
 done
-
-if [ -e $HOME/local/bin/start_chrome.sh ]
-then
-    echo start_chrome.sh is already exists.
-else
-    ln -s ${files_path}/chrome/start_chrome.sh $HOME/local/bin/start_chrome.sh
-    echo ${files_path}/chrome/start_chrome.sh $HOME/local/bin/start_chrome.sh
-fi
-
-if [ -e $HOME/local/bin/line.sh ]
-then
-    echo line.sh is already exists.
-else
-    ln -s ${files_path}/chrome/line.sh $HOME/local/bin/line.sh
-    echo ${files_path}/chrome/line.sh $HOME/local/bin/line.sh
-fi
 
 
 echo ----- link emacs inits -----
@@ -229,22 +192,6 @@ else
     pid_array+=(" $! neosnippets")
 fi
 
-echo "[ erutaso(sl) ]"
-process(){
-    git clone git://github.com/sgymtic/sl $HOME/etc/sl &&\
-    make -C $HOME/etc/sl && \
-    ln -s $HOME/etc/sl/erutaso $HOME/bin/sl
-    exit $?
-}
-if [ -e $HOME/etc/sl ]
-then
-    echo erutaso was installed already.
-    pid_array+=(" ${pass_pid} erutaso")
-else
-    process >> ${logfile_dir} 2>&1 &
-    pid_array+=(" $! erutaso")
-fi
-
 echo "[ zsh-completions(zsh) ]"
 process(){
     mkdir -p $HOME/.zsh
@@ -301,19 +248,6 @@ else
     process >> ${logfile_dir} 2>&1 &
     pid_array+=(" $! virtualenv")
 fi
-
-#process(){
-#    git clone https://github.com/tmux-plugins/tmux-yank ~/local/tmux-yank
-#    exit $?
-#}
-#if [ -e $HOME/local/tmux-yank ]
-#then
-#    echo yank.tmux was installed already.
-#    pid_array+=(" ${pass_pid} yank.tmux")
-#else
-#    process >> ${logfile_dir} 2>&1 &
-#    pid_array+=(" $! yank.tmux")
-#fi
 
 process() {
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

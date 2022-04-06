@@ -49,9 +49,9 @@ cd() {
 
 # for tmux
 if [ -z "$TMUXCLIENT" ]; then
-    alias tmux="tmux -2"
+    alias tmux="tmux -2 -f $HOME/.tmux.orig.conf"
 else
-    alias tmux='tmux -2 -f"$HOME/.tmux.conf.client"'
+    alias tmux="tmux -2 -f $HOME/.tmux.nested.conf"
 fi
 
 #  autoload
